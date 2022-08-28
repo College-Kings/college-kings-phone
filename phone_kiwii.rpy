@@ -60,7 +60,7 @@ init python:
             except NameError:
                 if kct == "popular":
                     self.numberLikes = int(numberLikes * 1.5)
-                elif kct = "confident":
+                elif kct == "confident":
                     self.numberLikes = int(numberLikes * 1.2)
                 else:
                     self.numberLikes = numberLikes
