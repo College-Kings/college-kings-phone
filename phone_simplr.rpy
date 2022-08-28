@@ -9,7 +9,7 @@ init python:
             condition (str): A string repersenting a python condition which deems if the character unlocks 
         """
 
-        def __init__(self, name):
+        def __init__(self, name: str, user: Union[PlayableCharacter, NonPlayableCharacter]):
             self.name = name
             self.condition = True
 
@@ -167,7 +167,7 @@ screen simplr_home():
                             action Function(simplr_contact.removeContact)
 
             else:
-                text "No new profiles to show...\nYou can however still chat with your matches!\n\nBe sure to check back soon!":
+                text _("No new profiles to show...\nYou can however still chat with your matches!\n\nBe sure to check back soon!"):
                     style "simplr_no_more_profiles"
                     align (0.5, 0.5)
                     xsize 340
