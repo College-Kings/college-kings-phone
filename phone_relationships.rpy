@@ -2,7 +2,6 @@ screen relationships_home():
     tag phone_tag
 
     default image_path = "images/phone/relationships/app-assets/"
-    default girls = NonPlayableCharacter.characters.values()
 
     use base_phone_rotated:
         frame:
@@ -15,8 +14,30 @@ screen relationships_home():
                 spacing 25
                 pos (85, 85)
                 xysize (765, 335)
+                allow_underfull True
 
-                for girl in girls:
+                for character in (
+                    amber,
+                    aubrey,
+                    autumn,
+                    cameron,
+                    chloe,
+                    chris,
+                    elijah,
+                    emily,
+                    emmy,
+                    imre,
+                    jenny,
+                    josh,
+                    lauren,
+                    lindsey,
+                    ms_rose,
+                    naomi,
+                    nora,
+                    penelope,
+                    riley,
+                    samantha,
+                ):
                     frame:
                         padding (10, 10)
                         xsize 238
@@ -25,24 +46,24 @@ screen relationships_home():
                         hbox:
                             spacing 15
 
-                            add Transform(girl.profile_picture, xysize=(65, 65)) yalign 0.5
+                            add Transform(character.profile_picture, xysize=(65, 65)) yalign 0.5
 
                             vbox:
                                 yalign 0.5
 
-                                text girl.name
+                                text character.name
 
-                                if girl.relationship < Relationship.FRIEND:
+                                if character.relationship < Relationship.FRIEND:
                                     text _("Complicated"):
                                         size 20
                                         color "#FFD166"
 
-                                elif girl.relationship == Relationship.FRIEND:
+                                elif character.relationship == Relationship.FRIEND:
                                     text _("Friend"):
                                         size 20
                                         color "#FFD166"
                                     
-                                elif girl.relationship < Relationship.KISS:
+                                elif character.relationship < Relationship.KISS:
                                     if girl == penelope: ### Penelope could be on LIKES. Which we could fix...
                                         text _("Kissed"):
                                             size 20
@@ -52,28 +73,28 @@ screen relationships_home():
                                             size 20
                                             color "#FFD166"
 
-                                elif girl.relationship == Relationship.KISS:
+                                elif character.relationship == Relationship.KISS:
                                     text _("Kissed"):
                                         size 20
                                         color "#FFD166"
 
-                                elif girl.relationship == Relationship.FWB:
+                                elif character.relationship == Relationship.FWB:
                                     text _("Friends with Benefits"):
                                         size 20
                                         color "#FFD166"
 
-                                elif girl.relationship < Relationship.GIRLFRIEND: # that grey area for Autumn and Amber (and maybe Penelope)
+                                elif character.relationship < Relationship.GIRLFRIEND: # that grey area for Autumn and Amber (and maybe Penelope)
                                     text _("Loyal/Trust"):
                                         size 20
                                         color "#FFD166"
                                 
-                                elif girl.relationship == Relationship.GIRLFRIEND:
+                                elif character.relationship == Relationship.GIRLFRIEND:
                                     text _("Dating"):
                                         size 20
                                         color "#FFD166"
                                 
                                 else: # shouldn't happen, but just a failsafe
-                                    text girl.relationship.name.capitalize():
+                                    text character.relationship.name.capitalize():
 
                                         size 20
                                         color "#FFD166"
