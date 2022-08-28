@@ -5,18 +5,18 @@ screen kct_home():
 
     default kct_info = [
         {
-            "title": "Popular",
-            "text": "Popular individuals are loved by the crowd and are often considered for important decisions. They prioritize their image and status over helping others.",
+            "title": _("Popular"),
+            "text": _("Popular individuals are loved by the crowd and are often considered for important decisions. They prioritize their image and status over helping others."),
             "text_color": "#1C69B9"
         },
         {
-            "title": "Loyal",
-            "text": "Loyal individuals care about other people and gain trust easily. They are known to be responsible, but can be a bit of a buzzkill when it comes to doing crazy stuff.",
+            "title": _("Loyal"),
+            "text": _("Loyal individuals care about other people and gain trust easily. They are known to be responsible, but can be a bit of a buzzkill when it comes to doing crazy stuff."),
             "text_color": "DC9D05"
         },
         {
-            "title": "Confident",
-            "text": "Confident individuals don't rely on others to join them in their actions. They don't crave their friends' approval, however they can be perceived as egotistical.",
+            "title": _("Confident"),
+            "text": _("Confident individuals don't rely on others to join them in their actions. They don't crave their friends' approval, however they can be perceived as egotistical."),
             "text_color": "#be66a8"
         }
     ]
@@ -45,7 +45,7 @@ screen kct_home():
                         background image_path + "kct-disabled.webp"
                     xysize (320, 79)
 
-                    text "{}. {}".format(count, rep.name):
+                    text _("[count]. [rep.name]"):
                         align (0.5, 0.5)
 
                         if count == 1:
@@ -113,19 +113,19 @@ screen kct_points():
             xysize (40, 40)
             pos (233, 15)
 
-            text str(bro) align (0.5, 0.5)
+            text _("[bro]") align (0.5, 0.5)
         
         frame:
             xysize (35, 35)
             pos (25, 354)
 
-            text str(boyfriend) align (0.5, 0.5)
+            text _("[boyfriend]") align (0.5, 0.5)
 
         frame:
             xysize (35, 35)
             pos (446, 354)
 
-            text str(troublemaker) align (0.5, 0.5)
+            text _("[troublemaker]") align (0.5, 0.5)
 
 
 style kct_info_title is text:
