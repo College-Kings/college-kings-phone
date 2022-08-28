@@ -11,6 +11,7 @@ init python:
 
         def __init__(self, name: str, user: Union[PlayableCharacter, NonPlayableCharacter]):
             self.name = name
+            self.user = user
             self.condition = True
 
             self._notification = False
@@ -19,6 +20,9 @@ init python:
             self.pending_messages = []
 
             simplr_app.unlock()
+
+        def __repr__(self):
+            return f"<SimplrContact({self.name})>"
 
         @property
         def notification(self):
@@ -40,9 +44,7 @@ init python:
 
         @property
         def profile_pictures(self):
-            DIRECTORY = os.path.join(config.gamedir, "images", "characters", self.name.lower())
-
-            return ["images/characters/{}/{}".format(self.name.lower(), file) for file in os.listdir(DIRECTORY)]
+            return [file for file in renpy.list_files() if file.startswith(f"images/characters/{self.name.lower()}/large_profile_pictures/")]
 
         def removeContact(self):
             try:
@@ -50,7 +52,7 @@ init python:
             except ValueError: pass
 
         def likedContact(self):
-            self.removeContact()
+            simplr_app.pending_contacts.remove(self)
 
             if self.condition:
                 simplr_app.contacts.append(self)
@@ -146,7 +148,7 @@ screen simplr_home():
 
             if simplr_contact is not None:
                 frame:
-                    background filter(lambda p: "simplr" in p, simplr_contact.profile_pictures)[0]
+                    background simplr_contact.profile_picture
                     xysize (370, 593)
                     xalign 0.5
                     ypos 200
@@ -199,7 +201,7 @@ screen simplr_contacts():
                             action [Function(renpy.retain_after_load), SetField(contact, "notification", False), Show("simplr_messenger", contact=contact)]
                             ysize 80
 
-                            add Transform(contact.profile_picture, xysize=(65, 65)) xpos 20 yalign 0.5
+                            add Transform(contact.user.profile_picture, xysize=(65, 65)) xpos 20 yalign 0.5
                             
                             text contact.name style "nametext" xpos 100 yalign 0.5
 
@@ -228,7 +230,7 @@ screen simplr_messenger(contact):
                     action [Hide("message_reply"), Show("simplr_home")]
                     yalign 0.5
 
-                add Transform(contact.profile_picture, xysize=(65, 65)) yalign 0.5
+                add Transform(contact.user.profile_picture, xysize=(65, 65)) yalign 0.5
 
                 text contact.name style "nametext" yalign 0.5
 
@@ -250,7 +252,7 @@ screen simplr_messenger(contact):
                             if isinstance(message, Message) and message.message.strip():
                                 background "message_background"
 
-                                text message.message  style "message_text"
+                                text message.message style "message_text"
 
                             elif isinstance(message, ImageMessage):
                                 background "message_background"
@@ -260,15 +262,19 @@ screen simplr_messenger(contact):
                                     action Show("phone_image", img=message.image)
 
                             elif isinstance(message, Reply):
-                                background "message_background"
+                                padding (50, 35)
+                                background "reply_background"
+                                xalign 1.0
 
-                                text message.message style "message_text"
+                                text message.message  style "reply_text"
 
                             elif isinstance(message, ImgReply):
-                                background "message_background"
+                                padding (25, 25)
+                                background "reply_background"
+                                xalign 1.0
 
                                 imagebutton:
-                                    idle Transform(message.image, ysize=216)
+                                    idle Transform(message.image, zoom=0.15)
                                     action Show("phone_image", img=message.image)
 
             if contact.replies:
