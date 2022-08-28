@@ -21,7 +21,7 @@ init python:
 
     class Messenger(Application):
         def __init__(self):
-            super().__init__("Messenger")
+            super().__init__(_("Messenger"))
 
         @property
         def notification(self):
@@ -34,7 +34,7 @@ init python:
 
     class Simplr(Application):
         def __init__(self):
-            super().__init__("Simplr")
+            super().__init__(_("Simplr"))
 
             self.pending_contacts = []
 
@@ -49,7 +49,7 @@ init python:
 
     class Kiwii(Application):
         def __init__(self):
-            super().__init__("Kiwii")
+            super().__init__(_("Kiwii"))
 
         @staticmethod
         def get_message(kiwii_obj: Union["KiwiiComment", "KiwiiPost"]):
@@ -75,8 +75,8 @@ init python:
                 kiwii_obj.numberLikes -= 1
 
 default messenger = Messenger()
-default achievement_app = Application("Achievements")
+default achievement_app = Application(_("Achievements"))
 default kiwii = Kiwii()
 default simplr_app = Simplr()
-default relationship_app = Application("Relationships")
-default tracker = Application("Tracker")
+default relationship_app = Application(_("Relationships"))
+default tracker = Application(_("Tracker"))
