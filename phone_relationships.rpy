@@ -31,11 +31,13 @@ screen relationships_home():
                     josh,
                     lauren,
                     lindsey,
+                    mr_lee,
                     ms_rose,
                     naomi,
                     nora,
                     penelope,
                     riley,
+                    ryan,
                     samantha,
                 ):
                     frame:
