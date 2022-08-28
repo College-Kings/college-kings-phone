@@ -33,42 +33,42 @@ screen relationships_home():
                                 text girl.name
 
                                 if girl.relationship < Relationship.FRIEND:
-                                    text "Complicated":
+                                    text _("Complicated"):
                                         size 20
                                         color "#FFD166"
 
                                 elif girl.relationship == Relationship.FRIEND:
-                                    text "Friend":
+                                    text _("Friend"):
                                         size 20
                                         color "#FFD166"
                                     
                                 elif girl.relationship < Relationship.KISS:
                                     if girl == penelope: ### Penelope could be on LIKES. Which we could fix...
-                                        text "Kissed":
+                                        text _("Kissed"):
                                             size 20
                                             color "#FFD166"
                                     else:
-                                        text "Friends":
+                                        text _("Friends"):
                                             size 20
                                             color "#FFD166"
 
                                 elif girl.relationship == Relationship.KISS:
-                                    text "Kissed":
+                                    text _("Kissed"):
                                         size 20
                                         color "#FFD166"
 
                                 elif girl.relationship == Relationship.FWB:
-                                    text "Friends with Benefits":
+                                    text _("Friends with Benefits"):
                                         size 20
                                         color "#FFD166"
 
                                 elif girl.relationship < Relationship.GIRLFRIEND: # that grey area for Autumn and Amber (and maybe Penelope)
-                                    text "Loyal/Trust":
+                                    text _("Loyal/Trust"):
                                         size 20
                                         color "#FFD166"
                                 
                                 elif girl.relationship == Relationship.GIRLFRIEND:
-                                    text "Dating":
+                                    text _("Dating"):
                                         size 20
                                         color "#FFD166"
                                 
