@@ -1,7 +1,8 @@
 init python:
     class Contact:
-        def __init__(self, name: str):
+        def __init__(self, name: str, user: Union[PlayableCharacter, NonPlayableCharacter]):
             self.name = name
+            self.user = user
             self.sent_messages: list[BaseMessage] = []
             self.pending_messages: list[BaseMessage] = []
             self._notification: bool = False
@@ -22,25 +23,6 @@ init python:
         @notification.setter
         def notification(self, value: bool):
             self._notification = value
-
-        @property
-        def profile_picture(self):
-            return self.profile_pictures[0]
-
-        @profile_picture.setter
-        def profile_picture(self, value: bool):
-            return
-
-        @property
-        def profile_pictures(self):
-            DIRECTORY = os.path.join(
-                config.gamedir, "images", "characters", self.name.lower()
-            )
-
-            return [
-                f"images/characters/{self.name.lower()}/{file}"
-                for file in os.listdir(DIRECTORY)
-            ]
 
         @property
         def replies(self) -> list[BaseReply]:
@@ -229,7 +211,7 @@ screen messenger_home():
                             action [Function(renpy.retain_after_load), Show("messager", contact=contact)]
                             ysize 80
 
-                            add Transform(contact.profile_picture, xysize=(65, 65)) xpos 20 yalign 0.5
+                            add Transform(contact.user.profile_picture, xysize=(65, 65)) xpos 20 yalign 0.5
                             
                             text contact.name style "nametext" xpos 100 yalign 0.5
 
@@ -266,7 +248,7 @@ screen messager(contact=None):
                     action [Hide("message_reply"), Show("messenger_home")]
                     yalign 0.5
 
-                add Transform(contact.profile_picture, xysize=(65, 65)) yalign 0.5
+                add Transform(contact.user.profile_picture, xysize=(65, 65)) yalign 0.5
 
                 text contact.name style "nametext" yalign 0.5
 
