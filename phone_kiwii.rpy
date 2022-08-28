@@ -2,11 +2,11 @@ init python:
     class KiwiiComment:
         def __init__(
             self,
-            user: Union["PlayableCharacter", NonPlayableCharacter],
+            user: Union["PlayableCharacter", "NonPlayableCharacter"],
             message: str,
             numberLikes: int = renpy.random.randint(250, 500),
             mentions: Optional[
-                list[Union[NonPlayableCharacter, "PlayableCharacter"]]
+                list[Union["NonPlayableCharacter", "PlayableCharacter"]]
             ] = None,
         ):
             self.user = user
