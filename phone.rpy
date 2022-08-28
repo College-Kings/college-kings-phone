@@ -53,7 +53,7 @@ screen base_phone(background="images/phone/phone_screen.webp"):
         else:
             action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag"), Return()]
 
-    textbutton "Exit Phone":
+    textbutton _("Exit Phone"):
         style "phonebutton"
         if renpy.get_screen("free_roam"):
             action [Hide("tutorial"), Hide("phone"), Hide("message_reply"), Hide("phone_tag")]
@@ -96,7 +96,7 @@ screen base_phone_rotated():
         else:
             action [Hide("tutorial"), Hide("message_reply"), Return()]
 
-    textbutton "Exit Phone":
+    textbutton _("Exit Phone"):
         style "phonebutton"
         if renpy.get_screen("free_roam"):
             action [Hide("tutorial"), Hide("phone"), Hide("message_reply")]
