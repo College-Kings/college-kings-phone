@@ -255,6 +255,7 @@ screen messager(contact=None):
             viewport:
                 yadjustment inf_adj
                 mousewheel True
+                draggable True
                 pos (11, 157)
                 xysize (416, 686)
 
@@ -306,7 +307,8 @@ screen messager(contact=None):
                         idle "reply_button_idle"
                         hover image_path + "reply-button-hover.webp"
                         selected_idle image_path + "reply-button-hover.webp"
-                        action Show("message_reply", contact=contact)
+                        # action [Show("message_reply", contact=contact), SetField(renpy.get_displayable("messager", "vp").yadjustment, "value", float("inf"))]
+                        action [Show("message_reply", contact=contact), SetField(inf_adj, "value", float("inf"))]
                         align (0.5, 0.5)
 
     if kiwii_first_time:
