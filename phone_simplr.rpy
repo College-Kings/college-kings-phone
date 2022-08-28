@@ -48,7 +48,7 @@ init python:
 
         def removeContact(self):
             try:
-                simplr_app.contacts.remove(self)
+                simplr_app.pending_contacts.remove(self)
             except ValueError: pass
 
         def likedContact(self):
