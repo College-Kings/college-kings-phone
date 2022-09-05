@@ -1,6 +1,6 @@
 init python:
     class Contact:
-        def __init__(self, name: str, user: Union["PlayableCharacter", "NonPlayableCharacter"]):
+        def __init__(self, name: str, user: Union[PlayableCharacter, NonPlayableCharacter]):
             self.name = name
             self.user = user
             self.sent_messages: list[BaseMessage] = []
