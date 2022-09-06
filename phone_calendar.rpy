@@ -1,15 +1,18 @@
 screen calendar_home():
     tag phone_tag
+    modal True
 
     default image_path = "images/phone/calendar/app-assets/"
     default temp_calendar = calendar_now
+    default temp_day = datetime.datetime(2022, 8, 1) # Used for setting days of the week. Probably shouldn't touch.
+    default selected_date = temp_calendar
 
     $ year = temp_calendar.strftime("%Y")
     $ month = temp_calendar.strftime("%B")
-    $ day = temp_calendar.strftime("%a")
+    $ day = temp_day.strftime("%a")
     $ date = temp_calendar.strftime("%d")
     $ month_range = Calendar.month_range(temp_calendar.year, temp_calendar.month)
-
+    
     add image_path + "background.webp"
     add image_path + "frame.png" align (0.5, 0.5)
 
@@ -28,16 +31,18 @@ screen calendar_home():
             imagebutton:
                 idle image_path + "button_left.png"
                 if temp_calendar.month == 1:
-                    action SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year-1, 12, temp_calendar.day))
+                    action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year - 1, 12, temp_calendar.day))]
+                
                 elif temp_calendar.month > 1:
-                    action SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year, temp_calendar.month-1, temp_calendar.day))
+                    action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year, temp_calendar.month - 1, temp_calendar.day))]
 
             imagebutton:
                 idle image_path + "button_right.png"
                 if temp_calendar.month == 12:
-                    action SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year+1, 1, temp_calendar.day))
+                    action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year + 1, 1, temp_calendar.day))]
+                
                 elif temp_calendar.month < 12:
-                    action SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year, temp_calendar.month+1, temp_calendar.day))
+                    action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year, temp_calendar.month + 1, temp_calendar.day))]
         
         # Month
         text month:
@@ -55,7 +60,7 @@ screen calendar_home():
 
         hbox:
             pos (520, 190)
-            text "2/4":
+            text "2/4": # To be replaced my task data count
                 style "task_count_text"
                 align (0.5, 0.5)                
 
@@ -75,29 +80,48 @@ screen calendar_home():
                 pos (730, 200)
                 spacing 100
                 
-                text "Mon" align (0.5, 0.5) style "label_text"
-                text "Tue" align (0.5, 0.5) style "label_text"
-                text "Wed" align (0.5, 0.5) style "label_text"
-                text "Thu" align (0.5, 0.5) style "label_text"
-                text "Fri" align (0.5, 0.5) style "label_text"
-                text "Sat" align (0.5, 0.5) style "label_text"
-                text "Sun" align (0.5, 0.5) style "label_text"
+                for i in range(1, 8):
+                    text "[day]" align (0.5, 0.5) style "label_text"
 
-            # Dates - Fill from "calendar_now" data
+                    $ day = datetime.datetime(temp_day.year, temp_day.month, temp_day.day + i).strftime("%a")
+
+            # Dates
             grid 7 6:
-                pos (685, 240)
-                xspacing 129
-                yspacing 93
+                pos (683, 234)
+                xspacing 1
+                yspacing 1
                 allow_underfull True
                 
-
+                # Gives blank space to offset month start date
                 for i in range(0, month_range[0]):
-                    text "[i]" align (0.5, 0.5) style "inv_label_text"
+                    frame:
+                        xysize (158, 122)
+                        text "[i]" align (0.5, 0.5) style "inv_label_text"
 
-                for i in range(1, month_range[1]+1):
-                    text "[i]" align (0.5, 0.5) style "label_text"
+                # Sets days for the month
+                for i in range(1, month_range[1] + 1):
+                    frame:
+                        xysize (158, 122)
 
+                        if i == calendar_now.day and temp_calendar.month == calendar_now.month and temp_calendar.year == calendar_now.year:
+                            add image_path + "current_date.png" xalign 0.5 ypos -7
 
+                        text "[i]" pos (16, 12) style "label_text"
+                        
+                        if i == selected_date.day and temp_calendar.month == selected_date.month and temp_calendar.year == selected_date.year:
+                            imagebutton:
+                                idle image_path + "date_select.png"
+                                action NullAction()
+                                align (0.5, 0.5)
+                                
+                        else:
+                            imagebutton:
+                                idle image_path + "date_select_idle.png"
+                                hover image_path + "date_select.png"
+                                action [SetScreenVariable("selected_date", datetime.datetime(temp_calendar.year, temp_calendar.month, i))]
+                                align (0.5, 0.5)
+                            
+                    
 style calendar_text is text:
     color "#fff"
     font "fonts/Montserrat-ExtraBold.ttf"
