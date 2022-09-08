@@ -98,7 +98,7 @@ screen calendar_home():
     imagebutton:
         idle "gui/common/return_idle.webp"
         hover "gui/common/return_hover.webp"
-        action Hide()
+        action Show("phone")
 
     frame:
         xysize (838, 79)
