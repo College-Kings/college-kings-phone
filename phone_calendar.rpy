@@ -23,9 +23,9 @@ init python:
 
         @staticmethod
         def add_todo(
-            day: int,
-            month: int,
             year: int,
+            month: int,
+            day: int,
             id_: str,
             display_name: str,
             description: str = "",
@@ -45,7 +45,7 @@ init python:
             del calendar_items[id_]
 
         @staticmethod
-        def add_days(number_of_days=1):
+        def add_days(number_of_days: int = 1):
             calendar_now += datetime.timedelta(days=number_of_days)
 
         @staticmethod
