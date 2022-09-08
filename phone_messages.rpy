@@ -51,8 +51,10 @@ init python:
             if self.replies and not force_send:
                 self.pending_messages.append(message)
             else:
-                self.pending_messages = []
                 self.sent_messages.append(message)
+
+            if force_send:
+                self.pending_messages = []
 
             self.notification = True
 
@@ -138,11 +140,8 @@ init python:
                 reply.func = None
 
             # Send next queued message(s)
-            try:
-                while not self.replies:
-                    self.sent_messages.append(self.pending_messages.pop(0))
-            except IndexError:
-                pass
+            while self.pending_messages and not self.replies:
+                self.sent_messages.append(self.pending_messages.pop(0))
 
         def unlock(self):
             if self not in messenger.contacts:
