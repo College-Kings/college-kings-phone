@@ -36,7 +36,9 @@ init python:
 
         @staticmethod
         def complete_todo(id_: str):
-            calendar_items[id_].completed = True
+            calendar_item = calendar_items[id_]
+            calendar_item.completed = True
+            return calendar_item
 
         @staticmethod
         def remove_todo(id_: str):
