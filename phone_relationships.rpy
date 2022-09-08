@@ -66,7 +66,7 @@ screen relationships_home():
                                         color "#FFD166"
                                     
                                 elif character.relationship < Relationship.KISS:
-                                    if girl == penelope: ### Penelope could be on LIKES. Which we could fix...
+                                    if character == penelope: ### Penelope could be on LIKES. Which we could fix...
                                         text _("Kissed"):
                                             size 20
                                             color "#FFD166"
