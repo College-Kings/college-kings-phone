@@ -83,26 +83,22 @@ screen calendar_home():
     default temp_day = datetime.datetime(2022, 8, 1) # Used for setting days of the week. Probably shouldn't touch.
     default selected_date = temp_calendar
     
-    
     python:
-        try:
+        count_complete = 0
+        count_incomplete = 0
+
+        if (selected_date.year, selected_date.month, selected_date.day) in calendar_checklist:
             count_complete = len([
                 calendar_item
-                for calendar_item in calendar_checklist[selected_date.year, selected_date.month, selected_date.day]
+                for calendar_item in calendar_checklist[(selected_date.year, selected_date.month, selected_date.day)]
                 if calendar_item.completed
             ])
-        except KeyError:
-            count_complete = 0
-
-        try:
+            
             count_incomplete = len([
                 calendar_item
-                for calendar_item in calendar_checklist[selected_date.year, selected_date.month, selected_date.day]
+                for calendar_item in calendar_checklist[(selected_date.year, selected_date.month, selected_date.day)]
                 if not calendar_item.completed
             ])
-        except KeyError:
-            count_incomplete = 0
-
     
     $ list_count = count_complete + count_incomplete
     $ year = selected_date.strftime("%Y")
@@ -260,26 +256,16 @@ screen calendar_home():
                             ypos 28
                             spacing 18
 
-                            python:
-                                try:
-                                    list_complete = len([
-                                        calendar_item
-                                        for calendar_item in calendar_checklist[temp_calendar.year, temp_calendar.month, i]
-                                        if calendar_item.completed
-                                    ])
-                                except KeyError:
-                                    list_complete = 0
-
-                                try:
-                                    list_incomplete = len([
-                                        calendar_item
-                                        for calendar_item in calendar_checklist[temp_calendar.year, temp_calendar.month, i]
-                                        if not calendar_item.completed
-                                    ])
-                                except KeyError:
-                                    list_incomplete = 0
-
                             if (temp_calendar.year, temp_calendar.month, i) in calendar_checklist:
+                                python:
+                                    number_task_complete = 0
+                                    number_task_incomplete = 0
+
+                                    for task in calendar_checklist[(temp_calendar.year, temp_calendar.month, i)]:
+                                        if task.completed:
+                                            number_task_complete += 1
+                                        else:
+                                            number_task_incomplete += 1
 
                                 text "[list_complete]" style "task_icon_text"
 
