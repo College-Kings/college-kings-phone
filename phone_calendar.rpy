@@ -109,7 +109,7 @@ screen calendar_home():
     
 
     add image_path + "background.webp"
-    add image_path + "frame.png" align (0.5, 0.5)
+    add image_path + "frame.webp" align (0.5, 0.5)
 
     imagebutton:
         idle "gui/common/return_idle.webp"
@@ -124,7 +124,7 @@ screen calendar_home():
             spacing 680
             
             imagebutton:
-                idle image_path + "button_left.png"
+                idle image_path + "button_left.webp"
                 if temp_calendar.month == 1:
                     action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year - 1, 12, temp_calendar.day))]
                 
@@ -132,7 +132,7 @@ screen calendar_home():
                     action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year, temp_calendar.month - 1, temp_calendar.day))]
 
             imagebutton:
-                idle image_path + "button_right.png"
+                idle image_path + "button_right.webp"
                 if temp_calendar.month == 12:
                     action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year + 1, 1, temp_calendar.day))]
                 
@@ -183,7 +183,7 @@ screen calendar_home():
                 frame:
                     xysize (436, 143)
                     
-                    add image_path + "button_blue.png"
+                    add image_path + "button_blue.webp"
 
                     $ description = calendar_checklist[selected_date.year, selected_date.month, selected_date.day][i].description
 
@@ -221,20 +221,20 @@ screen calendar_home():
                         xysize (158, 122)
 
                         if i == calendar_now.day and temp_calendar.month == calendar_now.month and temp_calendar.year == calendar_now.year:
-                            add image_path + "current_date.png" xalign 0.5 ypos -7
+                            add image_path + "current_date.webp" xalign 0.5 ypos -7
 
                         text "[i]" pos (5, 1) style "label_text"
                         
                         if i == selected_date.day and temp_calendar.month == selected_date.month and temp_calendar.year == selected_date.year:
                             imagebutton:
-                                idle image_path + "date_select.png"
+                                idle image_path + "date_select.webp"
                                 action NullAction()
                                 align (0.5, 0.5)
                                 
                         else:
                             imagebutton:
-                                idle image_path + "date_select_idle.png"
-                                hover image_path + "date_select.png"
+                                idle image_path + "date_select_idle.webp"
+                                hover image_path + "date_select.webp"
                                 action [SetScreenVariable("selected_date", datetime.datetime(temp_calendar.year, temp_calendar.month, i))]
                                 align (0.5, 0.5)
 
@@ -246,9 +246,9 @@ screen calendar_home():
 
                             if (temp_calendar.year, temp_calendar.month, i) in calendar_checklist:
                                 
-                                add image_path + "incomplete_icon.png"
+                                add image_path + "incomplete_icon.webp"
 
-                                add image_path + "complete_icon.png"
+                                add image_path + "complete_icon.webp"
 
                         # Count for tasks
                         vbox:
