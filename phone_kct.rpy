@@ -12,7 +12,7 @@ screen kct_home():
         {
             "title": _("Loyal"),
             "text": _("Loyal individuals care about other people and gain trust easily. They are known to be responsible, but can be a bit of a buzzkill when it comes to doing crazy stuff."),
-            "text_color": "DC9D05"
+            "text_color": "#DC9D05"
         },
         {
             "title": _("Confident"),
