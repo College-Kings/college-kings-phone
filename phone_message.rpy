@@ -43,6 +43,9 @@ init python:
             self.replies: list[BaseReply] = []
             self.reply = None
 
+        def __repr__(self):
+            return f"<{self.__class__.__name__}({self.message})>"
+
 
     class ImageMessage(BaseMessage):
         def __init__(self, contact: "Contact", image: str):
