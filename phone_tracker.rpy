@@ -196,6 +196,7 @@ screen tracker_girls():
             spacing 18
             xalign 0.5
             ypos 170
+            allow_underfull True
 
             for npc in sorted(set(data.character for data in TrackerData.data), key=lambda npc: npc.name):
                 imagebutton:
