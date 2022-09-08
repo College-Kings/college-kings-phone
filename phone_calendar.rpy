@@ -80,33 +80,17 @@ screen calendar_home():
 
     default image_path = "images/phone/calendar/app-assets/"
     default temp_calendar = calendar_now
-    default temp_day = datetime.datetime(2022, 8, 1) # Used for setting days of the week. Probably shouldn't touch.
-    default selected_date = temp_calendar
+    default selected_date = calendar_now
     
     python:
-        count_complete = 0
-        count_incomplete = 0
-
-        if (selected_date.year, selected_date.month, selected_date.day) in calendar_checklist:
-            count_complete = len([
+        list_count = len(calendar_checklist.get((selected_date.year, selected_date.month, selected_date.day), []))
+        count_complete = len([
                 calendar_item
-                for calendar_item in calendar_checklist[(selected_date.year, selected_date.month, selected_date.day)]
+                for calendar_item in calendar_checklist.get((selected_date.year, selected_date.month, selected_date.day), [])
                 if calendar_item.completed
             ])
-            
-            count_incomplete = len([
-                calendar_item
-                for calendar_item in calendar_checklist[(selected_date.year, selected_date.month, selected_date.day)]
-                if not calendar_item.completed
-            ])
-    
-    $ list_count = count_complete + count_incomplete
-    $ year = selected_date.strftime("%Y")
-    $ month = selected_date.strftime("%B")
-    $ day = temp_day.strftime("%a")
-    $ date = selected_date.strftime("%d")
-    $ month_range = Calendar.month_range(temp_calendar.year, temp_calendar.month)
-    
+   
+        month_range = Calendar.month_range(temp_calendar.year, temp_calendar.month)
 
     add image_path + "background.webp"
     add image_path + "frame.webp" align (0.5, 0.5)
@@ -114,169 +98,156 @@ screen calendar_home():
     imagebutton:
         idle "gui/common/return_idle.webp"
         hover "gui/common/return_hover.webp"
-        action Show("phone")
+        action Hide()
 
     frame:
-        
-        # Month page buttons
-        hbox:
-            pos (819, 75)
-            spacing 680
-            
-            imagebutton:
-                idle image_path + "button_left.webp"
-                if temp_calendar.month == 1:
-                    action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year - 1, 12, temp_calendar.day))]
-                
-                elif temp_calendar.month > 1:
-                    action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year, temp_calendar.month - 1, temp_calendar.day))]
+        xysize (838, 79)
+        pos (819, 75)
 
-            imagebutton:
-                idle image_path + "button_right.webp"
-                if temp_calendar.month == 12:
-                    action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year + 1, 1, temp_calendar.day))]
-                
-                elif temp_calendar.month < 12:
-                    action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year, temp_calendar.month + 1, temp_calendar.day))]
-        
+        # Month page buttons
+        imagebutton:
+            idle image_path + "button_left.webp"
+            if temp_calendar.month == 1:
+                action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year - 1, 12, 1))]
+            else:
+                action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year, temp_calendar.month - 1, 1))]
+            yalign 0.5
+
+        imagebutton:
+            idle image_path + "button_right.webp"
+            if temp_calendar.month == 12:
+                action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year + 1, 1, 1))]
+            else:
+                action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year, temp_calendar.month + 1, 1))]
+            align (1.0, 0.5)
+
         # Month label
         text temp_calendar.strftime("%B"):
             style "calendar_text"
             align (0.5, 0.5)
-            pos (1230, 115)
 
-        # Task label
-        hbox:
-            pos (160, 200)
-            
-            text "[year], [date] [month]":
+    frame:
+        xysize (500, 670)
+        pos (123, 162)
+
+        frame:
+            xfill True
+            ysize 100
+            padding (35, 0)
+
+            # Task label
+            text selected_date.strftime("%Y, %d, %B"):
                 style "label_text"
-                align (0.5, 0.5)
+                yalign 0.5
 
-        # Task count
-        hbox:
-            pos (520, 190)
-
+            # Task count
             text "[count_complete]/[list_count]":
                 style "task_count_text"
-                align (0.5, 0.5)                
+                align (1.0, 0.5)
 
         # Tasks
         vbox:
-            pos (150, 250)
+            xfill True
+            ypos 100
             spacing -25
             
-            #Completed Tasks
-            for i in range(count_complete):
-                
+            for task in calendar_checklist.get((selected_date.year, selected_date.month, selected_date.day), []):
                 frame:
                     xysize (436, 143)
-                    
-                    add image_path + "button_green.webp"
+                    if task.completed:
+                        background image_path + "button_green.webp"
+                    else:
+                        background image_path + "button_blue.webp"
 
-                    $ description = calendar_checklist[selected_date.year, selected_date.month, selected_date.day][i].description
+                    text task.description:
+                        style "task_icon_text"
+                        xpos 40
+                        yalign 0.5
+                        xsize 300
 
-                    text "[description]" style "task_icon_text" xpos 40 yalign 0.5 xsize 300
-                
-            #Incomplete Tasks
-            for i in range(count_incomplete):
-                frame:
-                    xysize (436, 143)
-                    
-                    add image_path + "button_blue.webp"
+    # Calendar Setup
+    frame:
+        xysize (1117, 843)
+        pos (680, 162)
 
-                    $ description = calendar_checklist[selected_date.year, selected_date.month, selected_date.day][i].description
+        # Days of the week
+        frame:
+            xfill True
+            ysize 100
 
-                    text "[description]" style "task_icon_text" xpos 40 yalign 0.5 xsize 300
-
-        # Calendar Setup
-        vbox:
-            
-            # Days of the week
             grid 7 1:
-                pos (730, 200)
-                spacing 100
-                
-                for i in range(1, 8):
-                    text "[day]" align (0.5, 0.5) style "label_text"
+                xfill True
+                yalign 0.5
 
-                    $ day = datetime.datetime(temp_day.year, temp_day.month, temp_day.day + i).strftime("%a")
+                for day in ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"):
+                    text day:
+                        style "label_text"
+                        xalign 0.5
+        
+        # Dates
+        grid 7 6:
+            ypos 100
+            spacing 2
+            allow_underfull True
+            
+            # Gives blank space to offset month start date
+            for i in range(0, month_range[0]):
+                null width 158 height 122
 
-            # Dates
-            grid 7 6:
-                pos (683, 234)
-                xspacing 1
-                yspacing 1
-                allow_underfull True
-                
-                # Gives blank space to offset month start date
-                for i in range(0, month_range[0]):
-                    frame:
-                        xysize (158, 122)
-                        text "[i]" align (0.5, 0.5) style "inv_label_text"
+            # Sets dates for the month
+            for i in range(1, month_range[1] + 1):
+                python:
+                    number_task_complete = 0
+                    number_task_incomplete = 0
 
-                # Sets dates for the month
-                for i in range(1, month_range[1] + 1):
-                    frame:
-                        xysize (158, 122)
-
-                        if i == calendar_now.day and temp_calendar.month == calendar_now.month and temp_calendar.year == calendar_now.year:
-                            add image_path + "current_date.webp" xalign 0.5 ypos -7
-
-                        text "[i]" pos (5, 1) style "label_text"
-                        
-                        if i == selected_date.day and temp_calendar.month == selected_date.month and temp_calendar.year == selected_date.year:
-                            imagebutton:
-                                idle image_path + "date_select.webp"
-                                action NullAction()
-                                align (0.5, 0.5)
-                                
+                    for task in calendar_checklist.get((temp_calendar.year, temp_calendar.month, i), []):
+                        if task.completed:
+                            number_task_complete += 1
                         else:
-                            imagebutton:
-                                idle image_path + "date_select_idle.webp"
-                                hover image_path + "date_select.webp"
-                                action [SetScreenVariable("selected_date", datetime.datetime(temp_calendar.year, temp_calendar.month, i))]
-                                align (0.5, 0.5)
+                            number_task_incomplete += 1
 
-                        # Icons for completed/incomplete tasks
-                        vbox:
-                            xpos 35
-                            ypos 15
-                            spacing -5
+                frame:
+                    xysize (158, 122)
 
-                            if (temp_calendar.year, temp_calendar.month, i) in calendar_checklist:
-                                
-                                add image_path + "incomplete_icon.webp"
+                    if i == calendar_now.day and temp_calendar.month == calendar_now.month and temp_calendar.year == calendar_now.year:
+                        add image_path + "current_date.webp" xalign 0.5 ypos -7
 
-                                add image_path + "complete_icon.webp"
+                    text "[i]" pos (5, 1) style "label_text"
+                    
+                    if i == selected_date.day and temp_calendar.month == selected_date.month and temp_calendar.year == selected_date.year:
+                        add image_path + "date_select.webp"
+                            
+                    else:
+                        imagebutton:
+                            idle "#0000"
+                            hover image_path + "date_select.webp"
+                            action [SetScreenVariable("selected_date", datetime.datetime(temp_calendar.year, temp_calendar.month, i))]
+                            align (0.5, 0.5)
 
-                        # Count for tasks
-                        vbox:
-                            xpos 87
-                            ypos 28
-                            spacing 18
+                    # Icons for completed/incomplete tasks
+                    vbox:
+                        align (0.5, 1.0)
+                        yoffset -5
+                        spacing -10
 
-                            if (temp_calendar.year, temp_calendar.month, i) in calendar_checklist:
-                                python:
-                                    number_task_complete = 0
-                                    number_task_incomplete = 0
+                        if (temp_calendar.year, temp_calendar.month, i) in calendar_checklist:
+                            frame:
+                                xysize (117, 55)
+                                background image_path + "incomplete_icon.webp"
 
-                                    for task in calendar_checklist[(temp_calendar.year, temp_calendar.month, i)]:
-                                        if task.completed:
-                                            number_task_complete += 1
-                                        else:
-                                            number_task_incomplete += 1
+                                text "[number_task_complete]" style "task_icon_text" align (0.5, 0.5)
 
-                                text "[list_complete]" style "task_icon_text"
-
-                                text "[list_incomplete]" style "label_text"
-
-                                
+                            frame:
+                                xysize (117, 55)
+                                background image_path + "complete_icon.webp"
+                            
+                                text "[number_task_incomplete]" style "label_text" align (0.5, 0.5)
 
     on "show" action Hide("phone_icon")
     on "hide" action Show("phone_icon")
     on "replace" action Hide("phone_icon")
     on "replaced" action Show("phone_icon")
+
 
 style calendar_text is text:
     color "#fff"
