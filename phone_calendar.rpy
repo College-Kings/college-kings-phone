@@ -54,6 +54,14 @@ init python:
         def set_time(year: int, month: int, day: int):
             calendar_now = datetime.datetime(year, month, day)
 
+        @staticmethod
+        def contains(id_: str):
+            return id_ in calendar_item
+
+        @staticmethod
+        def find(id_: str):
+            return calendar_item.get(id_, None)
+
 
     class CalendarItem:
         def __init__(
