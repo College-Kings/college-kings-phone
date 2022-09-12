@@ -259,14 +259,12 @@ screen messager(contact=None):
                 xysize (416, 686)
 
                 vbox:
-                    spacing -25
-
                     null height 25
 
                     for message in contact.sent_messages:
                         frame:
                             if isinstance(message, Message) and message.message.strip():
-                                padding (50, 50)
+                                padding (40, 30)
                                 background "message_background"
 
                                 text message.message  style "message_text"
@@ -280,7 +278,7 @@ screen messager(contact=None):
                                     action Show("phone_image", img=message.image)
 
                             elif isinstance(message, Reply):
-                                padding (50, 50)
+                                padding (40, 30)
                                 background "reply_background"
                                 xalign 1.0
 
