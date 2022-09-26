@@ -2,3 +2,5 @@
 .vscode/
 
 *.rpyc
+
+.DS_Store
