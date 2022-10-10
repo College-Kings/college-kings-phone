@@ -72,11 +72,13 @@ init python:
                 messenger.contacts.insert(0, self)
 
             # Add message to queue
-            if not force_send:
+            if self.replies and not force_send:
                 self.pending_messages.append(message)
             else:
-                self.pending_messages = []
                 self.sent_messages.append(message)
+
+            if force_send:
+                self.pending_messages = []
 
             self.notification = True
 
