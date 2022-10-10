@@ -74,12 +74,8 @@ screen base_phone(background="images/phone/phone_screen.webp"):
                 ypos 843
 
                 imagebutton:
-                    if renpy.get_screen("kiwiiPost") or renpy.get_screen("kiwiiApp") or renpy.get_screen("kiwiiPreferences"):
-                        idle "images/phone/home_button_kiwii_idle.webp"
-                        hover "images/phone/home_button_kiwii_hover.webp"
-                    else:
-                        idle "images/phone/home_button_idle.webp"
-                        hover "images/phone/home_button_hover.webp"
+                    idle "images/phone/home_button_idle.webp"
+                    hover "images/phone/home_button_hover.webp"
                     action [Hide("message_reply"), Show("phone")]
                     align (0.5, 0.5)
                 
