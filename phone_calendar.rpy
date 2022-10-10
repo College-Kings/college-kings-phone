@@ -48,11 +48,11 @@ init python:
 
         @staticmethod
         def add_days(number_of_days: int = 1):
-            calendar_now += datetime.timedelta(days=number_of_days)
+            store.calendar_now += datetime.timedelta(days=number_of_days)
 
         @staticmethod
         def set_time(year: int, month: int, day: int):
-            calendar_now = datetime.datetime(year, month, day)
+            store.calendar_now = datetime.datetime(year, month, day)
 
         @staticmethod
         def contains(id_: str):
