@@ -55,6 +55,11 @@ screen relationships_home():
 
                                 text character.name
 
+                                if character.relationship == Relationship.EX:
+                                    text _("Broken Up"):
+                                        size 20
+                                        color "#FFD166"
+
                                 if character.relationship < Relationship.FRIEND:
                                     text _("Complicated"):
                                         size 20
