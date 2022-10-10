@@ -33,7 +33,7 @@ init python:
 
             try:
                 return self.sent_messages[-1].replies
-            except IndexError:
+            except (IndexError, AttributeError):
                 return []
 
         def new_message(self, content: str, force_send: bool = False):
@@ -90,12 +90,15 @@ init python:
             func: Optional[Callable[[], None]] = None,
             new_message: bool = False,
             disabled: bool = False,
+            in_reply: bool = False
         ):
             reply = Reply(content, func)
 
             # Append reply to last sent message
             try:
-                if self.pending_messages:
+                if in_reply:
+                    self.sent_messages[-1].replies.append(reply)
+                elif self.pending_messages:
                     self.pending_messages[-1].replies.append(reply)
                 elif self.sent_messages:
                     self.sent_messages[-1].replies.append(reply)
@@ -133,13 +136,12 @@ init python:
             self.notification = True
 
         def selected_reply(self, reply: BaseReply):
-            self.sent_messages.append(reply)
             self.sent_messages[-1].reply = reply
             self.sent_messages[-1].replies = []
+            self.sent_messages.append(reply)
 
             if reply.func is not None:
                 reply.func()
-                reply.func = None
 
             # Send next queued message(s)
             while self.pending_messages and not self.replies:

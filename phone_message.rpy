@@ -7,32 +7,30 @@ init python:
             self.replies: list[BaseReply] = []
             self.reply: Optional[BaseReply] = None
 
+        def __repr__(self):
+            return f"<{self.__class__.__name__}({self.content})>"
 
-    class BaseReply(BaseMessage):
-        def __init__(self, content: str, func: Optional[Callable[[], None]]):
-            self.content = content
-            self.func = func
-
-
-    class Reply(BaseReply):
+    class Reply(BaseMessage):
         def __init__(
             self,
             message: str,
             func: Optional[Callable[[], None]] = None,
             disabled: bool = False,
         ):
-            self.message = message
+            super().__init__(message)
+
             self.func = func
 
 
-    class ImgReply(BaseReply):
+    class ImgReply(BaseMessage):
         def __init__(
             self,
             image: str,
             func: Optional[Callable[[], None]] = None,
             disabled: bool = False,
         ):
-            self.image = image
+            super().__init__(image)
+
             self.func = func
 
 
@@ -43,9 +41,6 @@ init python:
             self.replies: list[BaseReply] = []
             self.reply = None
 
-        def __repr__(self):
-            return f"<{self.__class__.__name__}({self.message})>"
-
 
     class ImageMessage(BaseMessage):
         def __init__(self, contact: "Contact", image: str):
@@ -53,3 +48,6 @@ init python:
             self.image = image
             self.replies: list[BaseReply] = []
             self.reply = None
+
+
+    BaseReply = Union[Reply, ImgReply]
