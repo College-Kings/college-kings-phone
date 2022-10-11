@@ -59,27 +59,7 @@ screen relationships_home():
                                     text _("Broken Up"):
                                         size 20
                                         color "#FFD166"
-
-                                if character.relationship < Relationship.FRIEND:
-                                    text _("Complicated"):
-                                        size 20
-                                        color "#FFD166"
-
-                                elif character.relationship == Relationship.FRIEND:
-                                    text _("Friend"):
-                                        size 20
-                                        color "#FFD166"
-                                    
-                                elif character.relationship < Relationship.KISS:
-                                    if character == penelope: ### Penelope could be on LIKES. Which we could fix...
-                                        text _("Kissed"):
-                                            size 20
-                                            color "#FFD166"
-                                    else:
-                                        text _("Friends"):
-                                            size 20
-                                            color "#FFD166"
-
+                                
                                 elif character.relationship == Relationship.KISS:
                                     text _("Kissed"):
                                         size 20
@@ -90,17 +70,12 @@ screen relationships_home():
                                         size 20
                                         color "#FFD166"
 
-                                elif character.relationship < Relationship.GIRLFRIEND: # that grey area for Autumn and Amber (and maybe Penelope)
-                                    text _("Loyal/Trust"):
-                                        size 20
-                                        color "#FFD166"
-                                
                                 elif character.relationship == Relationship.GIRLFRIEND:
                                     text _("Dating"):
                                         size 20
                                         color "#FFD166"
-                                
-                                else: # shouldn't happen, but just a failsafe
+
+                                else:
                                     text character.relationship.name.capitalize():
 
                                         size 20
