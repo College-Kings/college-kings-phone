@@ -49,21 +49,7 @@ init python:
         ):
             self.message = message
             self.func = func
-
-            try:
-                if reputation == Reputations.POPULAR:
-                    self.numberLikes = int(numberLikes * 1.5)
-                elif reputation == Reputations.CONFIDENT:
-                    self.numberLikes = int(numberLikes * 1.2)
-                else:
-                    self.numberLikes = numberLikes
-            except NameError:
-                if kct == "popular":
-                    self.numberLikes = int(numberLikes * 1.5)
-                elif kct == "confident":
-                    self.numberLikes = int(numberLikes * 1.2)
-                else:
-                    self.numberLikes = numberLikes
+            self.numberLikes = numberLikes
 
             self.mentions = mentions if mentions is not None else []
 
