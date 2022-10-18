@@ -259,7 +259,7 @@ screen kiwii_base():
                 imagebutton:
                     idle image_path + "liked-button-idle.webp"
                     hover image_path + "liked-button-hover.webp"
-                    action Show("kiwii_home", posts=filter(lambda post: post.liked, kiwii_posts))
+                    action Show("kiwii_home", posts=list(filter(lambda post: post.liked, kiwii_posts)))
                     yalign 0.5
 
                 imagebutton:
