@@ -313,7 +313,7 @@ screen messager(contact=None):
                         align (0.5, 0.5)
 
     if kiwii_first_time:
-        on "show" action Show("kiwiiPopup")
+        timer 0.1 action Show("kiwiiPopup")
 
     if config_debug:
         if contact.replies:
