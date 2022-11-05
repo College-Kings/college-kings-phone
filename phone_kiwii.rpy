@@ -485,6 +485,7 @@ screen kiwiiPost(post):
 
 
 screen kiwii_image(img):
+    zorder 100
     modal True
 
     imagebutton:
