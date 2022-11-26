@@ -17,9 +17,6 @@ init python:
             self._replies: list[KiwiiReply] = []
             self.reply: Optional[KiwiiReply] = None
 
-            # Test cases
-            assert iter(self.mentions)
-
         @property
         def replies(self):
             try:
@@ -70,9 +67,6 @@ init python:
             kiwii_posts.append(self)
 
             kiwii.unlock()
-
-            # Test cases
-            assert iter(self.mentions)
 
         @property
         def username(self):
