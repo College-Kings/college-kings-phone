@@ -173,8 +173,8 @@ init python:
 
 
     def get_total_likes():
-        return sum(post.numberLikes for post in kiwii_posts if post.user == mc) + sum(
-            comment.numberLikes
+        return sum(post.number_likes for post in kiwii_posts if post.user == mc) + sum(
+            comment.number_likes
             for post in kiwii_posts
             for comment in post.sent_comments
             if comment.user == mc
@@ -351,7 +351,7 @@ screen kiwii_home(posts=kiwii_posts):
                                     selected post.liked
                                     action Function(Kiwii.toggle_liked, post)
 
-                                text "{}".format(post.numberLikes) style "kiwii_LikeCounter" yalign 0.5
+                                text "{}".format(post.number_likes) style "kiwii_LikeCounter" yalign 0.5
 
                             imagebutton:
                                 idle image_path + "comment.webp"
@@ -418,7 +418,7 @@ screen kiwiiPost(post):
                                     selected_idle image_path + "like-press.webp"
                                     selected comment.liked
                                     action Function(Kiwii.toggle_liked, comment)
-                                text "[comment.numberLikes]" style "kiwii_LikeCounter" yalign 0.5
+                                text "[comment.number_likes]" style "kiwii_LikeCounter" yalign 0.5
 
     if post.replies:
         vbox:
