@@ -1,17 +1,7 @@
 init python:
     class SimplrContact(Contact):
-        """
-        The Contact class for Simplr. Used to manage and create messages for simplr characters.
-
-        Attributes:
-            name (str): The display name for the character
-            profile_picture (str): The relative path for this character's contact profile picture
-            condition (str): A string repersenting a python condition which deems if the character unlocks 
-        """
-
         def __init__(self, name: str, user: Union[PlayableCharacter, NonPlayableCharacter]):
-            self.name = name
-            self.user = user
+            super().__init__(name, user)
             self.condition = True
 
             self._notification = False
@@ -28,7 +18,7 @@ init python:
         def notification(self):
             if not self.sent_messages and not self.pending_messages:
                 return False
-            
+
             if self.replies:
                 return True
 
@@ -44,25 +34,35 @@ init python:
 
         @property
         def profile_pictures(self):
-            return [file for file in renpy.list_files() if file.startswith(f"images/characters/{self.name.lower()}/large_profile_pictures/")]
+            # noinspection PyUnresolvedReferences
+            return [
+                file
+                for file in renpy.list_files()
+                if file.startswith(
+                    f"images/characters/{self.name.lower()}/large_profile_pictures/"
+                )
+            ]
 
         def removeContact(self):
             try:
                 simplr_app.pending_contacts.remove(self)
-            except ValueError: pass
+            except ValueError:
+                pass
 
         def likedContact(self):
             simplr_app.pending_contacts.remove(self)
 
             if self.condition:
                 simplr_app.contacts.append(self)
-            
+
         def newMessage(self, message, force_send=False):
             message = Message(self, message)
 
-            # Moves contact to the top when recieving a new message
+            # Moves contact to the top when receiving a new message
             if self in simplr_app.contacts:
-                simplr_app.contacts.insert(0, simplr_app.contacts.pop(simplr_app.contacts.index(self)))
+                simplr_app.contacts.insert(
+                    0, simplr_app.contacts.pop(simplr_app.contacts.index(self))
+                )
 
             # Add message to queue
             if not force_send:
@@ -70,15 +70,17 @@ init python:
             else:
                 self.pending_messages = []
                 self.sent_messages.append(message)
-            
+
             return message
 
         def newImgMessage(self, img, force_send=False):
             message = ImageMessage(self, img)
 
-            # Moves contact to the top when recieving a new message
+            # Moves contact to the top when receiving a new message
             if self in simplr_app.contacts:
-                simplr_app.contacts.insert(0, simplr_app.contacts.pop(simplr_app.contacts.index(self)))
+                simplr_app.contacts.insert(
+                    0, simplr_app.contacts.pop(simplr_app.contacts.index(self))
+                )
 
             # Add message to queue
             if not force_send:
@@ -89,7 +91,12 @@ init python:
 
             return message
 
-        def addReply(self, message, func=None):
+        def addReply(
+            self,
+            message: str,
+            func: Optional[Callable[[], None]] = None,
+            new_message: bool = False,
+        ):
             reply = Reply(message, func)
 
             # Append reply to last sent message
@@ -99,10 +106,15 @@ init python:
                 else:
                     self.sent_messages[-1].replies.append(reply)
             except IndexError:
-                message = self.newMessage("", force_send=True)
+                message = self.new_message("", force_send=True)
                 message.replies.append(reply)
 
-        def addImgReply(self, image, func):
+        def addImgReply(
+            self,
+            image: str,
+            func: Optional[Callable[[], None]] = None,
+            new_message: bool = False,
+        ):
             reply = ImgReply(image, func)
 
             # Append reply to last sent message
@@ -111,8 +123,8 @@ init python:
                     self.pending_messages[-1].replies.append(reply)
                 else:
                     self.sent_messages[-1].replies.append(reply)
-            except Exception:
-                self.newMessage("", force_send=True)
+            except IndexError:
+                self.new_message("", force_send=True)
                 self.pending_messages[-1].replies.append(reply)
 
         def getMessage(self, message):

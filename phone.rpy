@@ -14,8 +14,8 @@ init python:
             if not self.notification:
                 return self.base_image
 
-            file_name, extention = os.path.splitext(self.base_image)
-            return file_name + "-notification" + extention
+            file_name, extension = os.path.splitext(self.base_image)
+            return file_name + "-notification" + extension
 
 
 default phone = Phone()

@@ -21,7 +21,7 @@ init python:
 
     class Messenger(Application):
         def __init__(self):
-            super().__init__(_("Messenger"))
+            super().__init__("Messenger")
 
         @property
         def notification(self):
@@ -34,7 +34,7 @@ init python:
 
     class Simplr(Application):
         def __init__(self):
-            super().__init__(_("Simplr"))
+            super().__init__("Simplr")
 
             self.pending_contacts = []
 
@@ -49,10 +49,10 @@ init python:
 
     class Kiwii(Application):
         def __init__(self):
-            super().__init__(_("Kiwii"))
+            super().__init__("Kiwii")
 
         @staticmethod
-        def get_message(kiwii_obj: Union["KiwiiComment", "KiwiiPost"]):
+        def get_message(kiwii_obj: Union[KiwiiComment, KiwiiPost]):
             usernames = [mention.username for mention in kiwii_obj.mentions]
 
             message = ", @".join(usernames)
@@ -66,13 +66,20 @@ init python:
             return message
 
         @staticmethod
-        def toggle_liked(kiwii_obj: Union["KiwiiComment", "KiwiiPost"]):
+        def toggle_liked(kiwii_obj: Union[KiwiiComment, KiwiiPost]):
             kiwii_obj.liked = not kiwii_obj.liked
 
+            try:
+                kiwii_obj.number_likes
+            except AttributeError:
+                # noinspection PyUnresolvedReferences
+                kiwii_obj.number_likes = kiwii_obj.numberLikes
+
             if kiwii_obj.liked:
-                kiwii_obj.numberLikes += 1
+                kiwii_obj.number_likes += 1
             else:
-                kiwii_obj.numberLikes -= 1
+                kiwii_obj.number_likes -= 1
+
 
 default messenger = Messenger()
 default achievement_app = Application(_("Achievements"))

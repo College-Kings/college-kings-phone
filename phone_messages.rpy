@@ -6,6 +6,7 @@ init python:
             self.sent_messages: list[BaseMessage] = []
             self.pending_messages: list[BaseMessage] = []
             self._notification: bool = False
+            self.locked = False
 
         @property
         def notification(self):
@@ -39,7 +40,7 @@ init python:
         def new_message(self, content: str, force_send: bool = False):
             message = Message(self, content)
 
-            # Moves contact to the top when recieving a new message
+            # Moves contact to the top when receiving a new message
             try:
                 messenger.contacts.insert(
                     0, messenger.contacts.pop(messenger.contacts.index(self))
@@ -63,7 +64,7 @@ init python:
         def new_image_message(self, image: str, force_send: bool = False):
             message = ImageMessage(self, image)
 
-            # Moves contact to the top when recieving a new message
+            # Moves contact to the top when receiving a new message
             try:
                 messenger.contacts.insert(
                     0, messenger.contacts.pop(messenger.contacts.index(self))
@@ -89,8 +90,7 @@ init python:
             content: str,
             func: Optional[Callable[[], None]] = None,
             new_message: bool = False,
-            disabled: bool = False,
-            in_reply: bool = False
+            in_reply: bool = False,
         ):
             reply = Reply(content, func)
 
@@ -115,14 +115,13 @@ init python:
             self,
             content: str,
             func: Optional[Callable[[], None]] = None,
-            newMessage: bool = False,
-            disabled: bool = False,
+            new_message: bool = False,
         ):
             reply = ImgReply(content, func)
 
             # Append reply to last sent message
             try:
-                if newMessage:
+                if new_message:
                     message = self.new_message("")
                     message.replies.append(reply)
                 elif self.pending_messages:
@@ -162,7 +161,7 @@ init python:
                     return msg
             return False
 
-        ## Backwards compatibility
+        # Backwards compatibility
         def newMessage(self, message: str, force_send: bool = False):
             return self.new_message(message, force_send)
 
@@ -173,19 +172,17 @@ init python:
             self,
             message: str,
             func: Optional[Callable[[], None]] = None,
-            newMessage: bool = False,
-            disabled: bool = False,
+            new_message: bool = False,
         ):
-            return self.add_reply(message, func, newMessage)
+            return self.add_reply(message, func, new_message)
 
         def addImgReply(
             self,
             image: str,
             func: Optional[Callable[[], None]] = None,
-            newMessage: bool = False,
-            disabled: bool = False,
+            new_message: bool = False,
         ):
-            return self.add_image_reply(image, func, newMessage)
+            return self.add_image_reply(image, func, new_message)
 
 
 screen messenger_home():

@@ -4,14 +4,12 @@ init python:
             self,
             user: Union[PlayableCharacter, NonPlayableCharacter],
             message: str,
-            numberLikes: int = renpy.random.randint(250, 500),
-            mentions: Optional[
-                list[Union[NonPlayableCharacter, PlayableCharacter]]
-            ] = None,
+            number_likes: int = random.randint(250, 500),
+            mentions: Optional[list[Union[NonPlayableCharacter, PlayableCharacter]]] = None,
         ):
             self.user = user
             self.message = message
-            self.numberLikes = numberLikes
+            self.number_likes = number_likes
 
             self.mentions = mentions if mentions is not None else []
 
@@ -40,51 +38,29 @@ init python:
         def __init__(
             self,
             message: str,
-            func: Optional[Callable[["KiwiiPost"], None]] = None,
-            numberLikes: int = renpy.random.randint(250, 500),
-            mentions: Optional[
-                list[Union[NonPlayableCharacter, PlayableCharacter]]
-            ] = None,
-            disabled: bool = False,
+            func: Optional[Callable[[KiwiiPost], None]] = None,
+            number_likes: int = random.randint(250, 500),
+            mentions: Optional[list[Union[NonPlayableCharacter, PlayableCharacter]]] = None,
         ):
-            self.message = message
+            super().__init__(mc, message, number_likes, mentions)
             self.func = func
-            self.numberLikes = numberLikes
-
-            self.mentions = mentions if mentions is not None else []
-
-            # Test cases
-            assert iter(self.mentions)
 
 
     class KiwiiPost:
-        """
-        Creates a post for the in game phone app, Kiwii
-
-        Attributes:
-            user (NonPlayableCharacter):
-            image (str):
-            message (str, optional):
-            mentions (list<NonPlayableCharacter>, optional):
-            numberLikes (int, optional):
-        """
-
         def __init__(
             self,
             user: Union[PlayableCharacter, NonPlayableCharacter],
             image: str,
             message: str = "",
-            mentions: Optional[
-                list[Union[NonPlayableCharacter, PlayableCharacter]]
-            ] = None,
-            numberLikes: int = renpy.random.randint(250, 500),
+            mentions: Optional[list[Union[NonPlayableCharacter, PlayableCharacter]]] = None,
+            number_likes: int = random.randint(250, 500),
         ):
             self.user = user
             self.image = f"images/{image}"
             self.message = message
             self.mentions = mentions if mentions is not None else []
 
-            self.numberLikes = numberLikes
+            self.number_likes = number_likes
 
             self.liked = False
 
@@ -117,12 +93,10 @@ init python:
             self,
             user: Union[PlayableCharacter, NonPlayableCharacter],
             message: str,
-            numberLikes: int = renpy.random.randint(250, 500),
-            mentions: Optional[
-                list[Union[NonPlayableCharacter, PlayableCharacter]]
-            ] = None
+            number_likes: int = random.randint(250, 500),
+            mentions: Optional[list[Union[NonPlayableCharacter, PlayableCharacter]]] = None,
         ):
-            comment = KiwiiComment(user, message, numberLikes, mentions)
+            comment = KiwiiComment(user, message, number_likes, mentions)
 
             # Add message to queue
             if self.replies:
@@ -136,14 +110,11 @@ init python:
         def add_reply(
             self,
             content: str,
-            func: Optional[Callable[["KiwiiPost"], None]] = None,
-            numberLikes: int = renpy.random.randint(250, 500),
-            mentions: Optional[
-                list[Union[NonPlayableCharacter, PlayableCharacter]]
-            ] = None,
-            disabled: bool = False,
+            func: Optional[Callable[[KiwiiPost], None]] = None,
+            number_likes: int = random.randint(250, 500),
+            mentions: Optional[list[Union[NonPlayableCharacter, PlayableCharacter]]] = None,
         ):
-            reply = KiwiiReply(content, func, numberLikes, mentions)
+            reply = KiwiiReply(content, func, number_likes, mentions)
 
             # Append reply to last sent message
             if self.pending_comments:
@@ -159,7 +130,7 @@ init python:
 
         def selected_reply(self, reply: KiwiiReply):
             self.sent_comments.append(
-                KiwiiComment(mc, reply.message, reply.numberLikes, reply.mentions)
+                KiwiiComment(mc, reply.message, reply.number_likes, reply.mentions)
             )
             self.sent_comments[-1].reply = reply
             self.sent_comments[-1].replies = []
@@ -189,24 +160,19 @@ init python:
             self,
             user: NonPlayableCharacter,
             message: str,
-            numberLikes: int = renpy.random.randint(250, 500),
-            mentions: Optional[
-                list[Union[NonPlayableCharacter, PlayableCharacter]]
-            ] = None
+            number_likes: int = random.randint(250, 500),
+            mentions: Optional[list[Union[NonPlayableCharacter, PlayableCharacter]]] = None,
         ):
-            return self.new_comment(user, message, numberLikes, mentions)
+            return self.new_comment(user, message, number_likes, mentions)
 
         def addReply(
             self,
             message: str,
             func: Optional[Callable[["KiwiiPost"], None]] = None,
-            numberLikes: int = renpy.random.randint(250, 500),
-            mentions: Optional[
-                list[Union[NonPlayableCharacter, PlayableCharacter]]
-            ] = None,
-            disabled: bool = False,
+            number_likes: int = random.randint(250, 500),
+            mentions: Optional[list[Union[NonPlayableCharacter, PlayableCharacter]]] = None,
         ):
-            return self.add_reply(message, func, numberLikes, mentions)
+            return self.add_reply(message, func, number_likes, mentions)
 
         def selectedReply(self, reply: KiwiiReply):
             return self.selected_reply(reply)

@@ -1,6 +1,6 @@
 init python:
     class TrackerData:
-        data: list["TrackerData"] = []
+        data: list[TrackerData] = []
 
         def __init__(
             self,

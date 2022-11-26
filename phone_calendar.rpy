@@ -19,7 +19,7 @@ init python:
             number_of_days = Calendar.MONTH_DAYS[month] + (
                 month == 2 and Calendar.is_leap_year(year)
             )
-            return (day1, number_of_days)
+            return day1, number_of_days
 
         @staticmethod
         def add_todo(
@@ -48,19 +48,21 @@ init python:
 
         @staticmethod
         def add_days(number_of_days: int = 1):
+            # noinspection PyUnresolvedReferences
             store.calendar_now += datetime.timedelta(days=number_of_days)
 
         @staticmethod
         def set_time(year: int, month: int, day: int):
+            # noinspection PyUnresolvedReferences
             store.calendar_now = datetime.datetime(year, month, day)
 
         @staticmethod
         def contains(id_: str):
-            return id_ in calendar_item
+            return id_ in calendar_items
 
         @staticmethod
         def find(id_: str):
-            return calendar_item.get(id_, None)
+            return calendar_items.get(id_, None)
 
 
     class CalendarItem:

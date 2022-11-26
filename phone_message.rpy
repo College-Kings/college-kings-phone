@@ -1,6 +1,7 @@
 init python:
     class BaseMessage:
-        def __init__(self, content: str):
+        def __init__(self, contact: Contact, content: str):
+            self.contact = contact
             self.content = content
             self.message = content
             self.image = content
@@ -10,14 +11,14 @@ init python:
         def __repr__(self):
             return f"<{self.__class__.__name__}({self.content})>"
 
+
     class Reply(BaseMessage):
         def __init__(
             self,
             message: str,
             func: Optional[Callable[[], None]] = None,
-            disabled: bool = False,
         ):
-            super().__init__(message)
+            super().__init__(mc, message)
 
             self.func = func
 
@@ -27,27 +28,20 @@ init python:
             self,
             image: str,
             func: Optional[Callable[[], None]] = None,
-            disabled: bool = False,
         ):
-            super().__init__(image)
+            super().__init__(mc, image)
 
             self.func = func
 
 
     class Message(BaseMessage):
-        def __init__(self, contact: "Contact", message: str):
-            self.contact = contact
-            self.message = message
-            self.replies: list[BaseReply] = []
-            self.reply = None
+        def __init__(self, contact: Contact, message: str):
+            super().__init__(contact, message)
 
 
     class ImageMessage(BaseMessage):
-        def __init__(self, contact: "Contact", image: str):
-            self.contact = contact
-            self.image = image
-            self.replies: list[BaseReply] = []
-            self.reply = None
+        def __init__(self, contact: Contact, image: str):
+            super().__init__(contact, image)
 
 
     BaseReply = Union[Reply, ImgReply]
