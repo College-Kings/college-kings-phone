@@ -260,6 +260,8 @@ screen messager(contact=None):
                 xysize (416, 686)
 
                 vbox:
+                    xfill True
+                    
                     null height 25
 
                     for message in contact.sent_messages:
