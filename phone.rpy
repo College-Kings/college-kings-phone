@@ -44,18 +44,40 @@ label call_screen_phone:
 screen base_phone(background="images/phone/phone_screen.webp"):
     modal True
 
+    if len(renpy.game.context().return_stack) >= 1:
+        python:
+            previous_call_location = renpy.game.context().return_stack[-1][0]
+            if len(previous_call_location.split('/')) == 3:
+                scene_number = re.findall(r"\d+", previous_call_location.split('/')[2])[0]
+
     add "darker_80"
 
     # Click background to close phone
     button:
-        if renpy.get_screen("free_roam"):
+        if (len(renpy.game.context().return_stack) >= 1
+            and len(previous_call_location.split('/')) == 3
+            and not renpy.has_label("{}s{}".format(previous_call_location.split('/')[1], scene_number))
+            and not renpy.has_label("{}_s{}".format(previous_call_location.split('/')[1], scene_number))
+            and not renpy.has_label("{}s0{}".format(previous_call_location.split('/')[1], scene_number))
+            and not renpy.has_label("{}_s0{}".format(previous_call_location.split('/')[1], scene_number))):
+            action Jump("v1_start")
+
+        elif renpy.get_screen("free_roam"):
             action [Hide("tutorial"), Hide("phone"), Hide("message_reply"), Hide("phone_tag")]
         else:
             action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag"), Return()]
 
     textbutton _("Exit Phone"):
         style "phonebutton"
-        if renpy.get_screen("free_roam"):
+        if (len(renpy.game.context().return_stack) >= 1
+            and len(previous_call_location.split('/')) == 3
+            and not renpy.has_label("{}s{}".format(previous_call_location.split('/')[1], scene_number))
+            and not renpy.has_label("{}_s{}".format(previous_call_location.split('/')[1], scene_number))
+            and not renpy.has_label("{}s0{}".format(previous_call_location.split('/')[1], scene_number))
+            and not renpy.has_label("{}_s0{}".format(previous_call_location.split('/')[1], scene_number))):
+            action Jump("v1_start")
+
+        elif renpy.get_screen("free_roam"):
             action [Hide("tutorial"), Hide("phone"), Hide("message_reply"), Hide("phone_tag")]
         else:
             action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag"), Return()]
@@ -78,7 +100,7 @@ screen base_phone(background="images/phone/phone_screen.webp"):
                     hover "images/phone/home_button_hover.webp"
                     action [Hide("message_reply"), Show("phone")]
                     align (0.5, 0.5)
-                
+
 
 screen base_phone_rotated():
     modal True
