@@ -4,7 +4,6 @@ init python:
             self.name = name
             self.home_screen = f"{self.name.lower()}_home"
 
-            self.notification = False
             self.contacts: list[Contact] = []
 
         @property
@@ -13,6 +12,10 @@ init python:
                 return f"images/phone/{self.name.lower()}/app-assets/icon-notification.webp"
             else:
                 return f"images/phone/{self.name.lower()}/app-assets/icon.webp"
+
+        @property
+        def notification(self):
+            return False
 
         def unlock(self):
             if self not in phone.applications:
@@ -44,12 +47,20 @@ init python:
 
         @notification.setter
         def notification(self, value: Any):
-            pass
+            return
 
 
     class Kiwii(Application):
         def __init__(self):
             super().__init__("Kiwii")
+
+        @property
+        def notification(self):
+            return any(post.replies or not post.seen for post in kiwii_posts)
+
+        @notification.setter
+        def notification(self, value: Any):
+            return
 
         @staticmethod
         def get_message(kiwii_obj: Union[KiwiiComment, KiwiiPost]):

@@ -230,8 +230,7 @@ screen messager(contact=None):
 
     default image_path = "images/phone/messenger/app-assets/"
 
-    python:
-        contact.notification = False
+    $ contact.notification = False
 
     use base_phone:
         frame:

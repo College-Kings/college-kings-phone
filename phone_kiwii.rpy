@@ -60,6 +60,7 @@ init python:
             self.number_likes = number_likes
 
             self.liked = False
+            self.seen = False
 
             self.sent_comments: list[KiwiiComment] = []
             self.pending_comments: list[KiwiiComment] = []
@@ -98,7 +99,7 @@ init python:
             else:
                 self.sent_comments.append(comment)
 
-            kiwii.notification = True
+            self.seen = False
             return comment
 
         def add_reply(
@@ -119,10 +120,11 @@ init python:
                 message = self.new_comment(mc, "")
                 message.replies.append(reply)
 
-            kiwii.notification = True
             return reply
 
         def selected_reply(self, reply: KiwiiReply):
+            self.seen = True
+
             self.sent_comments.append(
                 KiwiiComment(mc, reply.message, reply.number_likes, reply.mentions)
             )
@@ -287,8 +289,6 @@ screen kiwii_home(posts=kiwii_posts):
 
     default image_path = "images/phone/kiwii/app-assets/"
 
-    $ kiwii.notification = False
-
     use kiwii_base:
 
         viewport:
@@ -304,6 +304,8 @@ screen kiwii_home(posts=kiwii_posts):
                 null height 20
 
                 for post in reversed(posts):
+                    $ post.seen = True
+
                     frame:
                         xalign 0.5
                         xsize 386
@@ -377,6 +379,8 @@ screen kiwiiPost(post):
     zorder 200
 
     default image_path = "/images/phone/kiwii/app-assets/"
+
+    $ post.seen = True
 
     use kiwii_base:
         imagebutton:
