@@ -119,6 +119,12 @@ screen base_phone(background="images/phone/phone_screen.webp"):
 screen base_phone_rotated():
     modal True
 
+    if len(renpy.game.context().return_stack) >= 1:
+        python:
+            previous_call_location = renpy.game.context().return_stack[-1][0]
+            if len(previous_call_location.split("/")) == 3:
+                scene_number = re.findall(r"\d+", previous_call_location.split("/")[2])[0]
+
     add "darker_80"
 
     # Click background to close phone
