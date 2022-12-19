@@ -24,7 +24,7 @@ default phone = Phone()
 screen phone_icon():
     zorder 100
     
-    if not renpy.get_screen("choice") and not renpy.get_screen("censored_popup"):
+    if not renpy.get_screen("choice") and not renpy.get_screen("censored_popup") and not renpy.get_screen("phone_tag"):
         imagebutton:
             idle phone.image
             
