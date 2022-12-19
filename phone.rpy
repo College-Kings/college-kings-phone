@@ -48,7 +48,7 @@ screen base_phone(background="images/phone/phone_screen.webp"):
         python:
             previous_call_location = renpy.game.context().return_stack[-1][0]
             if len(previous_call_location.split("/")) == 3:
-                scene_number = re.findall(r"\d+", previous_call_location.split("/")[2])[0]
+                scene_number = previous_call_location.split("/")[2].replace("scene", "").replace(".rpy", "").strip()
 
     add "darker_80"
 
@@ -59,7 +59,8 @@ screen base_phone(background="images/phone/phone_screen.webp"):
             and not renpy.has_label("{}s{}".format(previous_call_location.split("/")[1], scene_number))
             and not renpy.has_label("{}_s{}".format(previous_call_location.split("/")[1], scene_number))
             and not renpy.has_label("{}s0{}".format(previous_call_location.split("/")[1], scene_number))
-            and not renpy.has_label("{}_s0{}".format(previous_call_location.split("/")[1], scene_number))):
+            and not renpy.has_label("{}_s0{}".format(previous_call_location.split("/")[1], scene_number))
+            and not renpy.has_label("v3_1s{}".format(scene_number))):
             action Jump("v1_start")
 
         elif renpy.get_screen("free_roam"):
@@ -74,7 +75,8 @@ screen base_phone(background="images/phone/phone_screen.webp"):
             and not renpy.has_label("{}s{}".format(previous_call_location.split("/")[1], scene_number))
             and not renpy.has_label("{}_s{}".format(previous_call_location.split("/")[1], scene_number))
             and not renpy.has_label("{}s0{}".format(previous_call_location.split("/")[1], scene_number))
-            and not renpy.has_label("{}_s0{}".format(previous_call_location.split("/")[1], scene_number))):
+            and not renpy.has_label("{}_s0{}".format(previous_call_location.split("/")[1], scene_number))
+            and not renpy.has_label("v3_1s{}".format(scene_number))):
             action Jump("v1_start")
 
         elif renpy.get_screen("free_roam"):
@@ -107,7 +109,8 @@ screen base_phone(background="images/phone/phone_screen.webp"):
             and not renpy.has_label("{}s{}".format(previous_call_location.split("/")[1], scene_number))
             and not renpy.has_label("{}_s{}".format(previous_call_location.split("/")[1], scene_number))
             and not renpy.has_label("{}s0{}".format(previous_call_location.split("/")[1], scene_number))
-            and not renpy.has_label("{}_s0{}".format(previous_call_location.split("/")[1], scene_number))):
+            and not renpy.has_label("{}_s0{}".format(previous_call_location.split("/")[1], scene_number))
+            and not renpy.has_label("v3_1s{}".format(scene_number))):
             action Jump("v1_start")
 
         elif renpy.get_screen("free_roam"):
@@ -123,7 +126,7 @@ screen base_phone_rotated():
         python:
             previous_call_location = renpy.game.context().return_stack[-1][0]
             if len(previous_call_location.split("/")) == 3:
-                scene_number = re.findall(r"\d+", previous_call_location.split("/")[2])[0]
+                scene_number = previous_call_location.split("/")[2].replace("scene", "").replace(".rpy", "").strip()
 
     add "darker_80"
 
@@ -168,7 +171,8 @@ screen base_phone_rotated():
             and not renpy.has_label("{}s{}".format(previous_call_location.split("/")[1], scene_number))
             and not renpy.has_label("{}_s{}".format(previous_call_location.split("/")[1], scene_number))
             and not renpy.has_label("{}s0{}".format(previous_call_location.split("/")[1], scene_number))
-            and not renpy.has_label("{}_s0{}".format(previous_call_location.split("/")[1], scene_number))):
+            and not renpy.has_label("{}_s0{}".format(previous_call_location.split("/")[1], scene_number))
+            and not renpy.has_label("v3_1s{}".format(scene_number))):
             action Jump("v1_start")
 
         elif renpy.get_screen("free_roam"):
