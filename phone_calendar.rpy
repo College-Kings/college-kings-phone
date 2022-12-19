@@ -51,8 +51,14 @@ init python:
             # noinspection PyUnresolvedReferences
             store.calendar_now += datetime.timedelta(days=number_of_days)
 
+        # DEPRICATED
         @staticmethod
         def set_time(year: int, month: int, day: int):
+            # noinspection PyUnresolvedReferences
+            store.calendar_now = datetime.datetime(year, month, day)
+
+        @staticmethod
+        def set_date(year: int, month: int, day: int):
             # noinspection PyUnresolvedReferences
             store.calendar_now = datetime.datetime(year, month, day)
 
