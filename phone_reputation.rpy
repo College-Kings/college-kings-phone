@@ -1,7 +1,7 @@
-screen kct_home():
+screen reputation_home():
     tag phone_tag
 
-    default image_path = "images/phone/tracker/kct/"
+    default image_path = "images/phone/reputation/app-assets/"
 
     default kct_info = [
         {
@@ -104,7 +104,7 @@ screen kct_points():
     default troublemaker = reputation.components[Reputations.TROUBLEMAKER]
 
     frame:
-        background "images/phone/tracker/kct/kct-diagram.webp"
+        background "images/phone/reputation/app-assets/kct-diagram.webp"
         xysize (506, 424)
         xpos 120
         yalign 0.5

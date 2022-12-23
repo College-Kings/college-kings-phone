@@ -19,49 +19,9 @@ init python:
 
 screen tracker_home():
     tag phone_tag
-
-    default image_path = "images/phone/tracker/app-assets/"
-    
-    use base_phone:
-        frame:
-            background Transform("images/phone/tracker/tracker/tracker-background.webp", size=(433, 918))
-
-            vbox:
-                ypos 145
-                xpos 10
-                spacing 10
-                                
-                imagebutton:
-                    idle image_path + "kct-label.webp"
-                    hover Transform(image_path + "kct-label.webp", matrixcolor=BrightnessMatrix(0.05))
-                    action Show("kct_home")
-                
-                imagebutton:
-                    idle image_path + "tracker-label.webp"
-                    hover Transform(image_path + "tracker-label.webp", matrixcolor=BrightnessMatrix(0.1))
-                    action Show("tracker_girls")
-
-style tracker_name is text:
-    color "#fff"
-    font "fonts/Montserrat-ExtraBold.ttf"
-    size 18
-
-style tracker_text is text:
-    color "#fff"
-    font "fonts/Montserrat-SemiBold.ttf"
-    size 15
-
-style tracker_locked_name is text:
-    color "#777"
-    font "fonts/Montserrat-ExtraBold.ttf"
-    size 18
-
-
-screen tracker_girls():
-    tag phone_tag
     modal True
 
-    default image_path = "images/phone/tracker/tracker/"
+    default image_path = "images/phone/tracker/app-assets/"
 
     python:
         TrackerData.data = []
@@ -209,7 +169,7 @@ screen tracker_choices(character):
     tag phone_tag
     modal True
 
-    use base_phone("images/phone/tracker/tracker/tracker-info-background.webp"):
+    use base_phone("images/phone/tracker/app-assets/tracker-info-background.webp"):
         frame:
             ysize 95
             ypos 63
@@ -243,3 +203,18 @@ screen tracker_choices(character):
 
                             text data.true_text style "message_text"
                 
+
+style tracker_name is text:
+    color "#fff"
+    font "fonts/Montserrat-ExtraBold.ttf"
+    size 18
+
+style tracker_text is text:
+    color "#fff"
+    font "fonts/Montserrat-SemiBold.ttf"
+    size 15
+
+style tracker_locked_name is text:
+    color "#777"
+    font "fonts/Montserrat-ExtraBold.ttf"
+    size 18

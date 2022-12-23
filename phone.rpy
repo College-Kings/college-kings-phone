@@ -3,7 +3,7 @@ init python:
         def __init__(self):
             self.base_image = "images/phone/phone-icon.webp"
 
-            self.applications: list[Application] = []
+            self.applications: list[Application] = [messenger, achievement_app, relationship_app, kiwii, reputation_app, tracker, calendar]
 
         @property
         def notification(self):
