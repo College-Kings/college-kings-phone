@@ -176,7 +176,7 @@ screen tracker_choices(character):
 
             imagebutton:
                 idle "back_button"
-                action Show("tracker_girls")
+                action Show("tracker_home")
                 xpos 25
                 yalign 0.5
 
