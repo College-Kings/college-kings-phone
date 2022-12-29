@@ -56,7 +56,16 @@ init python:
 
         @property
         def notification(self):
-            return any(post.replies or not post.seen for post in kiwii_posts)
+            for post in kiwii_posts:
+                if post.replies:
+                    return True
+                try:
+                    if not post.seen:
+                        return True
+                except AttributeError:
+                    post.seen = True
+
+            return False
 
         @notification.setter
         def notification(self, value: Any):
