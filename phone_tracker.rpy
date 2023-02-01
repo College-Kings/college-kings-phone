@@ -147,7 +147,7 @@ screen tracker_home():
 
             imagebutton:
                 idle "back_button"
-                action Show("tracker_home")
+                action Show("phone")
                 xpos 20
                 yalign 0.75
 
