@@ -128,7 +128,7 @@ screen tracker_home():
         TrackerData(penelope, v1s39_id_wait, _("• I told Penelope that you'd wait to say something in private."))
         TrackerData(penelope, v1_PenRomScene, _("• I acted out a romantic scene with Penelope."))
         TrackerData(penelope, v1_pen_argument_scene, _("• I acted out an argument scene with Penelope."))
-        TrackerData(penelope, v2s18a_showlist_penelope_autumn, _("• I showed Aubrey Imre's party checklist."))
+        TrackerData(penelope, v2s18a_showlist_penelope_autumn, _("• I showed Penelope Imre's party checklist."))
         TrackerData(penelope, "v2_penelope" in viewed_scenes, _("• I went down on Penelope at Lauren's party."))
         TrackerData(penelope, v1_penelope_date, _("• Penelope and I went on a dinner date."))
         TrackerData(penelope, "v3_penelope" in viewed_scenes, _("• Penelop and I had sex while dog sitting."))
