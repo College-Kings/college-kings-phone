@@ -129,8 +129,6 @@ screen phone():
     tag phone_tag
     modal True
 
-    $ write_console(vars(renpy.game.context()))
-
     use base_phone:
         vpgrid:
             cols 3
