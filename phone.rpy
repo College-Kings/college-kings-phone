@@ -43,14 +43,14 @@ screen base_phone(background="images/phone/phone_screen.webp"):
         if "screen" in renpy.game.context().modes: 
             action actions.append(Return())
         else:
-            action action.append(Hide("phone_tag"))
+            action actions.append(Hide("phone_tag"))
 
     textbutton _("Exit Phone"):
         style "phonebutton"
         if "screen" in renpy.game.context().modes: 
             action actions.append(Return())
         else:
-            action action.append(Hide("phone_tag"))
+            action actions.append(Hide("phone_tag"))
 
     frame:
         background background
@@ -75,7 +75,7 @@ screen base_phone(background="images/phone/phone_screen.webp"):
         if "screen" in renpy.game.context().modes: 
             action actions.append(Return())
         else:
-            action action.append(Hide("phone_tag"))
+            action actions.append(Hide("phone_tag"))
 
 
 
@@ -90,14 +90,14 @@ screen base_phone_rotated():
         if "screen" in renpy.game.context().modes: 
             action actions.append(Return())
         else:
-            action action.append(Hide("phone_tag"))
+            action actions.append(Hide("phone_tag"))
 
     textbutton _("Exit Phone"):
         style "phonebutton"
         if "screen" in renpy.game.context().modes: 
             action actions.append(Return())
         else:
-            action action.append(Hide("phone_tag"))
+            action actions.append(Hide("phone_tag"))
 
     frame:
         align (0.5, 0.5)
@@ -124,7 +124,7 @@ screen base_phone_rotated():
         if "screen" in renpy.game.context().modes: 
             action actions.append(Return())
         else:
-            action action.append(Hide("phone_tag"))
+            action actions.append(Hide("phone_tag"))
 
 
 screen phone():
