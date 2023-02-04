@@ -120,14 +120,15 @@ screen phone():
             allow_underfull True
             
             for app in phone.applications:
-                vbox:
-                    spacing 2
-                    
-                    imagebutton:
-                        idle app.image
-                        action [Function(renpy.retain_after_load), Show(app.home_screen)]
-                            
-                    text app.name style "application_name" xalign 0.5
+                if renpy.loadable(app.image):
+                    vbox:
+                        spacing 2
+                        
+                        imagebutton:
+                            idle app.image
+                            action [Function(renpy.retain_after_load), Show(app.home_screen)]
+                                
+                        text app.name style "application_name" xalign 0.5
 
     if config_debug:
         for app in phone.applications:
