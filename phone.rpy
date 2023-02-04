@@ -27,18 +27,9 @@ screen phone_icon():
     if not renpy.get_screen("choice") and not renpy.get_screen("censored_popup") and not renpy.get_screen("phone_tag"):
         imagebutton:
             idle phone.image
-            
-            if renpy.get_screen("free_roam"):
-                action Show("phone")
-            else:
-                action Call("call_screen_phone")
-
+            action Show("phone")
             xalign 1.0
             offset (25, -25)
-
-label call_screen_phone:
-    call screen phone
-    return
 
 
 screen base_phone(background="images/phone/phone_screen.webp"):
@@ -48,18 +39,11 @@ screen base_phone(background="images/phone/phone_screen.webp"):
 
     # Click background to close phone
     button:
-        if renpy.get_screen("free_roam"):
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
-        else:
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag"), Return()]
+        action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
 
     textbutton _("Exit Phone"):
         style "phonebutton"
-
-        if renpy.get_screen("free_roam"):
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
-        else:
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag"), Return()]
+        action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
 
     frame:
         background background
@@ -81,10 +65,8 @@ screen base_phone(background="images/phone/phone_screen.webp"):
                     align (0.5, 0.5)
 
     key [ "K_ESCAPE", "K_MENU", "K_PAUSE", "mouseup_3" ]:
-        if renpy.get_screen("free_roam"):
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
-        else:
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag"), Return()]
+        action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
+
 
 
 screen base_phone_rotated():
@@ -94,17 +76,11 @@ screen base_phone_rotated():
 
     # Click background to close phone
     button:
-        if renpy.get_screen("free_roam"):
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
-        else:
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag"), Return()]
+        action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
 
     textbutton _("Exit Phone"):
         style "phonebutton"
-        if renpy.get_screen("free_roam"):
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
-        else:
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag"), Return()]
+        action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
 
     frame:
         align (0.5, 0.5)
@@ -128,10 +104,7 @@ screen base_phone_rotated():
                 align (0.5, 0.5)
 
     key [ "K_ESCAPE", "K_MENU", "K_PAUSE", "mouseup_3" ]:
-        if renpy.get_screen("free_roam"):
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
-        else:
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag"), Return()]
+        action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
 
 
 screen phone():
@@ -163,7 +136,4 @@ screen phone():
 
         if not any(app.notification for app in phone.applications):
             timer 0.1:
-                if renpy.get_screen("free_roam"):
-                    action [Hide("tutorial"), Hide("phone"), Hide("message_reply")]
-                else:
-                    action [Hide("tutorial"), Hide("message_reply"), Return()]
+                action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
