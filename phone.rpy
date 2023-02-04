@@ -34,23 +34,22 @@ screen phone_icon():
 
 screen base_phone(background="images/phone/phone_screen.webp"):
     modal True
-    $ actions = [Hide("tutorial"), Hide("message_reply")]
 
     add "darker_80"
 
     # Click background to close phone
     button:
         if "screen" in renpy.game.context().modes: 
-            action actions.append(Return())
+            action [Hide("tutorial"), Hide("message_reply"), Return()]
         else:
-            action actions.append(Hide("phone_tag"))
+            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
 
     textbutton _("Exit Phone"):
         style "phonebutton"
         if "screen" in renpy.game.context().modes: 
-            action actions.append(Return())
+            action [Hide("tutorial"), Hide("message_reply"), Return()]
         else:
-            action actions.append(Hide("phone_tag"))
+            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
 
     frame:
         background background
@@ -73,31 +72,30 @@ screen base_phone(background="images/phone/phone_screen.webp"):
 
     key [ "K_ESCAPE", "K_MENU", "K_PAUSE", "mouseup_3" ]:
         if "screen" in renpy.game.context().modes: 
-            action actions.append(Return())
+            action [Hide("tutorial"), Hide("message_reply"), Return()]
         else:
-            action actions.append(Hide("phone_tag"))
+            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
 
 
 
 screen base_phone_rotated():
     modal True
-    $ actions = [Hide("tutorial"), Hide("message_reply")]
 
     add "darker_80"
 
     # Click background to close phone
     button:
         if "screen" in renpy.game.context().modes: 
-            action actions.append(Return())
+            action [Hide("tutorial"), Hide("message_reply"), Return()]
         else:
-            action actions.append(Hide("phone_tag"))
+            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
 
     textbutton _("Exit Phone"):
         style "phonebutton"
         if "screen" in renpy.game.context().modes: 
-            action actions.append(Return())
+            action [Hide("tutorial"), Hide("message_reply"), Return()]
         else:
-            action actions.append(Hide("phone_tag"))
+            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
 
     frame:
         align (0.5, 0.5)
@@ -122,9 +120,9 @@ screen base_phone_rotated():
 
     key [ "K_ESCAPE", "K_MENU", "K_PAUSE", "mouseup_3" ]:
         if "screen" in renpy.game.context().modes: 
-            action actions.append(Return())
+            action [Hide("tutorial"), Hide("message_reply"), Return()]
         else:
-            action actions.append(Hide("phone_tag"))
+            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
 
 
 screen phone():
