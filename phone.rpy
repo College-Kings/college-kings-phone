@@ -39,14 +39,14 @@ screen base_phone(background="images/phone/phone_screen.webp"):
 
     # Click background to close phone
     button:
-        if "screen" in renpy.game.context().modes: 
+        if renpy.context()._current_interact_type == "screen":
             action [Hide("tutorial"), Hide("message_reply"), Return()]
         else:
             action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
 
     textbutton _("Exit Phone"):
         style "phonebutton"
-        if "screen" in renpy.game.context().modes: 
+        if renpy.context()._current_interact_type == "screen":
             action [Hide("tutorial"), Hide("message_reply"), Return()]
         else:
             action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
@@ -71,7 +71,7 @@ screen base_phone(background="images/phone/phone_screen.webp"):
                     align (0.5, 0.5)
 
     key [ "K_ESCAPE", "K_MENU", "K_PAUSE", "mouseup_3" ]:
-        if "screen" in renpy.game.context().modes: 
+        if renpy.context()._current_interact_type == "screen":
             action [Hide("tutorial"), Hide("message_reply"), Return()]
         else:
             action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
@@ -85,14 +85,14 @@ screen base_phone_rotated():
 
     # Click background to close phone
     button:
-        if "screen" in renpy.game.context().modes: 
+        if renpy.context()._current_interact_type == "screen":
             action [Hide("tutorial"), Hide("message_reply"), Return()]
         else:
             action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
 
     textbutton _("Exit Phone"):
         style "phonebutton"
-        if "screen" in renpy.game.context().modes: 
+        if renpy.context()._current_interact_type == "screen":
             action [Hide("tutorial"), Hide("message_reply"), Return()]
         else:
             action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
@@ -119,7 +119,7 @@ screen base_phone_rotated():
                 align (0.5, 0.5)
 
     key [ "K_ESCAPE", "K_MENU", "K_PAUSE", "mouseup_3" ]:
-        if "screen" in renpy.game.context().modes: 
+        if renpy.context()._current_interact_type == "screen":
             action [Hide("tutorial"), Hide("message_reply"), Return()]
         else:
             action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
