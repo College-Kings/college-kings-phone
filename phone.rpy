@@ -17,17 +17,29 @@ init python:
             file_name, extension = os.path.splitext(self.base_image)
             return file_name + "-notification" + extension
 
+        @staticmethod
+        def get_exit_actions():
+            actions = [Hide("tutorial"), Hide("message_reply"), SetVariable("phone_from_phone_icon", False)]
+            if phone_from_phone_icon:
+                actions.append(Hide("phone_tag"))
+            elif renpy.context()._current_interact_type == "screen":
+                actions.append(Return())
+            else:
+                actions.append(Hide("phone_tag"))
+            return actions
+
 
 default phone = Phone()
+default phone_from_phone_icon = False
 
 
 screen phone_icon():
-    zorder 100
+    zorder 99
     
     if not renpy.get_screen("choice") and not renpy.get_screen("censored_popup") and not renpy.get_screen("phone_tag"):
         imagebutton:
             idle phone.image
-            action Show("phone")
+            action [SetVariable("phone_from_phone_icon", True), Show("phone")]
             xalign 1.0
             offset (25, -25)
 
@@ -39,17 +51,11 @@ screen base_phone(background="images/phone/phone_screen.webp"):
 
     # Click background to close phone
     button:
-        if renpy.context()._current_interact_type == "screen":
-            action [Hide("tutorial"), Hide("message_reply"), Return()]
-        else:
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
+        action Phone.get_exit_actions()
 
     textbutton _("Exit Phone"):
         style "phonebutton"
-        if renpy.context()._current_interact_type == "screen":
-            action [Hide("tutorial"), Hide("message_reply"), Return()]
-        else:
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
+        action Phone.get_exit_actions()
 
     frame:
         background background
@@ -71,11 +77,7 @@ screen base_phone(background="images/phone/phone_screen.webp"):
                     align (0.5, 0.5)
 
     key [ "K_ESCAPE", "K_MENU", "K_PAUSE", "mouseup_3" ]:
-        if renpy.context()._current_interact_type == "screen":
-            action [Hide("tutorial"), Hide("message_reply"), Return()]
-        else:
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
-
+        action Phone.get_exit_actions()
 
 
 screen base_phone_rotated():
@@ -85,17 +87,11 @@ screen base_phone_rotated():
 
     # Click background to close phone
     button:
-        if renpy.context()._current_interact_type == "screen":
-            action [Hide("tutorial"), Hide("message_reply"), Return()]
-        else:
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
+        action Phone.get_exit_actions()
 
     textbutton _("Exit Phone"):
         style "phonebutton"
-        if renpy.context()._current_interact_type == "screen":
-            action [Hide("tutorial"), Hide("message_reply"), Return()]
-        else:
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
+        action Phone.get_exit_actions()
 
     frame:
         align (0.5, 0.5)
@@ -119,10 +115,7 @@ screen base_phone_rotated():
                 align (0.5, 0.5)
 
     key [ "K_ESCAPE", "K_MENU", "K_PAUSE", "mouseup_3" ]:
-        if renpy.context()._current_interact_type == "screen":
-            action [Hide("tutorial"), Hide("message_reply"), Return()]
-        else:
-            action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
+        action Phone.get_exit_actions()
 
 
 screen phone():
