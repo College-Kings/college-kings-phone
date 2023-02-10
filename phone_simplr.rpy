@@ -140,6 +140,8 @@ init python:
 
 screen simplr_home():
     tag phone_tag
+    modal True
+    
     python:
         try: simplr_contact = simplr_app.pending_contacts[0]
         except IndexError: simplr_contact = None

@@ -1,5 +1,6 @@
 screen relationships_home():
     tag phone_tag
+    modal True
 
     default image_path = "images/phone/relationships/app-assets/"
 

@@ -187,6 +187,7 @@ init python:
 
 screen messenger_home():
     tag phone_tag
+    modal True
 
     default image_path = "images/phone/messenger/app-assets/"
 

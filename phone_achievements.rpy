@@ -1,5 +1,6 @@
 screen achievements_home():
     tag phone_tag
+    modal True
 
     default image_path = "images/phone/achievements/app-assets/"
     

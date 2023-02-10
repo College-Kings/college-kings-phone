@@ -1,5 +1,6 @@
 screen reputation_home():
     tag phone_tag
+    modal True
 
     default image_path = "images/phone/reputation/app-assets/"
 
