@@ -56,28 +56,28 @@ screen relationships_home():
 
                                 text character.name
 
-                                if character.relationship == Relationship.EX:
+                                if NPC.is_ex(character, mc):
                                     text _("Broken Up"):
                                         size 20
                                         color "#FFD166"
                                 
-                                elif character.relationship == Relationship.KISS:
+                                elif NPC.get_relationship(character, mc) == Relationship.KISS:
                                     text _("Kissed"):
                                         size 20
                                         color "#FFD166"
 
-                                elif character.relationship == Relationship.FWB:
+                                elif NPC.is_fwb(character, mc):
                                     text _("Friends with Benefits"):
                                         size 20
                                         color "#FFD166"
 
-                                elif NPC.is_girlfriend(character, mc) or character.relationship == Relationship.TAMED:
+                                elif NPC.is_girlfriend(character, mc) or NPC.get_relationship(character, mc) == Relationship.TAMED:
                                     text _("Dating"):
                                         size 20
                                         color "#FFD166"
 
                                 else:
-                                    text character.relationship.name.capitalize():
+                                    text NPC.get_relationship(character, mc).name.capitalize():
 
                                         size 20
                                         color "#FFD166"
