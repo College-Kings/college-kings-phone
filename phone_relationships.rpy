@@ -71,7 +71,7 @@ screen relationships_home():
                                         size 20
                                         color "#FFD166"
 
-                                elif character.relationship == Relationship.GIRLFRIEND or character.relationship == Relationship.TAMED:
+                                elif NPC.is_girlfriend(character, mc) or character.relationship == Relationship.TAMED:
                                     text _("Dating"):
                                         size 20
                                         color "#FFD166"
