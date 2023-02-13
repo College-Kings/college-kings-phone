@@ -54,7 +54,7 @@ screen tracker_home():
         TrackerData(autumn, v2_autumn_smoke, _("• I smoked weed with Autumn."))
         TrackerData(autumn, v2s18a_showlist_penelope_autumn, _("• I showed Autumn Imre's party checklist."))
         TrackerData(autumn, "v2_autumn" in viewed_scenes, _("• Autumn and I kissed at Lauren's party."))
-        TrackerData(autumn, AutumnTrust, _("• Autumn trusts me."))
+        TrackerData(autumn, (autumn.relationship == Relationship.TRUST), _("• Autumn trusts me."))
         TrackerData(autumn, v2s36_not_good_idea, _("• I didn't take up Autumn on having sex."))
         TrackerData(autumn, v2s36_autumn_kiss, _("• I kissed Autumn."))
 
@@ -117,7 +117,7 @@ screen tracker_home():
 
         TrackerData(riley, "v14_threesome" in viewed_scenes, _("• I had a threesome with Riley and Aubrey."))
         TrackerData(riley, "v2_riley" in viewed_scenes, _("• Riley gave me a handjob at Lauren's party."))
-        TrackerData(riley, RileyLoyal, _("• I agreed with Riley - Polygamy is the way."))
+        TrackerData(riley, (riley.relationship == Relationship.LOYAL), _("• I agreed with Riley - Polygamy is the way."))
         TrackerData(riley, "v3_riley" in viewed_scenes, _("• Riley gave me a blowjob after my fight with Tom."))
         TrackerData(riley, v3s11_sign_up, _("• I signed up for the Newspaper sqaud with Riley."))
 
