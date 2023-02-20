@@ -286,6 +286,7 @@ screen kiwii_preferences():
 
 screen kiwii_home(posts=kiwii_posts):
     tag phone_tag
+    modal True
 
     default image_path = "images/phone/kiwii/app-assets/"
 
