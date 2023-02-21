@@ -10,7 +10,7 @@ init python:
             false_text: str = "",
         ):
             self.character = character
-            self.condition = condition
+            self.condition = True
             self.true_text = true_text
             self.false_text = false_text
 
@@ -193,7 +193,6 @@ screen tracker_choices(character):
 
             vbox:
                 xalign 0.5
-                spacing -25
 
                 for data in TrackerData.data:
                     if data.character == character and data.condition:
