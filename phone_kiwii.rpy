@@ -378,6 +378,7 @@ screen kiwii_home(posts=kiwii_posts):
 screen kiwiiPost(post):
     tag phone_tag
     zorder 200
+    modal True
 
     default image_path = "/images/phone/kiwii/app-assets/"
 
