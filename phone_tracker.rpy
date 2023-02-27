@@ -10,7 +10,7 @@ init python:
             false_text: str = "",
         ):
             self.character = character
-            self.condition = True
+            self.condition = condition
             self.true_text = true_text
             self.false_text = false_text
 
