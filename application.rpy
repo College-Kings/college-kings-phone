@@ -6,6 +6,9 @@ init python:
 
             self.contacts: list[Contact] = []
 
+        def __repr__(self):
+            return f"{type(self).__name__}({self.name})"
+
         @property
         def image(self):
             if self.notification:
