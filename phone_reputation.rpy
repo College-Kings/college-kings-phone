@@ -100,9 +100,9 @@ screen reputation_home():
 screen kct_points():
     style_prefix "kct_points"
 
-    default bro = reputation.components[Reputations.BRO]
-    default boyfriend = reputation.components[Reputations.BOYFRIEND]
-    default troublemaker = reputation.components[Reputations.TROUBLEMAKER]
+    default bro = reputation.components[RepComponent.BRO]
+    default boyfriend = reputation.components[RepComponent.BOYFRIEND]
+    default troublemaker = reputation.components[RepComponent.TROUBLEMAKER]
 
     frame:
         background "images/phone/reputation/app-assets/kct-diagram.webp"
