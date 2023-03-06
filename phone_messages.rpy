@@ -265,36 +265,37 @@ screen messager(contact=None):
                     null height 25
 
                     for message in contact.sent_messages:
-                        frame:
-                            if isinstance(message, Message) and message.message.strip():
-                                padding (40, 30)
-                                background "message_background"
+                        if (hasattr(message, "message") and message.message.strip()) or (hasattr(message, "image") and message.image.strip()):
+                            frame:
+                                if isinstance(message, Message):
+                                    padding (40, 30)
+                                    background "message_background"
 
-                                text message.message  style "message_text"
+                                    text message.message  style "message_text"
 
-                            elif isinstance(message, ImageMessage):
-                                padding (25, 25)
-                                background "message_background"
+                                elif isinstance(message, ImageMessage):
+                                    padding (25, 25)
+                                    background "message_background"
 
-                                imagebutton:
-                                    idle Transform(message.image, zoom=0.15)
-                                    action Show("phone_image", img=message.image)
+                                    imagebutton:
+                                        idle Transform(message.image, zoom=0.15)
+                                        action Show("phone_image", img=message.image)
 
-                            elif isinstance(message, Reply):
-                                padding (40, 30)
-                                background "reply_background"
-                                xalign 1.0
+                                elif isinstance(message, Reply):
+                                    padding (40, 30)
+                                    background "reply_background"
+                                    xalign 1.0
 
-                                text message.message  style "reply_text"
+                                    text message.message  style "reply_text"
 
-                            elif isinstance(message, ImgReply):
-                                padding (25, 25)
-                                background "reply_background"
-                                xalign 1.0
+                                elif isinstance(message, ImgReply):
+                                    padding (25, 25)
+                                    background "reply_background"
+                                    xalign 1.0
 
-                                imagebutton:
-                                    idle Transform(message.image, zoom=0.15)
-                                    action Show("phone_image", img=message.image)
+                                    imagebutton:
+                                        idle Transform(message.image, zoom=0.15)
+                                        action Show("phone_image", img=message.image)
 
                     null height 75
 
