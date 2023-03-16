@@ -4,17 +4,15 @@ init python:
             self.name = name
             self.home_screen = f"{self.name.lower()}_home"
 
-            self.contacts: list[Contact] = []
-
         def __repr__(self):
             return f"{type(self).__name__}({self.name})"
 
         @property
         def image(self):
             if self.notification:
-                return f"images/phone/{self.name.lower()}/app-assets/icon-notification.webp"
+                return f"{self.name.lower()}_icon_notification"
             else:
-                return f"images/phone/{self.name.lower()}/app-assets/icon.webp"
+                return f"{self.name.lower()}_icon"
 
         @property
         def notification(self):
@@ -29,6 +27,8 @@ init python:
         def __init__(self):
             super().__init__("Messenger")
 
+            self.contacts: list[Contact] = []
+
         @property
         def notification(self):
             return any(contact.notification for contact in self.contacts)
@@ -42,6 +42,7 @@ init python:
         def __init__(self):
             super().__init__("Simplr")
 
+            self.contacts: list[Contact] = []
             self.pending_contacts = []
 
         @property
@@ -56,6 +57,8 @@ init python:
     class Kiwii(Application):
         def __init__(self):
             super().__init__("Kiwii")
+
+            self.posts: list[KiwiiPost] = []
 
         @property
         def notification(self):
