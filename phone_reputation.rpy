@@ -40,7 +40,7 @@ screen reputation_home():
             for count, rep in enumerate(reputation.sorted_reputations, start=1):
                 frame:
                     if count == 1:
-                        background "reputaiton_{}".format(rep.name.lower())
+                        background "reputation_{}".format(rep.name.lower())
                     else:
                         background "reputation_disabled"
                     xysize (320, 79)
@@ -104,7 +104,7 @@ screen kct_points():
     default troublemaker = reputation.components[RepComponent.TROUBLEMAKER]
 
     frame:
-        background "reputaiton_diagram"
+        background "reputation_diagram"
         xysize (506, 424)
         xpos 120
         yalign 0.5
