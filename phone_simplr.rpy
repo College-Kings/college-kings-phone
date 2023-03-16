@@ -147,17 +147,14 @@ screen simplr_home():
         except IndexError: simplr_contact = None
 
     use base_phone:
-
-        default image_path = "images/phone/simplr/app-assets/"
-
         frame:
-            background image_path + "background.webp"
+            background "simplr_background"
             
             # Top UI
             imagebutton:
                 pos (340, 100)
-                idle image_path + "message-icon.webp"
-                hover image_path + "message-icon-hover.webp"
+                idle "simplr_message_icon_idle"
+                hover "simplr_message_icon_hover"
                 action Show("simplr_contacts")
 
             if simplr_contact is not None:
@@ -173,13 +170,13 @@ screen simplr_home():
                         spacing 10
 
                         imagebutton:
-                            idle image_path + "like-button-idle.webp"
-                            hover image_path + "like-button-hover.webp"
+                            idle "simplr_like_button_idle"
+                            hover "simplr_like_button_hover"
                             action Function(simplr_contact.likedContact)
 
                         imagebutton:
-                            idle image_path + "no-button-idle.webp"
-                            hover image_path + "no-button-hover.webp"
+                            idle "simplr_no_button_idle"
+                            hover "simplr_no_button_hover"
                             action Function(simplr_contact.removeContact)
 
             else:
@@ -192,11 +189,9 @@ screen simplr_home():
 screen simplr_contacts():
     tag phone_tag
 
-    default image_path = "images/phone/simplr/app-assets/"
-
     use base_phone:
         frame:
-            background image_path + "simplr_contacts_background.webp"
+            background "simplr_contacts_background"
             xysize (433, 918)
 
             viewport:
@@ -227,11 +222,9 @@ screen simplr_messenger(contact):
     tag phone_tag
     modal True
 
-    default image_path = "images/phone/simplr/app-assets/"
-
     use base_phone:
         frame:
-            background image_path + "conversation-background.webp"
+            background "simplr_conversation_background"
             xysize (433, 918)
 
             hbox:
@@ -298,7 +291,7 @@ screen simplr_messenger(contact):
 
                     imagebutton:
                         idle "phone_reply_button_idle"
-                        hover image_path + "reply-button-hover.webp"
-                        selected_idle image_path + "reply-button-hover.webp"
+                        hover "simplr_reply_button_hover"
+                        selected_idle "simplr_reply_button_hover"
                         action Show("message_reply", contact=contact)
                         align (0.5, 0.5)
