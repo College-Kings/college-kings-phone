@@ -84,8 +84,8 @@ image simplr_no_button_idle = "/phone/images/simplr/no_button_idle.webp"
 image simplr_reply_button_hover = "/phone/images/simplr/reply_button_hover.webp"
 
 # Tracker
-image tracker_locked = "/phone/images/tracker/background.webp"
+image tracker_background = "/phone/images/tracker/background.webp"
 image tracker_icon = "/phone/images/tracker/icon.webp"
-image tracker_locked = "/phone/images/tracker/info_background.webp"
+image tracker_info_background = "/phone/images/tracker/info_background.webp"
 image tracker_locked = Frame("/phone/images/tracker/locked.webp")
 image tracker_unlocked = Frame("/phone/images/tracker/unlocked.webp")

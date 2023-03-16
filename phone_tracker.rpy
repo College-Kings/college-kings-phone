@@ -21,8 +21,6 @@ screen tracker_home():
     tag phone_tag
     modal True
 
-    default image_path = "images/phone/tracker/app-assets/"
-
     python:
         TrackerData.data = []
 
@@ -140,7 +138,7 @@ screen tracker_home():
         TrackerData(samantha, "v1_samantha" in viewed_scenes, _("• I slept with Samantha."))
         TrackerData(samantha, v1_samantha_cum, _("• I came inside Samantha."))
 
-    use base_phone(image_path + "tracker-background.webp"):
+    use base_phone("tracker_background"):
         fixed:
             pos (12, 6)
             ysize 128
@@ -169,7 +167,7 @@ screen tracker_choices(character):
     tag phone_tag
     modal True
 
-    use base_phone("images/phone/tracker/app-assets/tracker-info-background.webp"):
+    use base_phone("tracker_info_background"):
         frame:
             ysize 95
             ypos 63
