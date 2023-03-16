@@ -1,11 +1,11 @@
 ## Common
-image contact_notification = "/phone/images/common/contact-notification.webp"
-image back_button = "/phone/images/common/back-button.webp"
-image message_background = Frame("/phone/images/common/message-background.webp")
-image reply_background = Frame("/phone/images/common/reply-background.webp")
-image reply_background_idle = Frame("/phone/images/common/reply-background-idle.webp")
-image reply_background_hover = Frame("/phone/images/common/reply-background-hover.webp")
-image reply_button_idle = "/phone/images/common/reply-button-idle.webp"
+image phone_contact_notification = "/phone/images/common/contact_notification.webp"
+image phone_back_button = "/phone/images/common/back_button.webp"
+image phone_message_background = Frame("/phone/images/common/message_background.webp")
+image phone_reply_background = Frame("/phone/images/common/reply_background.webp")
+image phone_reply_background_idle = Frame("/phone/images/common/reply_background_idle.webp")
+image phone_reply_background_hover = Frame("/phone/images/common/reply_background_hover.webp")
+image phone_reply_button_idle = "/phone/images/common/reply_button_idle.webp"
 
 # Phone Base
 image phone_home_button_hover = "/phone/images/home_button_hover.webp"

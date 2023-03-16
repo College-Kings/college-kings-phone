@@ -146,7 +146,7 @@ screen tracker_home():
             ysize 128
 
             imagebutton:
-                idle "back_button"
+                idle "phone_back_button"
                 action Show("phone")
                 xpos 20
                 yalign 0.75
@@ -175,7 +175,7 @@ screen tracker_choices(character):
             ypos 63
 
             imagebutton:
-                idle "back_button"
+                idle "phone_back_button"
                 action Show("tracker_home")
                 xpos 25
                 yalign 0.5
@@ -198,7 +198,7 @@ screen tracker_choices(character):
                     if data.character == character and data.condition:
                         frame:
                             padding (40, 30)
-                            background "message_background"
+                            background "phone_message_background"
 
                             text data.true_text style "message_text"
                 

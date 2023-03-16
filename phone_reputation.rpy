@@ -29,7 +29,7 @@ screen reputation_home():
             ysize 128
 
             imagebutton:
-                idle "back_button"
+                idle "phone_back_button"
                 action Show("phone")
                 xpos 20
                 yalign 0.75

@@ -13,7 +13,7 @@ screen message_reply(contact=None):
                 size_group "reply_buttons"
 
                 if isinstance(reply, Reply):
-                    background "reply_background_idle"
+                    background "phone_reply_background_idle"
                     text reply.message style "reply_text" align (0.5, 0.5)
 
                 elif isinstance(reply, ImgReply):
