@@ -2,8 +2,6 @@ screen reputation_home():
     tag phone_tag
     modal True
 
-    default image_path = "images/phone/reputation/app-assets/"
-
     default kct_info = [
         {
             "title": _("Popular"),
@@ -23,7 +21,8 @@ screen reputation_home():
     ]
     default kct_info_index = 0
 
-    use base_phone(image_path + "kct-background.webp"):
+    use base_phone("reputation_background"):
+
         fixed:
             pos (12, 6)
             ysize 128
@@ -41,9 +40,9 @@ screen reputation_home():
             for count, rep in enumerate(reputation.sorted_reputations, start=1):
                 frame:
                     if count == 1:
-                        background image_path + "kct-{}.webp".format(rep.name.lower())
+                        background "reputaiton_{}".format(rep.name.lower())
                     else:
-                        background image_path + "kct-disabled.webp"
+                        background "reputation_disabled"
                     xysize (320, 79)
 
                     text _("[count]. [rep.name]"):
@@ -60,7 +59,7 @@ screen reputation_home():
 
     # KCT Tutorial
     frame:
-        background image_path + "kct-box-background.webp"
+        background "reputation_box_background"
         xpos 1280
         yalign 0.5
         xysize (535, 330)
@@ -105,7 +104,7 @@ screen kct_points():
     default troublemaker = reputation.components[RepComponent.TROUBLEMAKER]
 
     frame:
-        background "images/phone/reputation/app-assets/kct-diagram.webp"
+        background "reputaiton_diagram"
         xysize (506, 424)
         xpos 120
         yalign 0.5
