@@ -2,11 +2,9 @@ screen relationships_home():
     tag phone_tag
     modal True
 
-    default image_path = "images/phone/relationships/app-assets/"
-
     use base_phone_rotated:
         frame:
-            background image_path + "background.webp"
+            background "relationships_background"
             
             vpgrid:
                 mousewheel True
