@@ -33,10 +33,11 @@ init python:
 
             self.func = func
 
-
-    class Message(BaseMessage):
-        def __init__(self, contact: Contact, message: str):
-            super().__init__(contact, message)
+    @dataclass
+    class Message:
+        # self.contact = contact
+        self.content: str
+        self.next_message = None
 
 
     class ImageMessage(BaseMessage):
