@@ -1,5 +1,5 @@
 init python:
-    class SimplrContact(Contact):
+    class SimplrContact:
         def __init__(self, name: str, user: Union[PlayableCharacter, NonPlayableCharacter]):
             super().__init__(name, user)
             self.condition = True
