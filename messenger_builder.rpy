@@ -40,16 +40,16 @@ init python:
             return f"PhoneMessage(from_={self.from_}, to={self.to})"
 
         def new_message(self, content: str, *replies: Reply):
-            self.current_message = Message(content, replies)
+            self.current_message = Message(self.from_, self.to, content, replies)
             self.message_queue.append(self.current_message)
 
             # Moves contact to the top when receiving a new message
             try:
                 messenger.contacts.insert(
-                    0, messenger.contacts.pop(messenger.contacts.index(self))
+                    0, messenger.contacts.pop(messenger.contacts.index(self.to))
                 )
             except ValueError:
-                messenger.contacts.insert(0, self)
+                messenger.contacts.insert(0, self.to)
 
             self.notification = True
 
@@ -70,7 +70,21 @@ init python:
             for function, args, kwargs in self.functions:
                 function(*args, **kwargs)
 
-            self.to.pending_text_messages.append(self.message_queue)
+            # Add message queue to the start of pending messages
+            self.to.pending_text_messages[:0] = self.message_queue
+
+            MessengerService.send_next_messages(self.to)
+
+
+    class MessengerService:
+        @staticmethod
+        def has_replies(contact: NonPlayableCharacter):
+            return contact.text_messages and hasattr(contact.text_messages[-1], "replies") and contact.text_messages[-1].replies
+
+        @staticmethod
+        def send_next_messages(contact: NonPlayableCharacter):
+            while contact.pending_text_messages and not MessengerService.has_replies(contact):
+                contact.pending_text_messages.pop(0).send()
 
 
 label message_test:
@@ -212,7 +226,7 @@ label message_test:
         ep2s1b_reply_3a_1.add_replies(Reply("I'm exhausted from the vote"))
         ep2s1b_reply_3a_1.add_replies(Reply("And the nora investigation took a lot of time, I had to frickin drive out into the middle of nowhere, it was expensive!!"))
         ep2s1b_reply_3a_1.new_message("Believe me, when you hear about the case ur going to want to be part of this")
-        ep2s1b_reply_3a_1.add_replies("Maybe you gotta sweeten the pot a little, whats in it for watson?")
+        ep2s1b_reply_3a_1.add_replies(Reply("Maybe you gotta sweeten the pot a little, whats in it for watson?"))
         ep2s1b_reply_3a_1.new_message("You palooka, i'll sweeten ur deal")
         ep2s1b_reply_3a_1.new_message("images/ep2/Scene 1b/ep2s1b_detective_amber.webp")
         ep2s1b_reply_3a_1.add_replies(Reply("Consider it sweetened"))
@@ -248,9 +262,9 @@ label message_test:
 
         amber_message.send()
 
-    while amber.pending_text_messages:
+    while MessengerService.has_replies(amber):
         call screen phone
-        if amber.pending_text_messages:
+        if MessengerService.has_replies(amber):
             u "(I should reply to Amber.)"
 
     if mc.frat == Frat.WOLVES:
