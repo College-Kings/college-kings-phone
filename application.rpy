@@ -27,11 +27,11 @@ init python:
         def __init__(self):
             super().__init__("Messenger")
 
-            self.contacts: list[Contact] = []
+            self.contacts: list[NonPlayableCharacter] = [amber]
 
         @property
         def notification(self):
-            return any(contact.notification for contact in self.contacts)
+            return any(contact.pending_text_messages for contact in self.contacts)
 
         @notification.setter
         def notification(self, value: Any):
