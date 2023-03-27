@@ -12,16 +12,10 @@ init python:
             return f"<{self.__class__.__name__}({self.content})>"
 
 
+    @dataclass
     class Reply(BaseMessage):
-        def __init__(
-            self,
-            message: str,
-            func: Optional[Callable[[], None]] = None,
-        ):
-            super().__init__(mc, message)
-
-            self.func = func
-
+        content: str
+        next_message: Optional[MessagerBuilder] = None
 
     class ImgReply(BaseMessage):
         def __init__(
@@ -36,8 +30,9 @@ init python:
     @dataclass
     class Message:
         # self.contact = contact
-        self.content: str
-        self.next_message = None
+        content: str
+        replies: list[Reply] = field(default_factory=list)
+
 
 
     class ImageMessage(BaseMessage):
