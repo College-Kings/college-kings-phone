@@ -147,17 +147,14 @@ screen simplr_home():
         except IndexError: simplr_contact = None
 
     use base_phone:
-
-        default image_path = "images/phone/simplr/app-assets/"
-
         frame:
-            background image_path + "background.webp"
+            background "simplr_background"
             
             # Top UI
             imagebutton:
                 pos (340, 100)
-                idle image_path + "message-icon.webp"
-                hover image_path + "message-icon-hover.webp"
+                idle "simplr_message_icon_idle"
+                hover "simplr_message_icon_hover"
                 action Show("simplr_contacts")
 
             if simplr_contact is not None:
@@ -173,13 +170,13 @@ screen simplr_home():
                         spacing 10
 
                         imagebutton:
-                            idle image_path + "like-button-idle.webp"
-                            hover image_path + "like-button-hover.webp"
+                            idle "simplr_like_button_idle"
+                            hover "simplr_like_button_hover"
                             action Function(simplr_contact.likedContact)
 
                         imagebutton:
-                            idle image_path + "no-button-idle.webp"
-                            hover image_path + "no-button-hover.webp"
+                            idle "simplr_no_button_idle"
+                            hover "simplr_no_button_hover"
                             action Function(simplr_contact.removeContact)
 
             else:
@@ -192,11 +189,9 @@ screen simplr_home():
 screen simplr_contacts():
     tag phone_tag
 
-    default image_path = "images/phone/simplr/app-assets/"
-
     use base_phone:
         frame:
-            background image_path + "simplr_contacts_background.webp"
+            background "simplr_contacts_background"
             xysize (433, 918)
 
             viewport:
@@ -220,18 +215,16 @@ screen simplr_contacts():
                             text contact.name style "nametext" xpos 100 yalign 0.5
 
                             if contact.notification:
-                                add "contact_notification" align (1.0, 0.5) xoffset -25
+                                add "phone_contact_notification" align (1.0, 0.5) xoffset -25
 
 
 screen simplr_messenger(contact):
     tag phone_tag
     modal True
 
-    default image_path = "images/phone/simplr/app-assets/"
-
     use base_phone:
         frame:
-            background image_path + "conversation-background.webp"
+            background "simplr_conversation_background"
             xysize (433, 918)
 
             hbox:
@@ -240,7 +233,7 @@ screen simplr_messenger(contact):
                 spacing 15
 
                 imagebutton:
-                    idle "back_button"
+                    idle "phone_back_button"
                     action [Hide("message_reply"), Show("simplr_home")]
                     yalign 0.5
 
@@ -264,12 +257,12 @@ screen simplr_messenger(contact):
                             padding (50, 50)
 
                             if isinstance(message, Message) and message.message.strip():
-                                background "message_background"
+                                background "phone_message_background"
 
                                 text message.message style "message_text"
 
                             elif isinstance(message, ImageMessage):
-                                background "message_background"
+                                background "phone_message_background"
 
                                 imagebutton:
                                     idle Transform(message.image, ysize=216)
@@ -277,14 +270,14 @@ screen simplr_messenger(contact):
 
                             elif isinstance(message, Reply):
                                 padding (50, 35)
-                                background "reply_background"
+                                background "phone_reply_background"
                                 xalign 1.0
 
                                 text message.message  style "reply_text"
 
                             elif isinstance(message, ImgReply):
                                 padding (25, 25)
-                                background "reply_background"
+                                background "phone_reply_background"
                                 xalign 1.0
 
                                 imagebutton:
@@ -297,8 +290,8 @@ screen simplr_messenger(contact):
                     ypos 780
 
                     imagebutton:
-                        idle "reply_button_idle"
-                        hover image_path + "reply-button-hover.webp"
-                        selected_idle image_path + "reply-button-hover.webp"
+                        idle "phone_reply_button_idle"
+                        hover "simplr_reply_button_hover"
+                        selected_idle "simplr_reply_button_hover"
                         action Show("message_reply", contact=contact)
                         align (0.5, 0.5)

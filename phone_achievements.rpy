@@ -1,12 +1,10 @@
 screen achievements_home():
     tag phone_tag
     modal True
-
-    default image_path = "images/phone/achievements/app-assets/"
     
     use base_phone:
         frame:
-            background image_path + "achievement-background.webp"
+            background "achievements_background"
 
             viewport:
                 ysize 710
@@ -25,7 +23,7 @@ screen achievements_home():
                             xalign 0.5
 
                             if achievement.has(ach.achievement):
-                                background "achievement_unlocked"
+                                background "achievements_unlocked"
 
                                 vbox:
                                     xsize 320
@@ -35,7 +33,7 @@ screen achievements_home():
                                     text ach.text style "achievement_text"
                                 
                             else:
-                                background "achievement_locked"
+                                background "achievements_locked"
 
                                 text ach.display_name.upper() style "achievement_locked_name" xsize 320 pos (50, -2)
 

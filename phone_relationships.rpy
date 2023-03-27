@@ -2,11 +2,9 @@ screen relationships_home():
     tag phone_tag
     modal True
 
-    default image_path = "images/phone/relationships/app-assets/"
-
     use base_phone_rotated:
         frame:
-            background image_path + "background.webp"
+            background "relationships_background"
             
             vpgrid:
                 mousewheel True
@@ -21,24 +19,16 @@ screen relationships_home():
                     amber,
                     aubrey,
                     autumn,
-                    cameron,
                     chloe,
-                    chris,
-                    elijah,
                     emily,
-                    emmy,
-                    imre,
                     jenny,
-                    josh,
                     lauren,
                     lindsey,
-                    mr_lee,
                     ms_rose,
                     naomi,
                     nora,
                     penelope,
                     riley,
-                    ryan,
                     samantha,
                 ):
                     frame:

@@ -189,11 +189,9 @@ screen messenger_home():
     tag phone_tag
     modal True
 
-    default image_path = "images/phone/messenger/app-assets/"
-
     use base_phone:
         frame:
-            background image_path + "home-background.webp"
+            background "messenger_home_background"
             xysize (433, 918)
 
             viewport:
@@ -217,7 +215,7 @@ screen messenger_home():
                             text contact.name style "nametext" xpos 100 yalign 0.5
 
                             if contact.notification:
-                                add "contact_notification" align (1.0, 0.5) xoffset -25
+                                add "phone_contact_notification" align (1.0, 0.5) xoffset -25
 
     if config_debug:
         for contact in messenger.contacts:
@@ -229,13 +227,11 @@ screen messager(contact=None):
     tag phone_tag
     modal True
 
-    default image_path = "images/phone/messenger/app-assets/"
-
     $ contact.notification = False
 
     use base_phone:
         frame:
-            background image_path + "conversation-background.webp"
+            background "messenger_conversation_background"
             xysize (433, 918)
 
             hbox:
@@ -244,7 +240,7 @@ screen messager(contact=None):
                 spacing 15
 
                 imagebutton:
-                    idle "back_button"
+                    idle "phone_back_button"
                     action [Hide("message_reply"), Show("messenger_home")]
                     yalign 0.5
 
@@ -265,36 +261,37 @@ screen messager(contact=None):
                     null height 25
 
                     for message in contact.sent_messages:
-                        frame:
-                            if isinstance(message, Message) and message.message.strip():
-                                padding (40, 30)
-                                background "message_background"
+                        if (hasattr(message, "message") and message.message.strip()) or (hasattr(message, "image") and message.image.strip()):
+                            frame:
+                                if isinstance(message, Message):
+                                    padding (40, 30)
+                                    background "phone_message_background"
 
-                                text message.message  style "message_text"
+                                    text message.message  style "message_text"
 
-                            elif isinstance(message, ImageMessage):
-                                padding (25, 25)
-                                background "message_background"
+                                elif isinstance(message, ImageMessage):
+                                    padding (25, 25)
+                                    background "phone_message_background"
 
-                                imagebutton:
-                                    idle Transform(message.image, zoom=0.15)
-                                    action Show("phone_image", img=message.image)
+                                    imagebutton:
+                                        idle Transform(message.image, zoom=0.15)
+                                        action Show("phone_image", img=message.image)
 
-                            elif isinstance(message, Reply):
-                                padding (40, 30)
-                                background "reply_background"
-                                xalign 1.0
+                                elif isinstance(message, Reply):
+                                    padding (40, 30)
+                                    background "phone_reply_background"
+                                    xalign 1.0
 
-                                text message.message  style "reply_text"
+                                    text message.message  style "reply_text"
 
-                            elif isinstance(message, ImgReply):
-                                padding (25, 25)
-                                background "reply_background"
-                                xalign 1.0
+                                elif isinstance(message, ImgReply):
+                                    padding (25, 25)
+                                    background "phone_reply_background"
+                                    xalign 1.0
 
-                                imagebutton:
-                                    idle Transform(message.image, zoom=0.15)
-                                    action Show("phone_image", img=message.image)
+                                    imagebutton:
+                                        idle Transform(message.image, zoom=0.15)
+                                        action Show("phone_image", img=message.image)
 
                     null height 75
 
@@ -304,9 +301,9 @@ screen messager(contact=None):
                     ypos 780
 
                     imagebutton:
-                        idle "reply_button_idle"
-                        hover image_path + "reply-button-hover.webp"
-                        selected_idle image_path + "reply-button-hover.webp"
+                        idle "phone_reply_button_idle"
+                        hover "messenger_reply_button_hover"
+                        selected_idle "messenger_reply_button_hover"
                         action [Show("message_reply", contact=contact), SetField(inf_adj, "value", float("inf"))]
                         align (0.5, 0.5)
 

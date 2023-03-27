@@ -1,7 +1,8 @@
 init python:
     class Phone:
-        def __init__(self):
-            self.base_image = "images/phone/phone-icon.webp"
+        def __init__(self, base_icon: str, notification_icon: str):
+            self.base_icon = base_icon
+            self.notification_icon = notification_icon
 
             self.applications: list[Application] = [messenger, achievement_app, relationship_app, kiwii, reputation_app, tracker, calendar]
 
@@ -11,40 +12,34 @@ init python:
 
         @property
         def image(self):
-            if not self.notification:
-                return self.base_image
-
-            file_name, extension = os.path.splitext(self.base_image)
-            return file_name + "-notification" + extension
+            if self.notification:
+                return self.base_icon
+            else:
+                return self.notification_icon
 
         @staticmethod
         def get_exit_actions():
             actions = [Hide("tutorial"), Hide("message_reply"), SetVariable("phone_from_phone_icon", False)]
-            if phone_from_phone_icon:
-                actions.append(Hide("phone_tag"))
-            elif renpy.context()._current_interact_type == "screen":
+            if not phone_from_phone_icon and renpy.context()._current_interact_type == "screen":
                 actions.append(Return())
             else:
                 actions.append(Hide("phone_tag"))
             return actions
 
 
-default phone = Phone()
+default phone = Phone("phone_icon", "phone_icon_notification")
 default phone_from_phone_icon = False
 
 
 screen phone_icon():
-    zorder 99
-    
-    if not renpy.get_screen("choice") and not renpy.get_screen("censored_popup") and not renpy.get_screen("phone_tag"):
-        imagebutton:
-            idle phone.image
-            action [SetVariable("phone_from_phone_icon", True), Show("phone")]
-            xalign 1.0
-            offset (25, -25)
+    imagebutton:
+        idle phone.image
+        action [SetVariable("phone_from_phone_icon", True), Show("phone")]
+        xalign 1.0
+        offset (25, -25)
 
 
-screen base_phone(background="images/phone/phone_screen.webp"):
+screen base_phone(background="phone_screen"):
     modal True
 
     add "darker_80"
@@ -71,8 +66,8 @@ screen base_phone(background="images/phone/phone_screen.webp"):
                 ypos 843
 
                 imagebutton:
-                    idle "images/phone/home_button_idle.webp"
-                    hover "images/phone/home_button_hover.webp"
+                    idle "phone_home_button_idle"
+                    hover "phone_home_button_hover"
                     action [Hide("message_reply"), Show("phone")]
                     align (0.5, 0.5)
 
@@ -105,12 +100,8 @@ screen base_phone_rotated():
             xpos 844
 
             imagebutton:
-                if renpy.get_screen("kiwiiPost") or renpy.get_screen("kiwiiApp") or renpy.get_screen("kiwiiPreferences"):
-                    idle "images/phone/home_button_kiwii_idle.webp"
-                    hover "images/phone/home_button_kiwii_hover.webp"
-                else:
-                    idle "images/phone/home_button_idle.webp"
-                    hover "images/phone/home_button_hover.webp"
+                idle "phone_home_button_idle"
+                hover "phone_home_button_hover"
                 action [Hide("message_reply"), Show("phone")]
                 align (0.5, 0.5)
 
@@ -131,15 +122,14 @@ screen phone():
             allow_underfull True
             
             for app in phone.applications:
-                if renpy.loadable(app.image):
-                    vbox:
-                        spacing 2
-                        
-                        imagebutton:
-                            idle app.image
-                            action [Function(renpy.retain_after_load), Show(app.home_screen)]
-                                
-                        text app.name style "application_name" xalign 0.5
+                vbox:
+                    spacing 2
+                    
+                    imagebutton:
+                        idle app.image
+                        action [Function(renpy.retain_after_load), Show(app.home_screen)]
+                            
+                    text app.name style "application_name" xalign 0.5
 
     if config_debug:
         for app in phone.applications:

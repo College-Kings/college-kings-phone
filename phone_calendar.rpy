@@ -96,7 +96,6 @@ screen calendar_home():
     tag phone_tag
     modal True
 
-    default image_path = "images/phone/calendar/app-assets/"
     default temp_calendar = calendar_now
     default selected_date = calendar_now
     
@@ -110,12 +109,12 @@ screen calendar_home():
    
         month_range = Calendar.month_range(temp_calendar.year, temp_calendar.month)
 
-    add image_path + "background.webp"
-    add image_path + "frame.webp" align (0.5, 0.5)
+    add "calendar_background"
+    add "calendar_frame" align (0.5, 0.5)
 
     imagebutton:
-        idle "gui/common/return_idle.webp"
-        hover "gui/common/return_hover.webp"
+        idle "return_button_idle"
+        hover "return_button_hover"
         action Show("phone")
 
     frame:
@@ -124,7 +123,7 @@ screen calendar_home():
 
         # Month page buttons
         imagebutton:
-            idle image_path + "button_left.webp"
+            idle "calendar_button_left"
             if temp_calendar.month == 1:
                 action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year - 1, 12, 1))]
             else:
@@ -132,7 +131,7 @@ screen calendar_home():
             yalign 0.5
 
         imagebutton:
-            idle image_path + "button_right.webp"
+            idle "calendar_button_right"
             if temp_calendar.month == 12:
                 action [SetScreenVariable("temp_calendar", datetime.datetime(temp_calendar.year + 1, 1, 1))]
             else:
@@ -173,9 +172,9 @@ screen calendar_home():
                 frame:
                     xysize (436, 143)
                     if task.completed:
-                        background image_path + "button_green.webp"
+                        background "calendar_button_green"
                     else:
-                        background image_path + "button_blue.webp"
+                        background "calendar_button_blue"
 
                     text task.description:
                         style "task_icon_text"
@@ -228,17 +227,17 @@ screen calendar_home():
                     xysize (158, 122)
 
                     if i == calendar_now.day and temp_calendar.month == calendar_now.month and temp_calendar.year == calendar_now.year:
-                        add image_path + "current_date.webp" xalign 0.5 ypos -7
+                        add "calendar_current_date" xalign 0.5 ypos -7
 
                     text "[i]" pos (5, 1) style "label_text"
                     
                     if i == selected_date.day and temp_calendar.month == selected_date.month and temp_calendar.year == selected_date.year:
-                        add image_path + "date_select.webp"
+                        add "calendar_date_select"
                             
                     else:
                         imagebutton:
                             idle "#0000"
-                            hover image_path + "date_select.webp"
+                            hover "calendar_date_select"
                             action [SetScreenVariable("selected_date", datetime.datetime(temp_calendar.year, temp_calendar.month, i))]
                             align (0.5, 0.5)
 
@@ -251,13 +250,13 @@ screen calendar_home():
                         if (temp_calendar.year, temp_calendar.month, i) in calendar_checklist:
                             frame:
                                 xysize (117, 55)
-                                background image_path + "incomplete_icon.webp"
+                                background "calendar_incomplete_icon"
 
                                 text "[number_task_complete]" style "task_icon_text" align (0.5, 0.5)
 
                             frame:
                                 xysize (117, 55)
-                                background image_path + "complete_icon.webp"
+                                background "calendar_complete_icon"
                             
                                 text "[number_task_incomplete]" style "label_text" align (0.5, 0.5)
 

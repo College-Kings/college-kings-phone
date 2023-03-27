@@ -194,11 +194,9 @@ init python:
 screen kiwii_base():
     modal True
 
-    default image_path = "images/phone/kiwii/app-assets/"
-
     use base_phone:
         frame:
-            background image_path + "background.webp"
+            background "kiwii_background"
 
             transclude
 
@@ -209,8 +207,8 @@ screen kiwii_base():
                 spacing 45
 
                 imagebutton:
-                    idle image_path + "home-button-idle.webp"
-                    hover image_path + "home-button-hover.webp"
+                    idle "kiwii_home_button_idle"
+                    hover "kiwii_home_button_hover"
                     action Show("kiwii_home")
                     yalign 0.5
 
@@ -219,8 +217,8 @@ screen kiwii_base():
                 null width 45
 
                 imagebutton:
-                    idle image_path + "liked-button-idle.webp"
-                    hover image_path + "liked-button-hover.webp"
+                    idle "kiwii_liked_button_idle"
+                    hover "kiwii_liked_button_hover"
                     action Show("kiwii_home", posts=list(filter(lambda post: post.liked, kiwii_posts)))
                     yalign 0.5
 
@@ -286,8 +284,7 @@ screen kiwii_preferences():
 
 screen kiwii_home(posts=kiwii_posts):
     tag phone_tag
-
-    default image_path = "images/phone/kiwii/app-assets/"
+    modal True
 
     use kiwii_base:
 
@@ -326,8 +323,8 @@ screen kiwii_home(posts=kiwii_posts):
                                 spacing 5
                                 align (1.0, 0.5)
 
-                                add image_path + "static-button-1.webp"
-                                add image_path + "static-button-2.webp"
+                                add "kiwii_static_button_1"
+                                add "kiwii_static_button_2"
 
                         null height 10
 
@@ -347,17 +344,17 @@ screen kiwii_home(posts=kiwii_posts):
 
                             hbox:
                                 imagebutton:
-                                    idle image_path + "like.webp"
-                                    hover image_path + "like-press.webp"
-                                    selected_idle image_path + "like-press.webp"
+                                    idle "kiwii_like_idle"
+                                    hover "kiwii_like_hover"
+                                    selected_idle "kiwii_like_hover"
                                     selected post.liked
                                     action Function(Kiwii.toggle_liked, post)
 
                                 text "{}".format(post.number_likes) style "kiwii_LikeCounter" yalign 0.5
 
                             imagebutton:
-                                idle image_path + "comment.webp"
-                                hover image_path + "commenthover.webp"
+                                idle "kiwii_comment_idle"
+                                hover "kiwii_comment_hover"
                                 action Show("kiwiiPost", post=post)
                                 xalign 1.0
 
@@ -377,8 +374,7 @@ screen kiwii_home(posts=kiwii_posts):
 screen kiwiiPost(post):
     tag phone_tag
     zorder 200
-
-    default image_path = "/images/phone/kiwii/app-assets/"
+    modal True
 
     $ post.seen = True
 
@@ -417,9 +413,9 @@ screen kiwiiPost(post):
                                 spacing 5
 
                                 imagebutton:
-                                    idle image_path + "like.webp"
-                                    hover image_path + "like-press.webp"
-                                    selected_idle image_path + "like-press.webp"
+                                    idle "kiwii_like_idle"
+                                    hover "kiwii_like_hover"
+                                    selected_idle "kiwii_like_hover"
                                     selected comment.liked
                                     action Function(Kiwii.toggle_liked, comment)
                                 text "[comment.number_likes]" style "kiwii_LikeCounter" yalign 0.5
