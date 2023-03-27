@@ -210,16 +210,16 @@ screen messenger_home():
                             action [Function(renpy.retain_after_load), Show("messager", contact=contact)]
                             ysize 80
 
-                            add Transform(contact.user.profile_picture, xysize=(65, 65)) xpos 20 yalign 0.5
+                            add Transform(contact.profile_picture, xysize=(65, 65)) xpos 20 yalign 0.5
                             
                             text contact.name style "nametext" xpos 100 yalign 0.5
 
-                            if contact.notification:
+                            if contact.pending_text_messages:
                                 add "phone_contact_notification" align (1.0, 0.5) xoffset -25
 
     if config_debug:
         for contact in messenger.contacts:
-            if contact.notification:
+            if contact.pending_text_messages:
                 timer 0.1 action [Function(renpy.retain_after_load), Show("messager", contact=contact)]
 
 
@@ -244,7 +244,7 @@ screen messager(contact=None):
                     action [Hide("message_reply"), Show("messenger_home")]
                     yalign 0.5
 
-                add Transform(contact.user.profile_picture, xysize=(65, 65)) yalign 0.5
+                add Transform(contact.profile_picture, xysize=(65, 65)) yalign 0.5
 
                 text contact.name style "nametext" yalign 0.5
 
@@ -260,42 +260,41 @@ screen messager(contact=None):
                     
                     null height 25
 
-                    for message in contact.sent_messages:
-                        if (hasattr(message, "message") and message.message.strip()) or (hasattr(message, "image") and message.image.strip()):
+                    for message in contact.text_messages:
+                        if message.content.strip():
                             frame:
-                                if isinstance(message, Message):
-                                    padding (40, 30)
-                                    background "phone_message_background"
-
-                                    text message.message  style "message_text"
-
-                                elif isinstance(message, ImageMessage):
-                                    padding (25, 25)
-                                    background "phone_message_background"
-
-                                    imagebutton:
-                                        idle Transform(message.image, zoom=0.15)
-                                        action Show("phone_image", img=message.image)
-
-                                elif isinstance(message, Reply):
-                                    padding (40, 30)
+                                if isinstance(message, Reply):
                                     background "phone_reply_background"
                                     xalign 1.0
 
-                                    text message.message  style "reply_text"
+                                    if renpy.loadable(message.content):
+                                        padding (25, 25)
 
-                                elif isinstance(message, ImgReply):
-                                    padding (25, 25)
-                                    background "phone_reply_background"
-                                    xalign 1.0
+                                        imagebutton:
+                                            idle Transform(message.content, zoom=0.15)
+                                            action Show("phone_image", img=message.content)
+                                    else:
+                                        padding (40, 30)
 
-                                    imagebutton:
-                                        idle Transform(message.image, zoom=0.15)
-                                        action Show("phone_image", img=message.image)
+                                        text message.content  style "reply_text"
+                                
+                                else:
+                                    background "phone_message_background"
+
+                                    if renpy.loadable(message.content):
+                                        padding (25, 25)
+
+                                        imagebutton:
+                                            idle Transform(message.content, zoom=0.15)
+                                            action Show("phone_image", img=message.content)
+                                    else:
+                                        padding (40, 30)
+
+                                        text message.content  style "message_text"
 
                     null height 75
 
-            if contact.replies:
+            if MessengerService.has_replies(contact):
                 fixed:
                     xysize (416, 63)
                     ypos 780
