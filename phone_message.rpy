@@ -17,6 +17,9 @@ init python:
         content: str
         next_message: Optional[MessagerBuilder] = None
 
+        def send(self):
+            self.to.text_messages.append(self)
+
     class ImgReply(BaseMessage):
         def __init__(
             self,
@@ -29,11 +32,13 @@ init python:
 
     @dataclass
     class Message:
-        # self.contact = contact
+        from_: PlayableCharacter
+        to: NonPlayableCharacter
         content: str
         replies: list[Reply] = field(default_factory=list)
 
-
+        def send(self):
+            self.to.text_messages.append(self)
 
     class ImageMessage(BaseMessage):
         def __init__(self, contact: Contact, image: str):
