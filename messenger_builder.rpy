@@ -17,13 +17,7 @@ init python:
             self.current_message = Message(self.from_, self.to, content, replies)
             self.message_queue.append(self.current_message)
 
-            # Moves contact to the top when receiving a new message
-            try:
-                messenger.contacts.insert(
-                    0, messenger.contacts.pop(messenger.contacts.index(self.to))
-                )
-            except ValueError:
-                messenger.contacts.insert(0, self.to)
+            messenger.move_contact_to_top(contact)
 
         def add_reply(self, content: str):
             self.add_replies(Reply(content))
@@ -62,26 +56,20 @@ init python:
                 contact.pending_text_messages.pop(0).send()
 
         @staticmethod
-        def new_message(from_: PlayableCharacter, to: NonPlayableCharacter, content: str, *replies: Reply, clear_pending=True):
-            to.pending_text_messages.append(Message(from_, to, content, replies))
+        def new_message(contact: NonPlayableCharacter, content: str, *replies: Reply, clear_pending=True):
+            contact.pending_text_messages.append(Message(contact, content, replies))
 
-            # Moves contact to the top when receiving a new message
-            try:
-                messenger.contacts.insert(
-                    0, messenger.contacts.pop(messenger.contacts.index(to))
-                )
-            except ValueError:
-                messenger.contacts.insert(0, to)
+            messenger.move_contact_to_top(contact)
 
-            MessengerService.send_next_messages(to)
+            MessengerService.send_next_messages(contact)
 
         @staticmethod
-        def add_reply(from_: PlayableCharacter, to: NonPlayableCharacter, content: str):
-            MessengerService.add_replies(from_, to, Reply(content))
+        def add_reply(contact: NonPlayableCharacter, content: str):
+            MessengerService.add_replies(contact, Reply(content))
 
         @staticmethod
-        def add_replies(from_: PlayableCharacter, to: NonPlayableCharacter, *replies: Reply):
-            if not to.pending_text_messages or to.pending_text_messages[0].replies:
-                return MessengerService.new_message(from_, to, "", *replies)
+        def add_replies(contact: NonPlayableCharacter, *replies: Reply):
+            if not contact.pending_text_messages or contact.pending_text_messages[0].replies:
+                return MessengerService.new_message(contact, "", *replies)
 
-            to.pending_text_messages.replies = replies
+            contact.pending_text_messages.replies = replies

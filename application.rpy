@@ -37,6 +37,12 @@ init python:
         def notification(self, value: Any):
             pass
 
+        def move_contact_to_top(self, contact: NonPlayableCharacter):
+            try:
+                self.contacts.insert(0, self.contacts.pop(messenger.contacts.index(contact)))
+            except ValueError:
+                self.contacts.insert(0, contact)
+
 
     class Simplr(Application):
         def __init__(self):
