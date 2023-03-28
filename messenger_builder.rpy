@@ -82,6 +82,6 @@ init python:
         @staticmethod
         def add_replies(from_: PlayableCharacter, to: NonPlayableCharacter, *replies: Reply):
             if not to.pending_text_messages or to.pending_text_messages[0].replies:
-                return MessengerService.new_message(from_, to, "", *replies)
+                MessengerService.new_message(from_, to, "", *replies)
 
             to.pending_text_messages.replies = replies
