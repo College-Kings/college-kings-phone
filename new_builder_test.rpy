@@ -174,8 +174,6 @@ label message_test:
 
         amber_message.add_replies(*replies)
 
-        amber_message.send()
-
     while MessengerService.has_replies(amber):
         call screen phone
         if MessengerService.has_replies(amber):
