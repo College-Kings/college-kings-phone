@@ -1,23 +1,20 @@
 init python:
-    class MessagerBuilder:
-        def __init__(self, from_: PlayableCharacter, to: NonPlayableCharacter, clear_pending=False):
-            self.from_ = from_
-            self.to = to
+    class MessageBuilder:
+        def __init__(self, contact: NonPlayableCharacter, clear_pending=False):
+            self.contact = contact
+            self.clear_pending = clear_pending
             self.message_queue: list[Message] = []
             self.current_message: Optional[Message] = None
             self.functions = []
 
-            if clear_pending:
-                to.pending_text_messages.clear()
-
         def __repr__(self):
-            return f"PhoneMessage(from_={self.from_}, to={self.to})"
+            return f"MessageBuilder({self.contact})"
 
         def new_message(self, content: str, *replies: Reply):
-            self.current_message = Message(self.from_, self.to, content, replies)
+            self.current_message = Message(self.contact, content, replies)
             self.message_queue.append(self.current_message)
 
-            messenger.move_contact_to_top(contact)
+            messenger.move_contact_to_top(self.contact)
 
         def add_reply(self, content: str):
             self.add_replies(Reply(content))
@@ -38,11 +35,14 @@ init python:
             for function, args, kwargs in self.functions:
                 function(*args, **kwargs)
 
+            if self.clear_pending:
+                to.pending_text_messages.clear()
+
             # Add message queue to the start of pending messages
-            self.to.pending_text_messages[:0] = self.message_queue
+            self.contact.pending_text_messages[:0] = self.message_queue
             self.message_queue.clear()
 
-            MessengerService.send_next_messages(self.to)
+            MessengerService.send_next_messages(self.contact)
 
 
     class MessengerService:       

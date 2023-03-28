@@ -65,20 +65,20 @@ label message_test:
     pause 1.25
 
     python:
-        ep2s1b_reply_clean = MessagerBuilder(amber)
+        ep2s1b_reply_clean = MessageBuilder(amber)
         ep2s1b_reply_clean.new_message("come on dude, u know i'm livin that straight edge life")
         ep2s1b_reply_clean.new_message("I don't know why, no wonder people do drugs, being sober fucking sucks")
 
-        ep2s1b_reply_not_clean = MessagerBuilder(amber)
+        ep2s1b_reply_not_clean = MessageBuilder(amber)
         ep2s1b_reply_not_clean.new_message("Just pot, the normal amount!!! Come on Watson!!")
         ep2s1b_reply_not_clean.new_message("Detective Amber and her trusty sidekick have a new case!!!!!! Be a little more excited")
 
-        ep2s1b_reply_2a_1 = MessagerBuilder(amber)
+        ep2s1b_reply_2a_1 = MessageBuilder(amber)
         ep2s1b_reply_2a_1.add_function(reputation.add_point, RepComponent.TROUBLEMAKER)
         ep2s1b_reply_2a_1.add_reply("only reason I'm seeing this is because I slammed a couple beers with the guys when I got home and just got up to pee")
         ep2s1b_reply_2a_1.new_message("Detective amber found her trusty sidekick lost at the bottom of the bottle, mind clouded by political turmoil of earlier in the evening, the vote to end all votes")
 
-        ep2s1b_reply_2b_1 = MessagerBuilder(amber)
+        ep2s1b_reply_2b_1 = MessageBuilder(amber)
         ep2s1b_reply_2b_1.add_function(reputation.add_point, RepComponent.BRO)
         ep2s1b_reply_2b_1.new_message("obvs not if ur texting")
         ep2s1b_reply_2b_1.add_reply("also have no idea what a pro skirt is, is that athleisurewear?")
@@ -133,7 +133,7 @@ label message_test:
         else:
             MessengerService.new_message(amber, "will I be able to rely on my bad cop, my loose cannon, my table smashing, mercurial, shoot first and ask questions later psycho of a partner??????")
 
-        ep2s1b_reply_3a_1 = MessagerBuilder(amber)
+        ep2s1b_reply_3a_1 = MessageBuilder(amber)
         ep2s1b_reply_3a_1.add_function(reputation.add_point, RepComponent.TROUBLEMAKER)
         ep2s1b_reply_3a_1.set_variable("ep2s1_mc_not_into_detective", True)
         ep2s1b_reply_3a_1.add_reply("I'm exhausted from the vote")
@@ -152,7 +152,7 @@ label message_test:
         ep2s1b_reply_3a_1.add_reply("GOODNIGHT AMBER")
         ep2s1b_reply_3a_1.new_message("Better make it happen or the only sleepin you'll be doin is with the fishes, pal")
 
-        ep2s1b_reply_3b_1 = MessagerBuilder(amber)
+        ep2s1b_reply_3b_1 = MessageBuilder(amber)
         ep2s1b_reply_3b_1.add_function(reputation.add_point, RepComponent.BRO)
         ep2s1b_reply_3b_1.add_reply("never been more excited about anything in my life")
         ep2s1b_reply_3b_1.add_reply("So excited I think I might pass out")
