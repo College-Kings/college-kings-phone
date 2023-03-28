@@ -7,7 +7,7 @@ init python:
             self.current_message: Optional[Message] = None
             self.functions = []
 
-            if clear_history:
+            if clear_pending:
                 self.to.pending_text_messages.clear()
 
         def __repr__(self):
