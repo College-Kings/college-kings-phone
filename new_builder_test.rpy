@@ -76,13 +76,13 @@ label message_test:
 
         ep2s1b_reply_2a_1 = MessagerBuilder(mc, amber)
         ep2s1b_reply_2a_1.add_function(reputation.add_point, RepComponent.TROUBLEMAKER)
-        ep2s1b_reply_2a_1.add_replies(Reply("only reason I'm seeing this is because I slammed a couple beers with the guys when I got home and just got up to pee"))
+        ep2s1b_reply_2a_1.add_reply("only reason I'm seeing this is because I slammed a couple beers with the guys when I got home and just got up to pee")
         ep2s1b_reply_2a_1.new_message("Detective amber found her trusty sidekick lost at the bottom of the bottle, mind clouded by political turmoil of earlier in the evening, the vote to end all votes")
 
         ep2s1b_reply_2b_1 = MessagerBuilder(mc, amber)
         ep2s1b_reply_2b_1.add_function(reputation.add_point, RepComponent.BRO)
         ep2s1b_reply_2b_1.new_message("obvs not if ur texting")
-        ep2s1b_reply_2b_1.add_replies(Reply("also have no idea what a pro skirt is, is that athleisurewear?"))
+        ep2s1b_reply_2b_1.add_reply("also have no idea what a pro skirt is, is that athleisurewear?")
         ep2s1b_reply_2b_1.new_message("A pro skirt! A lady of the night! A good time gal!")
         
         amber_message.new_message("Doesn't that sound kind of hot? Come on!!!!!!", Reply("so how stoned are you?", ep2s1b_reply_clean if v1_amber_clean else ep2s1b_reply_not_clean))
@@ -90,7 +90,7 @@ label message_test:
             Reply("Amber... it's 2 a.m., too many exclamation marks", ep2s1b_reply_2a_1),
             Reply("I am excited, but I'm also asleep", ep2s1b_reply_2b_1)
         )
-        amber_message.add_replies(Reply("GOODNIGHT AMBER"))
+        amber_message.add_reply("GOODNIGHT AMBER")
         amber_message.new_message("NO WAIT")
         amber_message.new_message("gumshoe TLDR: Chris came to me and asked me to investigate something")
 
@@ -112,17 +112,17 @@ label message_test:
 
     python:
         if mc.frat == Frat.WOLVES:
-            amber_message.add_replies(Reply("Chris"))
-            amber_message.add_replies(Reply("who is sleeping like 2 doors down from me"))
-            amber_message.add_replies(Reply("Why didnt he just talk to me himself????"))
+            amber_message.add_reply("Chris")
+            amber_message.add_reply("who is sleeping like 2 doors down from me")
+            amber_message.add_reply("Why didnt he just talk to me himself????")
 
         else:
-            amber_message.add_replies(Reply("Why didnt he just talk to me himself????"))
-            amber_message.add_replies(Reply("I know I'm an ape but we're not on bad terms"))
+            amber_message.add_reply("Why didnt he just talk to me himself????")
+            amber_message.add_reply("I know I'm an ape but we're not on bad terms")
 
         amber_message.new_message("He said he was worried you'd do more weird CSI roleplaying if he asked you directly")
         amber_message.new_message("plus I think he wants to get on this")
-        amber_message.add_replies(Reply("Fair enuf"))
+        amber_message.add_reply("Fair enuf")
         amber_message.new_message("so wat do you say, my handsome assistant?")
 
         if mc.detective == Detective.PROFESSIONAL:
@@ -136,34 +136,34 @@ label message_test:
 
         ep2s1b_reply_3a_1 = MessagerBuilder(mc, amber)
         ep2s1b_reply_3a_1.add_function(reputation.add_point, RepComponent.TROUBLEMAKER)
-        ep2s1b_reply_3a_1.add_function(SetVariable("ep2s1_mc_not_into_detective", True))
-        ep2s1b_reply_3a_1.add_replies(Reply("I'm exhausted from the vote"))
-        ep2s1b_reply_3a_1.add_replies(Reply("And the nora investigation took a lot of time, I had to frickin drive out into the middle of nowhere, it was expensive!!"))
+        ep2s1b_reply_3a_1.set_variable("ep2s1_mc_not_into_detective", True)
+        ep2s1b_reply_3a_1.add_reply("I'm exhausted from the vote")
+        ep2s1b_reply_3a_1.add_reply("And the nora investigation took a lot of time, I had to frickin drive out into the middle of nowhere, it was expensive!!")
         ep2s1b_reply_3a_1.new_message("Believe me, when you hear about the case ur going to want to be part of this")
-        ep2s1b_reply_3a_1.add_replies(Reply("Maybe you gotta sweeten the pot a little, whats in it for watson?"))
+        ep2s1b_reply_3a_1.add_reply("Maybe you gotta sweeten the pot a little, whats in it for watson?")
         ep2s1b_reply_3a_1.new_message("You palooka, i'll sweeten ur deal")
         ep2s1b_reply_3a_1.new_message("images/ep2/Scene 1b/ep2s1b_detective_amber.webp")
-        ep2s1b_reply_3a_1.add_replies(Reply("Consider it sweetened"))
+        ep2s1b_reply_3a_1.add_reply("Consider it sweetened")
         ep2s1b_reply_3a_1.new_message("The detective's lustful sidekick was a man like any other")
         ep2s1b_reply_3a_1.new_message("Sometimes all it takes is a carrot on a stick... in this case he made the decision with both his carrot and his stick, but they were one in the same")
         ep2s1b_reply_3a_1.new_message("Rendezvu at the agency, first thing")
         ep2s1b_reply_3a_1.new_message("I'll have a fresh pot of coffee on")
         ep2s1b_reply_3a_1.new_message("And I wanna see more hustle, Watson, none of this i'm too sleepy shit")
         ep2s1b_reply_3a_1.new_message("we'll get you as hopped up on bean juice as we need to")
-        ep2s1b_reply_3a_1.add_replies(Reply("GOODNIGHT AMBER"))
+        ep2s1b_reply_3a_1.add_reply("GOODNIGHT AMBER")
         ep2s1b_reply_3a_1.new_message("Better make it happen or the only sleepin you'll be doin is with the fishes, pal")
 
         ep2s1b_reply_3b_1 = MessagerBuilder(mc, amber)
         ep2s1b_reply_3b_1.add_function(reputation.add_point, RepComponent.BRO)
-        ep2s1b_reply_3b_1.add_replies(Reply("never been more excited about anything in my life"))
-        ep2s1b_reply_3b_1.add_replies(Reply("So excited I think I might pass out"))
-        ep2s1b_reply_3b_1.add_replies(Reply("ZZZZZZZZZZZZZZZZZ"))
+        ep2s1b_reply_3b_1.add_reply("never been more excited about anything in my life")
+        ep2s1b_reply_3b_1.add_reply("So excited I think I might pass out")
+        ep2s1b_reply_3b_1.add_reply("ZZZZZZZZZZZZZZZZZ")
         ep2s1b_reply_3b_1.new_message("the hapless sidekick wriggled like a worm on the end of the hook")
         ep2s1b_reply_3b_1.new_message("He was in a real jam, he had stakes in the game, and no gumshoe wants to be the one to stick his fingers inside pandora's box and wiggle them around and make her moan like a 3 dollar whore")
-        ep2s1b_reply_3b_1.add_replies(Reply("That took a turn half way through there"))
-        ep2s1b_reply_3b_1.add_replies(Reply("But yeah, obvs in"))
-        ep2s1b_reply_3b_1.add_replies(Reply("But only if you let me go back to sleep"))
-        ep2s1b_reply_3b_1.add_replies(Reply("right now"))
+        ep2s1b_reply_3b_1.add_reply("That took a turn half way through there")
+        ep2s1b_reply_3b_1.add_reply("But yeah, obvs in")
+        ep2s1b_reply_3b_1.add_reply("But only if you let me go back to sleep")
+        ep2s1b_reply_3b_1.add_reply("right now")
         ep2s1b_reply_3b_1.new_message("You got urself a deal, pal!!")
         ep2s1b_reply_3b_1.new_message("Rendezvu at the agency, first thing")
         ep2s1b_reply_3b_1.new_message("I'll have a fresh pot of coffee on")
