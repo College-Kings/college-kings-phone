@@ -10,14 +10,13 @@ label message_test:
     pause 0.75
 
     python:
-        amber_message = MessagerBuilder(mc, amber)
-        amber_message.new_message("A good mystery is a lot like a beautiful dame")
-        amber_message.new_message("she may be as pretty as a blossoming rose, smell sweet as spring lilacs")
-        amber_message.new_message("But roses have thorns and lilacs might have")
-        amber_message.new_message("uh...")
-        amber_message.new_message("bees inside of them?")
-        amber_message.new_message("The Big Wolf came to me with a looker of a case, like some canary in a real knock-out evening gown, gams all the way up, too tempting to pass up")
-        amber_message.new_message("What's the college's angle on the frats?")
+        MessengerService.new_message(mc, amber, "A good mystery is a lot like a beautiful dame")
+        MessengerService.new_message(mc, amber, "she may be as pretty as a blossoming rose, smell sweet as spring lilacs")
+        MessengerService.new_message(mc, amber, "But roses have thorns and lilacs might have")
+        MessengerService.new_message(mc, amber, "uh...")
+        MessengerService.new_message(mc, amber, "bees inside of them?")
+        MessengerService.new_message(mc, amber, "The Big Wolf came to me with a looker of a case, like some canary in a real knock-out evening gown, gams all the way up, too tempting to pass up")
+        MessengerService.new_message(mc, amber, "What's the college's angle on the frats?")
 
     play sound "audio/sounds/vibrate.mp3"
 
@@ -37,7 +36,7 @@ label message_test:
 
     u "(Ugh, what time is it? I gotta piss.)"
 
-    $ amber_message.new_message("Anyone with two eyes and half a brain could see something's going on")
+    $ MessengerService.new_message(mc, amber, "Anyone with two eyes and half a brain could see something's going on")
     play sound "audio/sounds/vibrate.mp3"
 
     if mc.frat == Frat.WOLVES:
@@ -46,11 +45,11 @@ label message_test:
         scene ep2s1b_4a # TPP MC sits up and glances at his phone, still lit up and buzzing.
     with dissolve
 
-    $ amber_message.new_message("But just like that beautiful dame, trouble might lurk under the surface, just out of sight")
+    $ MessengerService.new_message(mc, amber, "But just like that beautiful dame, trouble might lurk under the surface, just out of sight")
 
     pause 1.5
 
-    $ amber_message.new_message("Truth, as a great master once said, is not found on the mountain-top, but in the valleys where we seek her, probing and teasing til she moans like a pro skirt")
+    $ MessengerService.new_message(mc, amber, "Truth, as a great master once said, is not found on the mountain-top, but in the valleys where we seek her, probing and teasing til she moans like a pro skirt")
     play sound "audio/sounds/vibrate.mp3"
      
     if mc.frat == Frat.WOLVES:
@@ -85,14 +84,14 @@ label message_test:
         ep2s1b_reply_2b_1.add_reply("also have no idea what a pro skirt is, is that athleisurewear?")
         ep2s1b_reply_2b_1.new_message("A pro skirt! A lady of the night! A good time gal!")
         
-        amber_message.new_message("Doesn't that sound kind of hot? Come on!!!!!!", Reply("so how stoned are you?", ep2s1b_reply_clean if v1_amber_clean else ep2s1b_reply_not_clean))
-        amber_message.add_replies(
+        MessengerService.new_message(mc, amber, "Doesn't that sound kind of hot? Come on!!!!!!", Reply("so how stoned are you?", ep2s1b_reply_clean if v1_amber_clean else ep2s1b_reply_not_clean))
+        MessengerService.add_replies(mc, amber,
             Reply("Amber... it's 2 a.m., too many exclamation marks", ep2s1b_reply_2a_1),
             Reply("I am excited, but I'm also asleep", ep2s1b_reply_2b_1)
         )
-        amber_message.add_reply("GOODNIGHT AMBER")
-        amber_message.new_message("NO WAIT")
-        amber_message.new_message("gumshoe TLDR: Chris came to me and asked me to investigate something")
+        MessengerService.add_reply(mc, amber, "GOODNIGHT AMBER")
+        MessengerService.new_message(mc, amber, "NO WAIT")
+        MessengerService.new_message(mc, amber, "gumshoe TLDR: Chris came to me and asked me to investigate something")
 
     if mc.frat == Frat.WOLVES:
         scene ep2s1b_6w # TPP MC walks back into the frame, phone still lit up and buzzing.
@@ -112,27 +111,27 @@ label message_test:
 
     python:
         if mc.frat == Frat.WOLVES:
-            amber_message.add_reply("Chris")
-            amber_message.add_reply("who is sleeping like 2 doors down from me")
-            amber_message.add_reply("Why didnt he just talk to me himself????")
+            MessengerService.add_reply(mc, amber, "Chris")
+            MessengerService.add_reply("who is sleeping like 2 doors down from me")
+            MessengerService.add_reply("Why didnt he just talk to me himself????")
 
         else:
-            amber_message.add_reply("Why didnt he just talk to me himself????")
-            amber_message.add_reply("I know I'm an ape but we're not on bad terms")
+            MessengerService.add_reply(mc, amber, "Why didnt he just talk to me himself????")
+            MessengerService.add_reply(mc, amber, "I know I'm an ape but we're not on bad terms")
 
-        amber_message.new_message("He said he was worried you'd do more weird CSI roleplaying if he asked you directly")
-        amber_message.new_message("plus I think he wants to get on this")
-        amber_message.add_reply("Fair enuf")
-        amber_message.new_message("so wat do you say, my handsome assistant?")
+        MessengerService.new_message(mc, amber, "He said he was worried you'd do more weird CSI roleplaying if he asked you directly")
+        MessengerService.new_message(mc, amber, "plus I think he wants to get on this")
+        MessengerService.add_reply(mc, amber, "Fair enuf")
+        MessengerService.new_message(mc, amber, "so wat do you say, my handsome assistant?")
 
         if mc.detective == Detective.PROFESSIONAL:
-            amber_message.new_message("can detective amber count on the watson to her sherlock?")
+            MessengerService.new_message(mc, amber, "can detective amber count on the watson to her sherlock?")
 
         elif mc.detective == Detective.PSYCHOLOGIST:
-            amber_message.new_message("will this detective be able to count on the incredible mental powers of her mind-bending psychologist sidekick??")
+            MessengerService.new_message(mc, amber, "will this detective be able to count on the incredible mental powers of her mind-bending psychologist sidekick??")
 
         else:
-            amber_message.new_message("will I be able to rely on my bad cop, my loose cannon, my table smashing, mercurial, shoot first and ask questions later psycho of a partner??????")
+            MessengerService.new_message(mc, amber, "will I be able to rely on my bad cop, my loose cannon, my table smashing, mercurial, shoot first and ask questions later psycho of a partner??????")
 
         ep2s1b_reply_3a_1 = MessagerBuilder(mc, amber)
         ep2s1b_reply_3a_1.add_function(reputation.add_point, RepComponent.TROUBLEMAKER)
@@ -172,7 +171,7 @@ label message_test:
         if not config_censored:
             replies.append(Reply("I am once again reminding you it is 2am, which is too early for this shit", ep2s1b_reply_3a_1))
 
-        amber_message.add_replies(*replies)
+        MessengerService.add_replies(mc, amber, *replies)
 
     while MessengerService.has_replies(amber):
         call screen phone

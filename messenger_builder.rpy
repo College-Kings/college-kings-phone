@@ -8,13 +8,13 @@ init python:
             self.functions = []
 
             if clear_pending:
-                self.to.pending_text_messages.clear()
+                to.pending_text_messages.clear()
 
         def __repr__(self):
             return f"PhoneMessage(from_={self.from_}, to={self.to})"
 
-        def new_message(self, content: str):
-            self.current_message = Message(self.from_, self.to, content)
+        def new_message(self, content: str, *replies: Reply):
+            self.current_message = Message(self.from_, self.to, content, replies)
             self.message_queue.append(self.current_message)
 
             # Moves contact to the top when receiving a new message
@@ -25,10 +25,6 @@ init python:
             except ValueError:
                 messenger.contacts.insert(0, self.to)
 
-            self.send()
-
-            self.notification = True
-
         def add_reply(self, content: str):
             self.add_replies(Reply(content))
 
@@ -37,8 +33,6 @@ init python:
                 return self.new_message("", *replies)
 
             self.current_message.replies = replies
-
-            self.send()
 
         def add_function(self, function: Callable, *args, **kwargs):
             self.functions.append((function, args, kwargs))
@@ -52,11 +46,12 @@ init python:
 
             # Add message queue to the start of pending messages
             self.to.pending_text_messages[:0] = self.message_queue
+            self.message_queue.clear()
 
             MessengerService.send_next_messages(self.to)
 
 
-    class MessengerService:
+    class MessengerService:       
         @staticmethod
         def has_replies(contact: NonPlayableCharacter):
             return contact.text_messages and hasattr(contact.text_messages[-1], "replies") and contact.text_messages[-1].replies
@@ -65,3 +60,28 @@ init python:
         def send_next_messages(contact: NonPlayableCharacter):
             while contact.pending_text_messages and not MessengerService.has_replies(contact):
                 contact.pending_text_messages.pop(0).send()
+
+        @staticmethod
+        def new_message(from_: PlayableCharacter, to: NonPlayableCharacter, content: str, *replies: Reply, clear_pending=True):
+            to.pending_text_messages.append(Message(from_, to, content, replies))
+
+            # Moves contact to the top when receiving a new message
+            try:
+                messenger.contacts.insert(
+                    0, messenger.contacts.pop(messenger.contacts.index(to))
+                )
+            except ValueError:
+                messenger.contacts.insert(0, to)
+
+            MessengerService.send_next_messages(to)
+
+        @staticmethod
+        def add_reply(from_: PlayableCharacter, to: NonPlayableCharacter, content: str):
+            MessengerService.add_replies(from_, to, Reply(content))
+
+        @staticmethod
+        def add_replies(from_: PlayableCharacter, to: NonPlayableCharacter, *replies: Reply):
+            if not to.pending_text_messages or to.pending_text_messages[0].replies:
+                return MessengerService.new_message(from_, to, "", *replies)
+
+            to.pending_text_messages.replies = replies
