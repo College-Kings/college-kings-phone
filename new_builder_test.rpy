@@ -10,13 +10,13 @@ label message_test:
     pause 0.75
 
     python:
-        MessengerService.new_message(mc, amber, "A good mystery is a lot like a beautiful dame")
-        MessengerService.new_message(mc, amber, "she may be as pretty as a blossoming rose, smell sweet as spring lilacs")
-        MessengerService.new_message(mc, amber, "But roses have thorns and lilacs might have")
-        MessengerService.new_message(mc, amber, "uh...")
-        MessengerService.new_message(mc, amber, "bees inside of them?")
-        MessengerService.new_message(mc, amber, "The Big Wolf came to me with a looker of a case, like some canary in a real knock-out evening gown, gams all the way up, too tempting to pass up")
-        MessengerService.new_message(mc, amber, "What's the college's angle on the frats?")
+        MessengerService.new_message(amber, "A good mystery is a lot like a beautiful dame")
+        MessengerService.new_message(amber, "she may be as pretty as a blossoming rose, smell sweet as spring lilacs")
+        MessengerService.new_message(amber, "But roses have thorns and lilacs might have")
+        MessengerService.new_message(amber, "uh...")
+        MessengerService.new_message(amber, "bees inside of them?")
+        MessengerService.new_message(amber, "The Big Wolf came to me with a looker of a case, like some canary in a real knock-out evening gown, gams all the way up, too tempting to pass up")
+        MessengerService.new_message(amber, "What's the college's angle on the frats?")
 
     play sound "audio/sounds/vibrate.mp3"
 
@@ -36,7 +36,7 @@ label message_test:
 
     u "(Ugh, what time is it? I gotta piss.)"
 
-    $ MessengerService.new_message(mc, amber, "Anyone with two eyes and half a brain could see something's going on")
+    $ MessengerService.new_message(amber, "Anyone with two eyes and half a brain could see something's going on")
     play sound "audio/sounds/vibrate.mp3"
 
     if mc.frat == Frat.WOLVES:
@@ -45,11 +45,11 @@ label message_test:
         scene ep2s1b_4a # TPP MC sits up and glances at his phone, still lit up and buzzing.
     with dissolve
 
-    $ MessengerService.new_message(mc, amber, "But just like that beautiful dame, trouble might lurk under the surface, just out of sight")
+    $ MessengerService.new_message(amber, "But just like that beautiful dame, trouble might lurk under the surface, just out of sight")
 
     pause 1.5
 
-    $ MessengerService.new_message(mc, amber, "Truth, as a great master once said, is not found on the mountain-top, but in the valleys where we seek her, probing and teasing til she moans like a pro skirt")
+    $ MessengerService.new_message(amber, "Truth, as a great master once said, is not found on the mountain-top, but in the valleys where we seek her, probing and teasing til she moans like a pro skirt")
     play sound "audio/sounds/vibrate.mp3"
      
     if mc.frat == Frat.WOLVES:
@@ -65,33 +65,33 @@ label message_test:
     pause 1.25
 
     python:
-        ep2s1b_reply_clean = MessagerBuilder(mc, amber)
+        ep2s1b_reply_clean = MessagerBuilder(amber)
         ep2s1b_reply_clean.new_message("come on dude, u know i'm livin that straight edge life")
         ep2s1b_reply_clean.new_message("I don't know why, no wonder people do drugs, being sober fucking sucks")
 
-        ep2s1b_reply_not_clean = MessagerBuilder(mc, amber)
+        ep2s1b_reply_not_clean = MessagerBuilder(amber)
         ep2s1b_reply_not_clean.new_message("Just pot, the normal amount!!! Come on Watson!!")
         ep2s1b_reply_not_clean.new_message("Detective Amber and her trusty sidekick have a new case!!!!!! Be a little more excited")
 
-        ep2s1b_reply_2a_1 = MessagerBuilder(mc, amber)
+        ep2s1b_reply_2a_1 = MessagerBuilder(amber)
         ep2s1b_reply_2a_1.add_function(reputation.add_point, RepComponent.TROUBLEMAKER)
         ep2s1b_reply_2a_1.add_reply("only reason I'm seeing this is because I slammed a couple beers with the guys when I got home and just got up to pee")
         ep2s1b_reply_2a_1.new_message("Detective amber found her trusty sidekick lost at the bottom of the bottle, mind clouded by political turmoil of earlier in the evening, the vote to end all votes")
 
-        ep2s1b_reply_2b_1 = MessagerBuilder(mc, amber)
+        ep2s1b_reply_2b_1 = MessagerBuilder(amber)
         ep2s1b_reply_2b_1.add_function(reputation.add_point, RepComponent.BRO)
         ep2s1b_reply_2b_1.new_message("obvs not if ur texting")
         ep2s1b_reply_2b_1.add_reply("also have no idea what a pro skirt is, is that athleisurewear?")
         ep2s1b_reply_2b_1.new_message("A pro skirt! A lady of the night! A good time gal!")
         
-        MessengerService.new_message(mc, amber, "Doesn't that sound kind of hot? Come on!!!!!!", Reply("so how stoned are you?", ep2s1b_reply_clean if v1_amber_clean else ep2s1b_reply_not_clean))
-        MessengerService.add_replies(mc, amber,
+        MessengerService.new_message(amber, "Doesn't that sound kind of hot? Come on!!!!!!", Reply("so how stoned are you?", ep2s1b_reply_clean if v1_amber_clean else ep2s1b_reply_not_clean))
+        MessengerService.add_replies(amber,
             Reply("Amber... it's 2 a.m., too many exclamation marks", ep2s1b_reply_2a_1),
             Reply("I am excited, but I'm also asleep", ep2s1b_reply_2b_1)
         )
-        MessengerService.add_reply(mc, amber, "GOODNIGHT AMBER")
-        MessengerService.new_message(mc, amber, "NO WAIT")
-        MessengerService.new_message(mc, amber, "gumshoe TLDR: Chris came to me and asked me to investigate something")
+        MessengerService.add_reply(amber, "GOODNIGHT AMBER")
+        MessengerService.new_message(amber, "NO WAIT")
+        MessengerService.new_message(amber, "gumshoe TLDR: Chris came to me and asked me to investigate something")
 
     if mc.frat == Frat.WOLVES:
         scene ep2s1b_6w # TPP MC walks back into the frame, phone still lit up and buzzing.
@@ -111,29 +111,29 @@ label message_test:
 
     python:
         if mc.frat == Frat.WOLVES:
-            MessengerService.add_reply(mc, amber, "Chris")
+            MessengerService.add_reply(amber, "Chris")
             MessengerService.add_reply("who is sleeping like 2 doors down from me")
             MessengerService.add_reply("Why didnt he just talk to me himself????")
 
         else:
-            MessengerService.add_reply(mc, amber, "Why didnt he just talk to me himself????")
-            MessengerService.add_reply(mc, amber, "I know I'm an ape but we're not on bad terms")
+            MessengerService.add_reply(amber, "Why didnt he just talk to me himself????")
+            MessengerService.add_reply(amber, "I know I'm an ape but we're not on bad terms")
 
-        MessengerService.new_message(mc, amber, "He said he was worried you'd do more weird CSI roleplaying if he asked you directly")
-        MessengerService.new_message(mc, amber, "plus I think he wants to get on this")
-        MessengerService.add_reply(mc, amber, "Fair enuf")
-        MessengerService.new_message(mc, amber, "so wat do you say, my handsome assistant?")
+        MessengerService.new_message(amber, "He said he was worried you'd do more weird CSI roleplaying if he asked you directly")
+        MessengerService.new_message(amber, "plus I think he wants to get on this")
+        MessengerService.add_reply(amber, "Fair enuf")
+        MessengerService.new_message(amber, "so wat do you say, my handsome assistant?")
 
         if mc.detective == Detective.PROFESSIONAL:
-            MessengerService.new_message(mc, amber, "can detective amber count on the watson to her sherlock?")
+            MessengerService.new_message(amber, "can detective amber count on the watson to her sherlock?")
 
         elif mc.detective == Detective.PSYCHOLOGIST:
-            MessengerService.new_message(mc, amber, "will this detective be able to count on the incredible mental powers of her mind-bending psychologist sidekick??")
+            MessengerService.new_message(amber, "will this detective be able to count on the incredible mental powers of her mind-bending psychologist sidekick??")
 
         else:
-            MessengerService.new_message(mc, amber, "will I be able to rely on my bad cop, my loose cannon, my table smashing, mercurial, shoot first and ask questions later psycho of a partner??????")
+            MessengerService.new_message(amber, "will I be able to rely on my bad cop, my loose cannon, my table smashing, mercurial, shoot first and ask questions later psycho of a partner??????")
 
-        ep2s1b_reply_3a_1 = MessagerBuilder(mc, amber)
+        ep2s1b_reply_3a_1 = MessagerBuilder(amber)
         ep2s1b_reply_3a_1.add_function(reputation.add_point, RepComponent.TROUBLEMAKER)
         ep2s1b_reply_3a_1.set_variable("ep2s1_mc_not_into_detective", True)
         ep2s1b_reply_3a_1.add_reply("I'm exhausted from the vote")
@@ -152,7 +152,7 @@ label message_test:
         ep2s1b_reply_3a_1.add_reply("GOODNIGHT AMBER")
         ep2s1b_reply_3a_1.new_message("Better make it happen or the only sleepin you'll be doin is with the fishes, pal")
 
-        ep2s1b_reply_3b_1 = MessagerBuilder(mc, amber)
+        ep2s1b_reply_3b_1 = MessagerBuilder(amber)
         ep2s1b_reply_3b_1.add_function(reputation.add_point, RepComponent.BRO)
         ep2s1b_reply_3b_1.add_reply("never been more excited about anything in my life")
         ep2s1b_reply_3b_1.add_reply("So excited I think I might pass out")
@@ -171,7 +171,7 @@ label message_test:
         if not config_censored:
             replies.append(Reply("I am once again reminding you it is 2am, which is too early for this shit", ep2s1b_reply_3a_1))
 
-        MessengerService.add_replies(mc, amber, *replies)
+        MessengerService.add_replies(amber, *replies)
 
     while MessengerService.has_replies(amber):
         call screen phone
@@ -187,9 +187,9 @@ label message_test:
     pause 1
 
     if mc.frat == Frat.WOLVES:
-        scene ep2s1b_9w # TPP MC (neutral, MC, eyes closed) passes out, phone still in his hand.
+        scene ep2s1b_9w # TPP MC (neutral, eyes closed) passes out, phone still in his hand.
     else:
-        scene ep2s1b_9a # TPP MC (neutral, MC, eyes closed) passes out, phone still in his hand.
+        scene ep2s1b_9a # TPP MC (neutral, eyes closed) passes out, phone still in his hand.
     with dissolve
 
     pause 1
