@@ -2,42 +2,46 @@
 init python:
 """
 
+from typing import TYPE_CHECKING, Union
+
+
+if TYPE_CHECKING:
+    from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
+    from game.phone.kiwii.KiwiiComment_ren import KiwiiComment
+    from game.phone.kiwii.KiwiiPost_ren import KiwiiPost
+
 
 class Application:
-    def __init__(self, name: str):
-        self.name = name
-        self.home_screen = f"{self.name.lower()}_home"
+    def __init__(self, name: str) -> None:
+        self.name: str = name
+        self.home_screen: str = f"{self.name.lower()}_home"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"{type(self).__name__}({self.name})"
 
     @property
-    def image(self):
+    def image(self) -> str:
         if self.notification:
             return f"{self.name.lower()}_icon_notification"
         else:
             return f"{self.name.lower()}_icon"
 
     @property
-    def notification(self):
+    def notification(self) -> bool:
         return False
-
-    def unlock(self):
-        if self not in phone.applications:
-            phone.applications.append(self)
 
 
 class Messenger(Application):
-    def __init__(self):
-        super().__init__("Messenger")
+    def __init__(self) -> None:
+        super().__init__(self.__class__.__name__)
 
         self.contacts: list[NonPlayableCharacter] = []
 
     @property
-    def notification(self):
+    def notification(self) -> bool:
         return any(contact.pending_text_messages for contact in self.contacts)
 
-    def move_contact_to_top(self, contact: NonPlayableCharacter):
+    def move_contact_to_top(self, contact: NonPlayableCharacter) -> None:
         try:
             self.contacts.insert(0, self.contacts.pop(self.contacts.index(contact)))
         except ValueError:
@@ -45,25 +49,31 @@ class Messenger(Application):
 
 
 class Simplr(Application):
-    def __init__(self):
-        super().__init__("Simplr")
+    def __init__(self) -> None:
+        super().__init__(self.__class__.__name__)
 
-        self.contacts: list[Contact] = []
-        self.pending_contacts = []
+        self.contacts: list[NonPlayableCharacter] = []
+        self.pending_contacts: list[NonPlayableCharacter] = []
 
     @property
-    def notification(self):
+    def notification(self) -> bool:
         return any(contact.notification for contact in self.contacts)
+
+    def move_contact_to_top(self, contact: NonPlayableCharacter) -> None:
+        try:
+            self.contacts.insert(0, self.contacts.pop(self.contacts.index(contact)))
+        except ValueError:
+            self.contacts.insert(0, contact)
 
 
 class Kiwii(Application):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__("Kiwii")
 
         self.posts: list[KiwiiPost] = []
 
     @property
-    def notification(self):
+    def notification(self) -> bool:
         for post in self.posts:
             if post.replies:
                 return True
@@ -76,12 +86,12 @@ class Kiwii(Application):
         return False
 
     @staticmethod
-    def get_message(kiwii_obj: Union[KiwiiComment, KiwiiPost]):
-        usernames = [mention.username for mention in kiwii_obj.mentions]
+    def get_message(kiwii_obj: Union[KiwiiComment, KiwiiPost]) -> str:
+        usernames: list[str] = [mention.username for mention in kiwii_obj.mentions]
 
-        message = ", @".join(usernames)
+        message: str = ", @".join(usernames)
         if usernames:
-            message = (
+            message: str = (
                 f"{{color=#3498DB}}{{b}}@{message}{{/b}}{{/color}} {kiwii_obj.message}"
             )
         else:
@@ -90,7 +100,7 @@ class Kiwii(Application):
         return message
 
     @staticmethod
-    def toggle_liked(kiwii_obj: Union[KiwiiComment, KiwiiPost]):
+    def toggle_liked(kiwii_obj: Union[KiwiiComment, KiwiiPost]) -> None:
         kiwii_obj.liked = not kiwii_obj.liked
 
         try:
