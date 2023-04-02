@@ -1,10 +1,10 @@
 init python:
     class Phone:
-        def __init__(self, base_icon: str, notification_icon: str):
-            self.base_icon = base_icon
-            self.notification_icon = notification_icon
+        def __init__(self):
+            self.base_icon = "phone_icon"
+            self.notification_icon = "phone_icon_notification"
 
-            self.applications: list[Application] = [messenger, achievement_app, relationship_app, kiwii, reputation_app, tracker, calendar]
+            self.applications: list[Application] = [messenger, achievement_app, relationship_app, kiwii, reputation_app]
 
         @property
         def notification(self):
@@ -27,7 +27,7 @@ init python:
             return actions
 
 
-default phone = Phone("phone_icon", "phone_icon_notification")
+default phone = Phone()
 default phone_from_phone_icon = False
 
 
