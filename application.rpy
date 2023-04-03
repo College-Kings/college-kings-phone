@@ -47,7 +47,7 @@ init python:
 
         @property
         def notification(self):
-            return any(contact.notification for contact in self.contacts)
+            return False
 
         @notification.setter
         def notification(self, value: Any):
@@ -62,14 +62,14 @@ init python:
 
         @property
         def notification(self):
-            for post in kiwii_posts:
-                if post.replies:
-                    return True
-                try:
-                    if not post.seen:
-                        return True
-                except AttributeError:
-                    post.seen = True
+        #     for post in kiwii_posts:
+        #         if post.replies:
+        #             return True
+        #         try:
+        #             if not post.seen:
+        #                 return True
+        #         except AttributeError:
+        #             post.seen = True
 
             return False
 
