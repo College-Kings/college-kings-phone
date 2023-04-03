@@ -9,7 +9,8 @@ init python:
             self.sent_messages = []
             self.pending_messages = []
 
-            simplr_app.unlock()
+            if simplr_app not in phone.applications:
+                phone.applications.append(simplr_app)
 
         def __repr__(self):
             return f"<SimplrContact({self.name})>"
