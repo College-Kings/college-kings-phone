@@ -23,9 +23,9 @@ class Phone:
     @property
     def image(self) -> str:
         if self.notification:
-            return "phone_icon"
-        else:
             return "phone_icon_notification"
+        else:
+            return "phone_icon"
 
     @staticmethod
     def get_exit_actions():
