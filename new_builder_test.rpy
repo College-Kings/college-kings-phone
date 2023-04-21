@@ -1,5 +1,5 @@
 label message_test:
-    play ambience Room_Night fadein 2
+    play ambience ambience.room_night fadein 2
 
     if mc.frat == Frat.WOLVES:
         scene ep2s1b_1w # TPP MC (neutral, MC) lies in his bed sleeping, room in darkness.
