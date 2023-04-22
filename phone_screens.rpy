@@ -1,40 +1,10 @@
-init python:
-    class Phone:
-        def __init__(self):
-            self.base_icon = "phone_icon"
-            self.notification_icon = "phone_icon_notification"
-
-            self.applications: list[Application] = [messenger, achievement_app, relationship_app, kiwii, reputation_app]
-
-        @property
-        def notification(self):
-            return any(app.notification for app in self.applications)
-
-        @property
-        def image(self):
-            if self.notification:
-                return self.base_icon
-            else:
-                return self.notification_icon
-
-        @staticmethod
-        def get_exit_actions():
-            actions = [Hide("tutorial"), Hide("message_reply"), SetVariable("phone_from_phone_icon", False)]
-            if not phone_from_phone_icon and renpy.context()._current_interact_type == "screen":
-                actions.append(Return())
-            else:
-                actions.append(Hide("phone_tag"))
-            return actions
-
-
-default phone = Phone()
 default phone_from_phone_icon = False
 
 
 screen phone_icon():
     imagebutton:
         idle phone.image
-        action [SetVariable("phone_from_phone_icon", True), Show("phone")]
+        action [SetVariable("phone_from_phone_icon", True), Show("phone"), If("phone_tutorial" not in persistent.hidden_tutorials, Show("phone_tutorial"))]
         xalign 1.0
         offset (25, -25)
 

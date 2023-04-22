@@ -1,190 +1,3 @@
-init python:
-    class Contact:
-        def __init__(self, name: str, user: Union[PlayableCharacter, NonPlayableCharacter]):
-            self.name = name
-            self.user = user
-            self.sent_messages: list[BaseMessage] = []
-            self.pending_messages: list[BaseMessage] = []
-            self._notification: bool = False
-            self.locked = False
-
-        @property
-        def notification(self):
-            if not self.sent_messages and not self.pending_messages:
-                return False
-
-            if self.replies:
-                return True
-
-            try:
-                return self._notification
-            except AttributeError:
-                return False
-
-        @notification.setter
-        def notification(self, value: bool):
-            self._notification = value
-
-        @property
-        def replies(self) -> list[BaseReply]:
-            try:
-                self.sent_messages
-            except AttributeError:
-                self.sent_messages = []
-
-            try:
-                return self.sent_messages[-1].replies
-            except (IndexError, AttributeError):
-                return []
-
-        def new_message(self, content: str, force_send: bool = False):
-            message = Message(self, content)
-
-            # Moves contact to the top when receiving a new message
-            try:
-                messenger.contacts.insert(
-                    0, messenger.contacts.pop(messenger.contacts.index(self))
-                )
-            except ValueError:
-                messenger.contacts.insert(0, self)
-
-            # Add message to queue
-            if self.replies and not force_send:
-                self.pending_messages.append(message)
-            else:
-                self.sent_messages.append(message)
-
-            if force_send:
-                self.pending_messages = []
-
-            self.notification = True
-
-            return message
-
-        def new_image_message(self, image: str, force_send: bool = False):
-            message = ImageMessage(self, image)
-
-            # Moves contact to the top when receiving a new message
-            try:
-                messenger.contacts.insert(
-                    0, messenger.contacts.pop(messenger.contacts.index(self))
-                )
-            except ValueError:
-                messenger.contacts.insert(0, self)
-
-            # Add message to queue
-            if self.replies and not force_send:
-                self.pending_messages.append(message)
-            else:
-                self.sent_messages.append(message)
-
-            if force_send:
-                self.pending_messages = []
-
-            self.notification = True
-
-            return message
-
-        def add_reply(
-            self,
-            content: str,
-            func: Optional[Callable[[], None]] = None,
-            new_message: bool = False,
-            in_reply: bool = False,
-        ):
-            reply = Reply(content, func)
-
-            # Append reply to last sent message
-            try:
-                if in_reply:
-                    self.sent_messages[-1].replies.append(reply)
-                elif self.pending_messages:
-                    self.pending_messages[-1].replies.append(reply)
-                elif self.sent_messages:
-                    self.sent_messages[-1].replies.append(reply)
-                else:
-                    message = self.new_message("", force_send=True)
-                    message.replies.append(reply)
-            except IndexError:
-                message = self.new_message("", force_send=True)
-                message.replies.append(reply)
-
-            self.notification = True
-
-        def add_image_reply(
-            self,
-            content: str,
-            func: Optional[Callable[[], None]] = None,
-            new_message: bool = False,
-        ):
-            reply = ImgReply(content, func)
-
-            # Append reply to last sent message
-            try:
-                if new_message:
-                    message = self.new_message("")
-                    message.replies.append(reply)
-                elif self.pending_messages:
-                    self.pending_messages[-1].replies.append(reply)
-                else:
-                    self.sent_messages[-1].replies.append(reply)
-            except IndexError:
-                message = self.new_message("", force_send=True)
-                message.replies.append(reply)
-
-            self.notification = True
-
-        def selected_reply(self, reply: BaseReply):
-            self.sent_messages[-1].reply = reply
-            self.sent_messages[-1].replies = []
-            self.sent_messages.append(reply)
-
-            if reply.func is not None:
-                reply.func()
-
-            # Send next queued message(s)
-            while self.pending_messages and not self.replies:
-                self.sent_messages.append(self.pending_messages.pop(0))
-
-        def unlock(self):
-            if self not in messenger.contacts:
-                messenger.contacts.append(self)  # type: ignore
-            self.locked = False
-
-        def find_message(self, message: str):
-            for msg in self.sent_messages:
-                if hasattr(msg, "content") and message == msg.content:
-                    return msg
-                elif hasattr(msg, "message") and message == msg.message:
-                    return msg
-                elif hasattr(msg, "image") and message == msg.image:
-                    return msg
-            return False
-
-        # Backwards compatibility
-        def newMessage(self, message: str, force_send: bool = False):
-            return self.new_message(message, force_send)
-
-        def newImgMessage(self, image: str, force_send: bool = False):
-            return self.new_image_message(image, force_send)
-
-        def addReply(
-            self,
-            message: str,
-            func: Optional[Callable[[], None]] = None,
-            new_message: bool = False,
-        ):
-            return self.add_reply(message, func, new_message)
-
-        def addImgReply(
-            self,
-            image: str,
-            func: Optional[Callable[[], None]] = None,
-            new_message: bool = False,
-        ):
-            return self.add_image_reply(image, func, new_message)
-
-
 screen messenger_home():
     tag phone_tag
     modal True
@@ -210,16 +23,16 @@ screen messenger_home():
                             action [Function(renpy.retain_after_load), Show("messager", contact=contact)]
                             ysize 80
 
-                            add Transform(contact.user.profile_picture, xysize=(65, 65)) xpos 20 yalign 0.5
+                            add Transform(contact.profile_picture, xysize=(65, 65)) xpos 20 yalign 0.5
                             
                             text contact.name style "nametext" xpos 100 yalign 0.5
 
-                            if contact.notification:
+                            if contact.pending_text_messages:
                                 add "phone_contact_notification" align (1.0, 0.5) xoffset -25
 
     if config_debug:
         for contact in messenger.contacts:
-            if contact.notification:
+            if contact.pending_text_messages:
                 timer 0.1 action [Function(renpy.retain_after_load), Show("messager", contact=contact)]
 
 
@@ -244,7 +57,7 @@ screen messager(contact=None):
                     action [Hide("message_reply"), Show("messenger_home")]
                     yalign 0.5
 
-                add Transform(contact.user.profile_picture, xysize=(65, 65)) yalign 0.5
+                add Transform(contact.profile_picture, xysize=(65, 65)) yalign 0.5
 
                 text contact.name style "nametext" yalign 0.5
 
@@ -260,42 +73,41 @@ screen messager(contact=None):
                     
                     null height 25
 
-                    for message in contact.sent_messages:
-                        if (hasattr(message, "message") and message.message.strip()) or (hasattr(message, "image") and message.image.strip()):
+                    for message in contact.text_messages:
+                        if message.content.strip():
                             frame:
-                                if isinstance(message, Message):
-                                    padding (40, 30)
-                                    background "phone_message_background"
-
-                                    text message.message  style "message_text"
-
-                                elif isinstance(message, ImageMessage):
-                                    padding (25, 25)
-                                    background "phone_message_background"
-
-                                    imagebutton:
-                                        idle Transform(message.image, zoom=0.15)
-                                        action Show("phone_image", img=message.image)
-
-                                elif isinstance(message, Reply):
-                                    padding (40, 30)
+                                if isinstance(message, Reply):
                                     background "phone_reply_background"
                                     xalign 1.0
 
-                                    text message.message  style "reply_text"
+                                    if renpy.loadable(message.content):
+                                        padding (25, 25)
 
-                                elif isinstance(message, ImgReply):
-                                    padding (25, 25)
-                                    background "phone_reply_background"
-                                    xalign 1.0
+                                        imagebutton:
+                                            idle Transform(message.content, zoom=0.15)
+                                            action Show("phone_image", img=message.content)
+                                    else:
+                                        padding (40, 30)
 
-                                    imagebutton:
-                                        idle Transform(message.image, zoom=0.15)
-                                        action Show("phone_image", img=message.image)
+                                        text message.content  style "reply_text"
+                                
+                                else:
+                                    background "phone_message_background"
+
+                                    if renpy.loadable(message.content):
+                                        padding (25, 25)
+
+                                        imagebutton:
+                                            idle Transform(message.content, zoom=0.15)
+                                            action Show("phone_image", img=message.content)
+                                    else:
+                                        padding (40, 30)
+
+                                        text message.content  style "message_text"
 
                     null height 75
 
-            if contact.replies:
+            if MessengerService.has_replies(contact):
                 fixed:
                     xysize (416, 63)
                     ypos 780
@@ -304,7 +116,6 @@ screen messager(contact=None):
                         idle "phone_reply_button_idle"
                         hover "messenger_reply_button_hover"
                         selected_idle "messenger_reply_button_hover"
-                        # action [Show("message_reply", contact=contact), SetField(renpy.get_displayable("messager", "vp").yadjustment, "value", float("inf"))]
                         action [Show("message_reply", contact=contact), SetField(inf_adj, "value", float("inf"))]
                         align (0.5, 0.5)
 

@@ -1,22 +1,3 @@
-init python:
-    class TrackerData:
-        data: list[TrackerData] = []
-
-        def __init__(
-            self,
-            character: NonPlayableCharacter,
-            condition: bool,
-            true_text: str = "",
-            false_text: str = "",
-        ):
-            self.character = character
-            self.condition = condition
-            self.true_text = true_text
-            self.false_text = false_text
-
-            TrackerData.data.append(self)
-
-
 screen tracker_home():
     tag phone_tag
     modal True

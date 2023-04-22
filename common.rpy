@@ -1,4 +1,4 @@
-screen message_reply(contact=None):
+screen message_reply(contact):
     vbox:
         xsize 500
         xpos 1200
@@ -6,18 +6,21 @@ screen message_reply(contact=None):
         yoffset -100
         spacing 10
 
-        for reply in contact.replies:
+        for reply in contact.text_messages[-1].replies:
             button:
-                action [Hide("message_reply"), Function(contact.selected_reply, reply)]
+                if reply.next_message is not None:
+                    action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send), Hide()]
+                else:
+                    action [AddToSet(contact.text_messages, reply), Function(MessengerService.send_next_messages, contact), Hide()]
+                sensitive True
                 padding (15, 15)
                 size_group "reply_buttons"
 
-                if isinstance(reply, Reply):
-                    background "phone_reply_background_idle"
-                    text reply.message style "reply_text" align (0.5, 0.5)
-
-                elif isinstance(reply, ImgReply):
+                if renpy.loadable(reply.content):
                     add Transform(reply.image, zoom=0.15)
+                else:
+                    background "phone_reply_background_idle"
+                    text reply.content style "reply_text" align (0.5, 0.5)
 
     if config_debug:
         if contact.replies:
