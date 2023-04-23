@@ -1,7 +1,3 @@
-"""renpy
-init python:
-"""
-
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
@@ -12,9 +8,14 @@ if TYPE_CHECKING:
     from game.phone.Application_ren import Application
 
 
+"""renpy
+init python:
+"""
+
+
 class Phone:
-    def __init__(self, *applications: Application) -> None:
-        self.applications: tuple[Application] = applications
+    def __init__(self) -> None:
+        self.applications: tuple[Application] = ()
 
     @property
     def notification(self) -> bool:
@@ -28,7 +29,7 @@ class Phone:
             return "phone_icon"
 
     @staticmethod
-    def get_exit_actions():
+    def get_exit_actions() -> list:
         actions: list = [
             Hide("tutorial"),  # type: ignore
             Hide("message_reply"),  # type: ignore
@@ -42,3 +43,6 @@ class Phone:
         else:
             actions.append(Hide("phone_tag"))  # type: ignore
         return actions
+
+
+phone = Phone()
