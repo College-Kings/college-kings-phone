@@ -46,28 +46,18 @@ screen relationships_home():
 
                                 text character.name
 
-                                if CharacterService.is_ex(character, mc):
+                                if CharacterService.is_ex(character):
                                     text _("Broken Up"):
                                         size 20
                                         color "#FFD166"
-                                
-                                elif CharacterService.get_relationship(character, mc) == Relationship.KISS:
-                                    text _("Kissed"):
-                                        size 20
-                                        color "#FFD166"
 
-                                elif CharacterService.is_fwb(character, mc):
+                                elif CharacterService.is_fwb(character):
                                     text _("Friends with Benefits"):
                                         size 20
                                         color "#FFD166"
 
-                                elif CharacterService.is_girlfriend(character, mc) or CharacterService.get_relationship(character, mc) == Relationship.TAMED:
-                                    text _("Dating"):
-                                        size 20
-                                        color "#FFD166"
-
                                 else:
-                                    text CharacterService.get_relationship(character, mc).name.capitalize():
+                                    text CharacterService.get_relationship(character).name.capitalize():
 
                                         size 20
                                         color "#FFD166"
