@@ -12,8 +12,8 @@ if TYPE_CHECKING:
 
 
 class Application:
-    def __init__(self, name: str) -> None:
-        self.name: str = name
+    def __init__(self) -> None:
+        self.name: str = self.__class__.__name__
         self.home_screen: str = f"{self.name.lower()}_home"
 
     def __repr__(self) -> str:
@@ -33,7 +33,7 @@ class Application:
 
 class Messenger(Application):
     def __init__(self) -> None:
-        super().__init__(self.__class__.__name__)
+        super().__init__()
 
         self.contacts: list[NonPlayableCharacter] = []
 
@@ -50,7 +50,7 @@ class Messenger(Application):
 
 class Simplr(Application):
     def __init__(self) -> None:
-        super().__init__(self.__class__.__name__)
+        super().__init__()
 
         self.contacts: list[NonPlayableCharacter] = []
         self.pending_contacts: list[NonPlayableCharacter] = []
@@ -68,7 +68,7 @@ class Simplr(Application):
 
 class Kiwii(Application):
     def __init__(self) -> None:
-        super().__init__("Kiwii")
+        super().__init__()
 
         self.posts: list[KiwiiPost] = []
 
