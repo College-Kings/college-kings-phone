@@ -168,7 +168,7 @@ label message_test:
         ep2s1b_reply_3b_1.new_message("I'll have a fresh pot of coffee on")
 
         replies = [Reply("Yes, so excited", ep2s1b_reply_3b_1)]
-        if not config_censored:
+        if not is_censored:
             replies.append(Reply("I am once again reminding you it is 2am, which is too early for this shit", ep2s1b_reply_3a_1))
 
         MessengerService.add_replies(amber, *replies)
