@@ -1,16 +1,14 @@
-"""renpy
-init python:
-"""
-
 from __future__ import annotations
-from typing import TYPE_CHECKING
 
+from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.phone.Message_ren import Message
 from game.phone.Reply_ren import Reply
 
-if TYPE_CHECKING:
-    from renpy.exports import store
-    from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
+from renpy import store
+
+"""renpy
+init python:
+"""
 
 
 class MessengerService:
