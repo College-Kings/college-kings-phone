@@ -32,7 +32,7 @@ screen messenger_home():
 
     if config_debug:
         for contact in messenger.contacts:
-            if contact.pending_text_messages:
+            if MessengerService.has_replies(contact):
                 timer 0.1 action [Function(renpy.retain_after_load), Show("messager", contact=contact)]
 
 
@@ -123,7 +123,7 @@ screen messager(contact=None):
         timer 0.1 action Show("kiwiiPopup")
 
     if config_debug:
-        if contact.replies:
+        if MessengerService.has_replies(contact):
             timer 0.1 repeat True action Show("message_reply", contact=contact)
         else:
             timer 0.1 repeat True action [Hide("message_reply"), Show("phone")]

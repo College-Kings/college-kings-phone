@@ -23,10 +23,12 @@ screen message_reply(contact):
                     text reply.content style "reply_text" align (0.5, 0.5)
 
     if config_debug:
-        if contact.replies:
-            timer 0.1 action [Hide("message_reply"), Function(contact.selected_reply, renpy.random.choice(contact.replies))]
-        else:
-            timer 0.1 action Hide("message_reply")
+        $ reply = renpy.random.choice(contact.text_messages[-1].replies)
+        timer 0.1:
+            if reply.next_message is not None:
+                action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send), Hide()]
+            else:
+                action [AddToSet(contact.text_messages, reply), Function(MessengerService.send_next_messages, contact), Hide()]
 
 
 screen phone_image(img=None):

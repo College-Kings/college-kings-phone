@@ -1,14 +1,14 @@
+from typing import Union
+
+from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
+from game.phone.MessengerService_ren import MessengerService
+from game.phone.kiwii.KiwiiComment_ren import KiwiiComment
+from game.phone.kiwii.KiwiiPost_ren import KiwiiPost
+
+
 """renpy
 init python:
 """
-
-from typing import TYPE_CHECKING, Union
-
-
-if TYPE_CHECKING:
-    from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
-    from game.phone.kiwii.KiwiiComment_ren import KiwiiComment
-    from game.phone.kiwii.KiwiiPost_ren import KiwiiPost
 
 
 class Application:
@@ -39,7 +39,7 @@ class Messenger(Application):
 
     @property
     def notification(self) -> bool:
-        return any(contact.pending_text_messages for contact in self.contacts)
+        return any(MessengerService.has_replies(contact) for contact in self.contacts)
 
     def move_contact_to_top(self, contact: NonPlayableCharacter) -> None:
         try:

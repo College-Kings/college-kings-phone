@@ -108,4 +108,4 @@ screen phone():
 
         if not any(app.notification for app in phone.applications):
             timer 0.1:
-                action [Hide("tutorial"), Hide("message_reply"), Hide("phone_tag")]
+                action Phone.get_exit_actions()
