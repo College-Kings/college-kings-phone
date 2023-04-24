@@ -50,3 +50,11 @@ class MessengerService:
             return MessengerService.new_message(contact, "", *replies)
 
         contact.pending_text_messages.replies = replies
+
+    @staticmethod
+    def find_message(contact: NonPlayableCharacter, content: str) -> Message:
+        for message in contact.pending_text_messages + contact.text_messages:
+            if message.content == content:
+                return message
+
+        return None
