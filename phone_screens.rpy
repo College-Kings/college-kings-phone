@@ -4,7 +4,7 @@ default phone_from_phone_icon = False
 screen phone_icon():
     imagebutton:
         idle phone.image
-        action [SetVariable("phone_from_phone_icon", True), Show("phone"), If("phone_tutorial" not in persistent.hidden_tutorials, Show("phone_tutorial"))]
+        action [SetVariable("phone_from_phone_icon", True), Show("phone"), If(persistent.enabled_tutorials["phone_tutorial"], Show("phone_tutorial"))]
         xalign 1.0
         offset (25, -25)
 
