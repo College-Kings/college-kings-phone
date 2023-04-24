@@ -1,44 +1,52 @@
+from typing import Any, Callable, Optional
+
+from renpy import store
+from renpy.exports import SetVariable
+
+from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
+from game.phone.Message_ren import Message
+from game.phone.MessengerService_ren import MessengerService
+from game.phone.Reply_ren import Reply
+
+
 """renpy
 init python:
 """
 
 
-from game.phone.MessengerService_ren import MessengerService
-
-
 class MessageBuilder:
-    def __init__(self, contact: NonPlayableCharacter, clear_pending=False):
-        self.contact = contact
-        self.clear_pending = clear_pending
+    def __init__(self, contact: NonPlayableCharacter, clear_pending=False) -> None:
+        self.contact: NonPlayableCharacter = contact
+        self.clear_pending: bool = clear_pending
         self.message_queue: list[Message] = []
         self.current_message: Optional[Message] = None
-        self.functions = []
+        self.functions: list[Callable] = []
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"MessageBuilder({self.contact})"
 
-    def new_message(self, content: str, *replies: Reply):
+    def new_message(self, content: str, *replies: Reply) -> None:
         self.current_message = Message(self.contact, content, replies)
         self.message_queue.append(self.current_message)
 
-        messenger.move_contact_to_top(self.contact)
+        store.messenger.move_contact_to_top(self.contact)
 
-    def add_reply(self, content: str):
+    def add_reply(self, content: str) -> None:
         self.add_replies(Reply(content))
 
-    def add_replies(self, *replies: Reply):
+    def add_replies(self, *replies: Reply) -> None:
         if self.current_message is None or self.current_message.replies:
             return self.new_message("", *replies)
 
         self.current_message.replies = replies
 
-    def add_function(self, function: Callable, *args, **kwargs):
+    def add_function(self, function: Callable, *args, **kwargs) -> None:
         self.functions.append((function, args, kwargs))
 
-    def set_variable(self, var_name: str, value: Any):
+    def set_variable(self, var_name: str, value: Any) -> None:
         self.add_function(SetVariable(var_name, value))
 
-    def send(self):
+    def send(self) -> None:
         for function, args, kwargs in self.functions:
             function(*args, **kwargs)
 
