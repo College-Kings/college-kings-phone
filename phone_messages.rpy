@@ -27,7 +27,7 @@ screen messenger_home():
                             
                             text contact.name style "nametext" xpos 100 yalign 0.5
 
-                            if contact.pending_text_messages:
+                            if MessengerService.has_replies(contact):
                                 add "phone_contact_notification" align (1.0, 0.5) xoffset -25
 
     if config_debug:
