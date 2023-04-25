@@ -49,7 +49,7 @@ class MessengerService:
         ):
             return MessengerService.new_message(contact, "", *replies)
 
-        contact.pending_text_messages.replies = replies
+        contact.pending_text_messages[-1].replies = replies
 
     @staticmethod
     def find_message(contact: NonPlayableCharacter, content: str) -> Message:
