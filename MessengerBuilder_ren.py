@@ -31,8 +31,8 @@ class MessageBuilder:
 
         store.messenger.move_contact_to_top(self.contact)
 
-    def add_reply(self, content: str) -> None:
-        self.add_replies(Reply(content))
+    def add_reply(self, content: str, next_message=None) -> None:
+        self.add_replies(Reply(content, next_message))
 
     def add_replies(self, *replies: Reply) -> None:
         if self.current_message is None or self.current_message.replies:
