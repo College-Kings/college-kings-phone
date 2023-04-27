@@ -142,7 +142,7 @@ screen kiwii_home(posts=kiwii_posts):
                                 idle Transform(post.image, xysize=(366, 206))
                                 action Show("kiwii_image", img=post.image)
                                 xalign 0.5
-                            text Kiwii.get_message(post) style "kiwii_CommentText" xalign 0.5
+                            text KiwiiService.get_message(post) style "kiwii_CommentText" xalign 0.5
 
                         null height 10
 
@@ -155,7 +155,7 @@ screen kiwii_home(posts=kiwii_posts):
                                     hover "kiwii_like_hover"
                                     selected_idle "kiwii_like_hover"
                                     selected post.liked
-                                    action Function(Kiwii.toggle_liked, post)
+                                    action Function(KiwiiService.toggle_liked, post)
 
                                 text "{}".format(post.number_likes) style "kiwii_LikeCounter" yalign 0.5
 
@@ -214,7 +214,7 @@ screen kiwiiPost(post):
                                 add Transform(comment.user.profile_picture, xysize=(55, 55))
                                 text comment.user.username style "kiwii_ProfileName" yalign 0.5
 
-                            text Kiwii.get_message(comment) style "kiwii_CommentText"
+                            text KiwiiService.get_message(comment) style "kiwii_CommentText"
 
                             hbox:
                                 spacing 5
@@ -224,7 +224,7 @@ screen kiwiiPost(post):
                                     hover "kiwii_like_hover"
                                     selected_idle "kiwii_like_hover"
                                     selected comment.liked
-                                    action Function(Kiwii.toggle_liked, comment)
+                                    action Function(KiwiiService.toggle_liked, comment)
                                 text "[comment.number_likes]" style "kiwii_LikeCounter" yalign 0.5
 
     if post.replies:
