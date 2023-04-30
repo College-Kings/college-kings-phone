@@ -38,8 +38,10 @@ class MessengerService:
         MessengerService.send_next_messages(contact)
 
     @staticmethod
-    def add_reply(contact: NonPlayableCharacter, content: str) -> None:
-        MessengerService.add_replies(contact, Reply(content))
+    def add_reply(
+        contact: NonPlayableCharacter, content: str, next_message=None
+    ) -> None:
+        MessengerService.add_replies(contact, Reply(content, next_message))
 
     @staticmethod
     def add_replies(contact: NonPlayableCharacter, *replies: Reply) -> None:
