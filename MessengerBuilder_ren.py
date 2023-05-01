@@ -31,8 +31,12 @@ class MessageBuilder:
 
         store.messenger.move_contact_to_top(self.contact)
 
+        return self
+
     def add_reply(self, content: str, next_message=None) -> None:
         self.add_replies(Reply(content, next_message))
+
+        return self
 
     def add_replies(self, *replies: Reply) -> None:
         if self.current_message is None or self.current_message.replies:
@@ -40,11 +44,17 @@ class MessageBuilder:
 
         self.current_message.replies = replies
 
+        return self
+
     def add_function(self, function: Callable, *args, **kwargs) -> None:
         self.functions.append((function, args, kwargs))
 
+        return self
+
     def set_variable(self, var_name: str, value: Any) -> None:
         self.add_function(SetVariable(var_name, value))
+
+        return self
 
     def send(self) -> None:
         for function, args, kwargs in self.functions:
