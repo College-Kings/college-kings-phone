@@ -2,6 +2,8 @@ default phone_from_phone_icon = False
 
 
 screen phone_icon():
+    zorder 10
+    
     imagebutton:
         idle phone.image
         action [SetVariable("phone_from_phone_icon", True), Show("phone"), If(persistent.enabled_tutorials["phone_tutorial"], Show("phone_tutorial"))]
