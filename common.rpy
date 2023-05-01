@@ -17,7 +17,7 @@ screen message_reply(contact):
                 size_group "reply_buttons"
 
                 if renpy.loadable(reply.content):
-                    add Transform(reply.image, zoom=0.15)
+                    add Transform(reply.content, zoom=0.15)
                 else:
                     background "phone_reply_background_idle"
                     text reply.content style "reply_text" align (0.5, 0.5)
