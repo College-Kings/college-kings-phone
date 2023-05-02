@@ -1,5 +1,3 @@
-from typing import Union
-
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.phone.MessengerService_ren import MessengerService
 from game.phone.kiwii.KiwiiComment_ren import KiwiiComment
