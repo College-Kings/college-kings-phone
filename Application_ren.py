@@ -1,7 +1,7 @@
 from renpy import store
 
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
-from game.phone.MessengerService_ren import MessengerService
+from game.phone.messenger.MessengerService_ren import MessengerService
 from game.phone.kiwii.KiwiiPost_ren import KiwiiPost
 
 
@@ -56,7 +56,7 @@ class Simplr(Application):
 
     @property
     def notification(self) -> bool:
-        return any(contact.notification for contact in self.contacts)
+        return False
 
     def move_contact_to_top(self, contact: NonPlayableCharacter) -> None:
         try:
