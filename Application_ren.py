@@ -51,18 +51,12 @@ class Simplr(Application):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
 
-        self.contacts: list[NonPlayableCharacter] = []
-        self.pending_contacts: list[NonPlayableCharacter] = []
-
-    @property
-    def notification(self) -> bool:
-        return False
-
-    def move_contact_to_top(self, contact: NonPlayableCharacter) -> None:
-        try:
-            self.contacts.insert(0, self.contacts.pop(self.contacts.index(contact)))
-        except ValueError:
-            self.contacts.insert(0, contact)
+        self.pending_contacts: tuple[NonPlayableCharacter, ...] = (
+            store.beth,
+            store.iris,
+            store.samantha,
+            store.emmy,
+        )
 
 
 class Kiwii(Application):
