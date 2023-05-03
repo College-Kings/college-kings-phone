@@ -1,6 +1,7 @@
+from renpy import store
+
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.phone.MessengerService_ren import MessengerService
-from game.phone.kiwii.KiwiiComment_ren import KiwiiComment
 from game.phone.kiwii.KiwiiPost_ren import KiwiiPost
 
 
@@ -72,13 +73,5 @@ class Kiwii(Application):
 
     @property
     def notification(self) -> bool:
-        for post in self.posts:
-            if post.replies:
-                return True
-            try:
-                if not post.seen:
-                    return True
-            except AttributeError:
-                post.seen = True
-
-        return False
+        return any(post.replies for post in store.kiwii_posts)
+        # return any(post.replies for post in self.posts)
