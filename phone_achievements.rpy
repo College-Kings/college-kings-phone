@@ -16,7 +16,7 @@ screen achievements_home():
                     xalign 0.5
                     spacing -40
 
-                    for ach in achievements:
+                    for ach in Achievement.achievements:
                         frame:
                             xsize 415
                             ypadding 35
