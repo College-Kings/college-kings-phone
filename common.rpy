@@ -23,7 +23,14 @@ screen message_reply(contact):
                     text reply.content style "reply_text" align (0.5, 0.5)
 
     if config_debug:
+        if not contact.text_messages[-1].replies:
+            $ print(contact.text_messages[-1].content)
+
         $ reply = renpy.random.choice(contact.text_messages[-1].replies)
+        
+        if isinstance(reply, NonPlayableCharacter):
+            $ print(contact.text_messages[-1].content)
+        
         timer 0.1:
             if reply.next_message is not None:
                 action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send), Hide()]
