@@ -1,4 +1,5 @@
-from typing import Any, Callable, Optional, Self
+from __future__ import annotations
+from typing import Any, Callable, Optional
 
 from renpy import store
 from renpy.exports import SetVariable
@@ -25,7 +26,7 @@ class MessageBuilder:
     def __repr__(self) -> str:
         return f"MessageBuilder({self.contact})"
 
-    def new_message(self, content: str, *replies: Reply) -> Self:
+    def new_message(self, content: str, *replies: Reply) -> MessageBuilder:
         self.current_message = Message(self.contact, content, replies)
         self.message_queue.append(self.current_message)
 
@@ -33,12 +34,12 @@ class MessageBuilder:
 
         return self
 
-    def add_reply(self, content: str, next_message=None) -> Self:
+    def add_reply(self, content: str, next_message=None) -> MessageBuilder:
         self.add_replies(Reply(content, next_message))
 
         return self
 
-    def add_replies(self, *replies: Reply) -> Self:
+    def add_replies(self, *replies: Reply) -> MessageBuilder:
         if self.current_message is None or self.current_message.replies:
             return self.new_message("", *replies)
 
@@ -46,12 +47,12 @@ class MessageBuilder:
 
         return self
 
-    def add_function(self, function: Callable, *args, **kwargs) -> Self:
+    def add_function(self, function: Callable, *args, **kwargs) -> MessageBuilder:
         self.functions.append((function, args, kwargs))
 
         return self
 
-    def set_variable(self, var_name: str, value: Any) -> Self:
+    def set_variable(self, var_name: str, value: Any) -> MessageBuilder:
         self.add_function(SetVariable(var_name, value))
 
         return self
