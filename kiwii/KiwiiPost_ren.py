@@ -65,6 +65,9 @@ class KiwiiPost:
         number_likes: int = random.randint(250, 500),
         mentions: Optional[list[Union[NonPlayableCharacter, PlayableCharacter]]] = None,
     ) -> KiwiiComment:
+        if mentions is None:
+            mentions = []
+
         comment = KiwiiComment(user, message, number_likes, mentions)
 
         # Add message to queue
@@ -83,6 +86,9 @@ class KiwiiPost:
         number_likes: int = random.randint(250, 500),
         mentions: Optional[list[Union[NonPlayableCharacter, PlayableCharacter]]] = None,
     ) -> KiwiiReply:
+        if mentions is None:
+            mentions = []
+
         reply = KiwiiReply(content, func, number_likes, mentions)
 
         # Append reply to last sent message
@@ -133,6 +139,9 @@ class KiwiiPost:
         number_likes: int = random.randint(250, 500),
         mentions: Optional[list[Union[NonPlayableCharacter, PlayableCharacter]]] = None,
     ) -> KiwiiComment:
+        if mentions is None:
+            mentions = []
+
         return self.new_comment(user, message, number_likes, mentions)
 
     def addReply(
@@ -142,6 +151,9 @@ class KiwiiPost:
         number_likes: int = random.randint(250, 500),
         mentions: Optional[list[Union[NonPlayableCharacter, PlayableCharacter]]] = None,
     ) -> KiwiiReply:
+        if mentions is None:
+            mentions = []
+
         return self.add_reply(message, func, number_likes, mentions)
 
     def selectedReply(self, reply: KiwiiReply) -> None:
