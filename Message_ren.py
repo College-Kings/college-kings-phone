@@ -1,8 +1,10 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
-from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
-from game.phone.messenger.Reply_ren import Reply
+if TYPE_CHECKING:
+    from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
+    from game.phone.messenger.Reply_ren import Reply
 
 """renpy
 init python:
