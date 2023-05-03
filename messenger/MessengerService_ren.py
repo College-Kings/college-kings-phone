@@ -1,10 +1,11 @@
 from __future__ import annotations
+from typing import Optional
+
+from renpy import store
 
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.phone.Message_ren import Message
-from game.phone.Reply_ren import Reply
-
-from renpy import store
+from game.phone.messenger.Reply_ren import Reply
 
 """renpy
 init python:
@@ -14,11 +15,10 @@ init python:
 class MessengerService:
     @staticmethod
     def has_replies(contact: NonPlayableCharacter) -> bool:
-        return (
-            contact.text_messages
-            and hasattr(contact.text_messages[-1], "replies")
-            and contact.text_messages[-1].replies
-        )
+        try:
+            return bool(contact.text_messages[-1].replies)
+        except (IndexError, AttributeError):
+            return False
 
     @staticmethod
     def send_next_messages(contact: NonPlayableCharacter) -> None:
@@ -54,7 +54,7 @@ class MessengerService:
         contact.pending_text_messages[-1].replies = replies
 
     @staticmethod
-    def find_message(contact: NonPlayableCharacter, content: str) -> Message:
+    def find_message(contact: NonPlayableCharacter, content: str) -> Optional[Message]:
         for message in contact.pending_text_messages + contact.text_messages:
             if message.content == content:
                 return message
