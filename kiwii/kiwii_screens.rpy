@@ -108,8 +108,6 @@ screen kiwii_home(posts=kiwii_posts):
                 null height 20
 
                 for post in reversed(posts):
-                    $ post.seen = True
-
                     frame:
                         xalign 0.5
                         xsize 386
