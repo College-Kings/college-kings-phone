@@ -6,7 +6,7 @@ from renpy.exports import SetVariable
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.phone.Message_ren import Message
 from game.phone.messenger.MessengerService_ren import MessengerService
-from game.phone.Reply_ren import Reply
+from game.phone.messenger.Reply_ren import Reply
 
 
 """renpy
