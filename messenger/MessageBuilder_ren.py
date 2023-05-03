@@ -1,3 +1,4 @@
+from __future__ import annotations
 from typing import Any, Callable, Optional
 
 from renpy import store
@@ -5,8 +6,8 @@ from renpy.exports import SetVariable
 
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.phone.Message_ren import Message
-from game.phone.MessengerService_ren import MessengerService
-from game.phone.Reply_ren import Reply
+from game.phone.messenger.MessengerService_ren import MessengerService
+from game.phone.messenger.Reply_ren import Reply
 
 
 """renpy
@@ -20,12 +21,12 @@ class MessageBuilder:
         self.clear_pending: bool = clear_pending
         self.message_queue: list[Message] = []
         self.current_message: Optional[Message] = None
-        self.functions: list[Callable] = []
+        self.functions: list[tuple[Callable, tuple, dict]] = []
 
     def __repr__(self) -> str:
         return f"MessageBuilder({self.contact})"
 
-    def new_message(self, content: str, *replies: Reply) -> None:
+    def new_message(self, content: str, *replies: Reply) -> MessageBuilder:
         self.current_message = Message(self.contact, content, replies)
         self.message_queue.append(self.current_message)
 
@@ -33,12 +34,12 @@ class MessageBuilder:
 
         return self
 
-    def add_reply(self, content: str, next_message=None) -> None:
+    def add_reply(self, content: str, next_message=None) -> MessageBuilder:
         self.add_replies(Reply(content, next_message))
 
         return self
 
-    def add_replies(self, *replies: Reply) -> None:
+    def add_replies(self, *replies: Reply) -> MessageBuilder:
         if self.current_message is None or self.current_message.replies:
             return self.new_message("", *replies)
 
@@ -46,12 +47,12 @@ class MessageBuilder:
 
         return self
 
-    def add_function(self, function: Callable, *args, **kwargs) -> None:
+    def add_function(self, function: Callable, *args, **kwargs) -> MessageBuilder:
         self.functions.append((function, args, kwargs))
 
         return self
 
-    def set_variable(self, var_name: str, value: Any) -> None:
+    def set_variable(self, var_name: str, value: Any) -> MessageBuilder:
         self.add_function(SetVariable(var_name, value))
 
         return self

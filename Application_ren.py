@@ -1,7 +1,7 @@
 from renpy import store
 
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
-from game.phone.MessengerService_ren import MessengerService
+from game.phone.messenger.MessengerService_ren import MessengerService
 from game.phone.kiwii.KiwiiPost_ren import KiwiiPost
 
 
@@ -51,18 +51,12 @@ class Simplr(Application):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
 
-        self.contacts: list[NonPlayableCharacter] = []
-        self.pending_contacts: list[NonPlayableCharacter] = []
-
-    @property
-    def notification(self) -> bool:
-        return any(contact.notification for contact in self.contacts)
-
-    def move_contact_to_top(self, contact: NonPlayableCharacter) -> None:
-        try:
-            self.contacts.insert(0, self.contacts.pop(self.contacts.index(contact)))
-        except ValueError:
-            self.contacts.insert(0, contact)
+        self.pending_contacts: list[NonPlayableCharacter] = [
+            store.beth,
+            store.iris,
+            store.samantha,
+            store.emmy,
+        ]
 
 
 class Kiwii(Application):
