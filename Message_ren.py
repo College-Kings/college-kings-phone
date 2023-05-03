@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
-from game.phone.Reply_ren import Reply
+from game.phone.messenger.Reply_ren import Reply
 
 """renpy
 init python:
