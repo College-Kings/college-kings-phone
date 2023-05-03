@@ -24,6 +24,23 @@ style application_name is text:
     size 12
     color "#fff"
 
+#region Achievements
+style achievement_name is text:
+    color "#fff"
+    font "fonts/Montserrat-ExtraBold.ttf"
+    size 18
+
+style achievement_text is text:
+    color "#fff"
+    font "fonts/Montserrat-SemiBold.ttf"
+    size 15
+
+style achievement_locked_name is text:
+    color "#777"
+    font "fonts/Montserrat-ExtraBold.ttf"
+    size 18
+#endregion Achievements
+
 # Messanger
 style message_text is text:
     font "fonts/Effra-Regular.ttf"
