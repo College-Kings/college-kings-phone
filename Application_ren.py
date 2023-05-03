@@ -51,12 +51,7 @@ class Simplr(Application):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
 
-        self.pending_contacts: list[NonPlayableCharacter] = [
-            store.beth,
-            store.iris,
-            store.samantha,
-            store.emmy,
-        ]
+        self.pending_contacts: list[NonPlayableCharacter] = []
 
 
 class Kiwii(Application):
