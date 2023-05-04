@@ -79,9 +79,6 @@ screen messenger(contact=None):
                         action [Show("message_reply", contact=contact), SetField(inf_adj, "value", float("inf"))]
                         align (0.5, 0.5)
 
-    if kiwii_first_time:
-        timer 0.1 action Show("kiwiiPopup")
-
     if config_debug:
         if MessengerService.has_replies(contact):
             timer 0.1 repeat True action Show("message_reply", contact=contact)
