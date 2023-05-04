@@ -28,7 +28,6 @@ screen base_phone(background="phone_screen"):
         background background
         align (0.5, 0.5)
         xysize (433, 918)
-        modal True
 
         transclude
 
@@ -63,7 +62,6 @@ screen base_phone_rotated():
     frame:
         align (0.5, 0.5)
         xysize (918, 433)
-        modal True
 
         transclude
 
