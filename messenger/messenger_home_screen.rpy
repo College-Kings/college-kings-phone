@@ -20,7 +20,7 @@ screen messenger_home():
 
                     for contact in messenger.contacts:
                         button:
-                            action [Function(renpy.retain_after_load), Show("messager", contact=contact)]
+                            action [Function(renpy.retain_after_load), Show("messenger", contact=contact)]
                             ysize 80
 
                             add Transform(contact.profile_picture, xysize=(65, 65)) xpos 20 yalign 0.5
@@ -33,4 +33,4 @@ screen messenger_home():
     if config_debug:
         for contact in messenger.contacts:
             if MessengerService.has_replies(contact):
-                timer 0.1 action [Function(renpy.retain_after_load), Show("messager", contact=contact)]
+                timer 0.1 action [Function(renpy.retain_after_load), Show("messenger", contact=contact)]

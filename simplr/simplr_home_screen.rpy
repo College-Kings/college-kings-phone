@@ -30,7 +30,7 @@ screen simplr_home():
                         imagebutton:
                             idle "simplr_like_button_idle"
                             hover "simplr_like_button_hover"
-                            action AddToSet(messager.contacts, simplr_app.pending_contacts.pop(0))
+                            action AddToSet(messenger.contacts, simplr_app.pending_contacts.pop(0))
 
                         imagebutton:
                             idle "simplr_no_button_idle"
