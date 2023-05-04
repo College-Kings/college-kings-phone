@@ -21,7 +21,7 @@ screen simplr_home():
 
             if simplr_contact is not None:
                 frame:
-                    background simplr_contact.profile_picture
+                    background [p for p in simplr_contact.profile_pictures if p.endswith("simplr.webp")][0]
                     xysize (370, 593)
                     xalign 0.5
                     ypos 200
