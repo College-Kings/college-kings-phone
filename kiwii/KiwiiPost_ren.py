@@ -1,20 +1,18 @@
-"""renpy
-init python:
-"""
-
 from __future__ import annotations
 
 import random
-from typing import Callable, Optional, Union, TYPE_CHECKING
+from typing import Callable, Optional, Union
 
+from renpy import store
 
-if TYPE_CHECKING:
-    from renpy.exports import store
+from game.phone.kiwii.KiwiiComment_ren import KiwiiComment
+from game.characters.PlayableCharacters_ren import PlayableCharacter
+from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
+from game.phone.kiwii.KiwiiReply_ren import KiwiiReply
 
-    from game.phone.kiwii.KiwiiComment_ren import KiwiiComment
-    from game.characters.PlayableCharacters_ren import PlayableCharacter
-    from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
-    from game.phone.kiwii.KiwiiReply_ren import KiwiiReply
+"""renpy
+init python:
+"""
 
 
 class KiwiiPost:

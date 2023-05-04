@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import Optional
+from game.phone.messenger.MessageBuilder_ren import MessageBuilder
 
 from renpy import store
 
@@ -29,7 +30,10 @@ class MessengerService:
 
     @staticmethod
     def new_message(
-        contact: NonPlayableCharacter, content: str, *replies: Reply, clear_pending=True
+        contact: NonPlayableCharacter,
+        content: str,
+        *replies: Reply,
+        clear_pending: bool = True,
     ) -> None:
         contact.pending_text_messages.append(Message(contact, content, replies))
 
@@ -39,7 +43,9 @@ class MessengerService:
 
     @staticmethod
     def add_reply(
-        contact: NonPlayableCharacter, content: str, next_message=None
+        contact: NonPlayableCharacter,
+        content: str,
+        next_message: Optional[MessageBuilder] = None,
     ) -> None:
         MessengerService.add_replies(contact, Reply(content, next_message))
 
