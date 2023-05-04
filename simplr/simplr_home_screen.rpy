@@ -2,7 +2,11 @@ screen simplr_home():
     tag phone_tag
     modal True
     
-    $ simplr_contact = simplr_app.pending_contacts[0] or None
+    python:
+        try:
+            simplr_contact = simplr_app.pending_contacts[0]
+        except IndexError:
+            simplr_contact = None
 
     use base_phone:
         frame:
