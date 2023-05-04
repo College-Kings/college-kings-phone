@@ -34,7 +34,7 @@ screen simplr_home():
                         imagebutton:
                             idle "simplr_like_button_idle"
                             hover "simplr_like_button_hover"
-                            action AddToSet(messenger.contacts, simplr_app.pending_contacts.pop(0))
+                            action [AddToSet(messenger.contacts, simplr_contact), RemoveFromSet(simplr_app.pending_contacts, simplr_contact)]
 
                         imagebutton:
                             idle "simplr_no_button_idle"
