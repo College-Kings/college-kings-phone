@@ -39,7 +39,7 @@ screen simplr_home():
                         imagebutton:
                             idle "simplr_no_button_idle"
                             hover "simplr_no_button_hover"
-                            action Function(simplr_app.pending_contacts.pop, 0)
+                            action RemoveFromSet(simplr_app.pending_contacts, simplr_contact)
 
             else:
                 text _("No new profiles to show...\nYou can however still chat with your matches!\n\nBe sure to check back soon!"):
