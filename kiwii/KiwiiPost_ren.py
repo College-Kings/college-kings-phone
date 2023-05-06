@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import random
-from typing import Callable, Optional, Union
+from typing import Callable, Optional
 
+from game.characters.ICharacter_ren import ICharacter
 from game.phone.kiwii.KiwiiComment_ren import KiwiiComment
-from game.characters.PlayableCharacters_ren import PlayableCharacter, mc
-from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
+from game.characters.PlayableCharacters_ren import mc
 from game.phone.kiwii.KiwiiReply_ren import KiwiiReply
 
 kiwii_posts: list[KiwiiPost]
@@ -18,18 +18,16 @@ init python:
 class KiwiiPost:
     def __init__(
         self,
-        user: Union[PlayableCharacter, NonPlayableCharacter],
+        user: ICharacter,
         image: str,
         message: str = "",
-        mentions: Optional[list[Union[NonPlayableCharacter, PlayableCharacter]]] = None,
+        mentions: Optional[list[ICharacter]] = None,
         number_likes: int = random.randint(250, 500),
     ) -> None:
-        self.user: Union[NonPlayableCharacter, PlayableCharacter] = user
+        self.user: ICharacter = user
         self.image: str = f"images/{image}"
         self.message: str = message
-        self.mentions: list[Union[NonPlayableCharacter, PlayableCharacter]] = (
-            mentions if mentions is not None else []
-        )
+        self.mentions: list[ICharacter] = mentions if mentions is not None else []
 
         self.number_likes: int = number_likes
 
@@ -58,10 +56,10 @@ class KiwiiPost:
 
     def new_comment(
         self,
-        user: Union[PlayableCharacter, NonPlayableCharacter],
+        user: ICharacter,
         message: str,
         number_likes: int = random.randint(250, 500),
-        mentions: Optional[list[Union[NonPlayableCharacter, PlayableCharacter]]] = None,
+        mentions: Optional[list[ICharacter]] = None,
     ) -> KiwiiComment:
         if mentions is None:
             mentions = []
@@ -82,7 +80,7 @@ class KiwiiPost:
         content: str,
         func: Optional[Callable[[KiwiiPost], None]] = None,
         number_likes: int = random.randint(250, 500),
-        mentions: Optional[list[Union[NonPlayableCharacter, PlayableCharacter]]] = None,
+        mentions: Optional[list[ICharacter]] = None,
     ) -> KiwiiReply:
         if mentions is None:
             mentions = []
@@ -132,10 +130,10 @@ class KiwiiPost:
     # Backwards compatibility.
     def newComment(
         self,
-        user: NonPlayableCharacter,
+        user: ICharacter,
         message: str,
         number_likes: int = random.randint(250, 500),
-        mentions: Optional[list[Union[NonPlayableCharacter, PlayableCharacter]]] = None,
+        mentions: Optional[list[ICharacter]] = None,
     ) -> KiwiiComment:
         if mentions is None:
             mentions = []
@@ -147,7 +145,7 @@ class KiwiiPost:
         message: str,
         func: Optional[Callable[["KiwiiPost"], None]] = None,
         number_likes: int = random.randint(250, 500),
-        mentions: Optional[list[Union[NonPlayableCharacter, PlayableCharacter]]] = None,
+        mentions: Optional[list[ICharacter]] = None,
     ) -> KiwiiReply:
         if mentions is None:
             mentions = []
