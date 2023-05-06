@@ -25,11 +25,14 @@ screen base_phone(background="phone_screen"):
         action Phone.get_exit_actions()
 
     frame:
+        modal True
         background background
         align (0.5, 0.5)
         xysize (433, 918)
 
         transclude
+
+        add "#00ff0080"
 
         if not renpy.get_screen("phone"):
             fixed:
