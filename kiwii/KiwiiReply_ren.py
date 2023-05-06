@@ -1,12 +1,13 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 import random
-from typing import Callable, Optional
-
+from typing import Callable, Optional, TYPE_CHECKING
 
 from game.characters.ICharacter_ren import ICharacter
-from game.characters.PlayableCharacters_ren import PlayableCharacter, mc
 from game.phone.kiwii.KiwiiPost_ren import KiwiiPost
+
+if TYPE_CHECKING:
+    from game.characters.PlayableCharacters_ren import PlayableCharacter, mc
 
 """renpy
 init python:
