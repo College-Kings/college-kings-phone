@@ -32,8 +32,6 @@ screen base_phone(background="phone_screen"):
 
         transclude
 
-        add "#00ff0080"
-
         if not renpy.get_screen("phone"):
             fixed:
                 ysize 69
