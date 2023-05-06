@@ -1,14 +1,13 @@
 from __future__ import annotations
 from typing import Any, Callable, Optional
 
-from renpy import store
 from renpy.exports import SetVariable
 
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.phone.Message_ren import Message
 from game.phone.messenger.MessengerService_ren import MessengerService
 from game.phone.messenger.Reply_ren import Reply
-
+from game.phone.Application_ren import messenger
 
 """renpy
 init python:
@@ -16,12 +15,14 @@ init python:
 
 
 class MessageBuilder:
-    def __init__(self, contact: NonPlayableCharacter, clear_pending=False) -> None:
+    def __init__(
+        self, contact: NonPlayableCharacter, clear_pending: bool = False
+    ) -> None:
         self.contact: NonPlayableCharacter = contact
         self.clear_pending: bool = clear_pending
         self.message_queue: list[Message] = []
         self.current_message: Optional[Message] = None
-        self.functions: list[tuple[Callable, tuple, dict]] = []
+        self.functions: list[tuple[Callable[..., Any], tuple[Any], dict[str, Any]]] = []
 
     def __repr__(self) -> str:
         return f"MessageBuilder({self.contact})"
@@ -30,11 +31,13 @@ class MessageBuilder:
         self.current_message = Message(self.contact, content, replies)
         self.message_queue.append(self.current_message)
 
-        store.messenger.move_contact_to_top(self.contact)
+        messenger.move_contact_to_top(self.contact)
 
         return self
 
-    def add_reply(self, content: str, next_message=None) -> MessageBuilder:
+    def add_reply(
+        self, content: str, next_message: Optional[MessageBuilder] = None
+    ) -> MessageBuilder:
         self.add_replies(Reply(content, next_message))
 
         return self
@@ -47,7 +50,9 @@ class MessageBuilder:
 
         return self
 
-    def add_function(self, function: Callable, *args, **kwargs) -> MessageBuilder:
+    def add_function(
+        self, function: Callable[..., Any], *args: Any, **kwargs: Any
+    ) -> MessageBuilder:
         self.functions.append((function, args, kwargs))
 
         return self

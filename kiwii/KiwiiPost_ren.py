@@ -3,12 +3,12 @@ from __future__ import annotations
 import random
 from typing import Callable, Optional, Union
 
-from renpy import store
-
 from game.phone.kiwii.KiwiiComment_ren import KiwiiComment
-from game.characters.PlayableCharacters_ren import PlayableCharacter
+from game.characters.PlayableCharacters_ren import PlayableCharacter, mc
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.phone.kiwii.KiwiiReply_ren import KiwiiReply
+
+kiwii_posts: list[KiwiiPost]
 
 """renpy
 init python:
@@ -39,7 +39,7 @@ class KiwiiPost:
         self.sent_comments: list[KiwiiComment] = []
         self.pending_comments: list[KiwiiComment] = []
 
-        store.kiwii_posts.append(self)
+        kiwii_posts.append(self)
 
     @property
     def username(self) -> str:
@@ -95,7 +95,7 @@ class KiwiiPost:
         elif self.sent_comments:
             self.sent_comments[-1].replies.append(reply)
         else:
-            message: KiwiiComment = self.new_comment(store.mc, "")
+            message: KiwiiComment = self.new_comment(mc, "")
             message.replies.append(reply)
 
         return reply
@@ -104,7 +104,7 @@ class KiwiiPost:
         self.seen = True
 
         self.sent_comments.append(
-            KiwiiComment(store.mc, reply.message, reply.number_likes, reply.mentions)
+            KiwiiComment(mc, reply.message, reply.number_likes, reply.mentions)
         )
         self.sent_comments[-1].reply = reply
         self.sent_comments[-1].replies = []
@@ -125,8 +125,8 @@ class KiwiiPost:
             pass
 
     def remove_post(self) -> None:
-        if self in store.kiwii_posts:
-            store.kiwii_posts.remove(self)
+        if self in kiwii_posts:
+            kiwii_posts.remove(self)
         del self
 
     # Backwards compatibility.

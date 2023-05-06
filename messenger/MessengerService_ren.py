@@ -2,11 +2,10 @@ from __future__ import annotations
 from typing import Optional
 from game.phone.messenger.MessageBuilder_ren import MessageBuilder
 
-from renpy import store
-
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.phone.Message_ren import Message
 from game.phone.messenger.Reply_ren import Reply
+from game.phone.Application_ren import messenger
 
 """renpy
 init python:
@@ -37,7 +36,7 @@ class MessengerService:
     ) -> None:
         contact.pending_text_messages.append(Message(contact, content, replies))
 
-        store.messenger.move_contact_to_top(contact)
+        messenger.move_contact_to_top(contact)
 
         MessengerService.send_next_messages(contact)
 
