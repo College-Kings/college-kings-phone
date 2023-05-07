@@ -45,7 +45,13 @@ class KiwiiPost:
 
     @property
     def profile_picture(self) -> str:
-        return self.user.profile_picture
+        try:
+            if not self.user.profile_picture:
+                raise AttributeError(f"{self.user} has no profile picture.")
+
+            return self.user.profile_picture
+        except AttributeError:
+            raise AttributeError(f"{self.user} has no profile picture.")
 
     @property
     def replies(self) -> list[KiwiiReply]:
