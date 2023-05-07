@@ -41,7 +41,7 @@ class KiwiiPost:
 
     @property
     def username(self) -> str:
-        return self.user.username
+        return self.user.username or self.user.name
 
     @property
     def profile_picture(self) -> str:

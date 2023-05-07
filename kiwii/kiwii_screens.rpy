@@ -210,7 +210,7 @@ screen kiwiiPost(post):
                                 spacing 10
 
                                 add Transform(comment.user.profile_picture, xysize=(55, 55))
-                                text comment.user.username style "kiwii_ProfileName" yalign 0.5
+                                text str(comment.user.username or comment.user.name) style "kiwii_ProfileName" yalign 0.5
 
                             text KiwiiService.get_message(comment) style "kiwii_CommentText"
 

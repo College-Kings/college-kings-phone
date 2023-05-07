@@ -14,7 +14,9 @@ class KiwiiService:
         if kiwii_obj.mentions is None:
             kiwii_obj.mentions = []
 
-        usernames: list[str] = [mention.username for mention in kiwii_obj.mentions]
+        usernames: list[str] = [
+            (mention.username or mention.name) for mention in kiwii_obj.mentions
+        ]
 
         message: str = ", @".join(usernames)
         if usernames:
