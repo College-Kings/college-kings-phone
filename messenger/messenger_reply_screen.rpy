@@ -8,6 +8,10 @@ screen message_reply(contact):
             spacing 10
 
             for reply in contact.text_messages[-1].replies:
+                python:
+                    if not (reply.next_message is None or isinstance(reply.next_message, MessageBuilder)):
+                        raise Exception(f"{reply.content} has a invalid next message {reply.next_message}")
+
                 button:
                     if reply.next_message is not None:
                         action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send), Hide()]
