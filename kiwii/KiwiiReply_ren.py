@@ -27,3 +27,6 @@ class KiwiiReply:
 
     def __post_init__(self) -> None:
         self.user: PlayableCharacter = mc
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}({self.message!r})"
