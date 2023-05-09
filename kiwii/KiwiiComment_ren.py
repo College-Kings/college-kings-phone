@@ -16,10 +16,13 @@ class KiwiiComment:
     post: KiwiiPost
     user: ICharacter
     message: str
-    mentions: list[ICharacter] = field(default_factory=list)
     number_likes: int = random.randint(250, 500)
+    mentions: list[ICharacter] = field(default_factory=list)
     liked: bool = False
     replies: tuple[KiwiiReply, ...] = ()
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}({self.user}, {self.message}, {self.replies})"
 
     def send(self) -> None:
         self.post.comments.append(self)
