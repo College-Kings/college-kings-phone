@@ -26,7 +26,7 @@ screen kiwii_base():
                 imagebutton:
                     idle "kiwii_liked_button_idle"
                     hover "kiwii_liked_button_hover"
-                    action Show("kiwii_home", posts=list(filter(lambda post: post.liked, kiwii_posts)))
+                    action Show("kiwii_home", posts=list(post for post in kiwii.posts if post.liked)))
                     yalign 0.5
 
                 imagebutton:
@@ -84,12 +84,12 @@ screen kiwii_preferences():
                 xalign 0.5
 
                 text "Total Likes:" style "kiwii_ProfileName" at truecenter
-                text str(get_total_likes()) at truecenter:
+                text str(KiwiiService.get_total_likes()) at truecenter:
                     color "#006400"
                     outlines [ (absolute(0), "#000", absolute(0), absolute(0)) ]
 
 
-screen kiwii_home(posts=kiwii_posts):
+screen kiwii_home(posts=kiwii.posts):
     tag phone_tag
     modal True
 
@@ -121,8 +121,8 @@ screen kiwii_home(posts=kiwii_posts):
                             hbox:
                                 spacing 10
 
-                                add Transform(post.profile_picture, xysize=(55, 55))
-                                text post.username style "kiwii_ProfileName" yalign 0.5
+                                add Transform(post.user.profile_picture, xysize=(55, 55))
+                                text post.user.username style "kiwii_ProfileName" yalign 0.5
 
                             hbox:
                                 spacing 5
@@ -165,10 +165,10 @@ screen kiwii_home(posts=kiwii_posts):
 
     if config_debug:
         for post in reversed(posts):
-            if post.replies:
+            if KiwiiService.has_replies(post):
                 timer 0.1 action Show("kiwiiPost", post=post)
         
-        if not any(post.replies for post in reversed(posts)):
+        if not any(KiwiiService.has_replies(post) for post in reversed(posts)):
             timer 0.1:
                 if renpy.get_screen("free_roam"):
                     action [Hide("tutorial"), Hide("phone"), Hide("message_reply")]
@@ -180,8 +180,6 @@ screen kiwiiPost(post):
     tag phone_tag
     zorder 200
     modal True
-
-    $ post.seen = True
 
     use kiwii_base:
         imagebutton:
@@ -201,7 +199,7 @@ screen kiwiiPost(post):
 
                 null
 
-                for comment in post.sent_comments:
+                for comment in post.comments:
                     if comment.message.strip():
                         vbox:
                             spacing 5
@@ -225,22 +223,22 @@ screen kiwiiPost(post):
                                     action Function(KiwiiService.toggle_liked, comment)
                                 text "[comment.number_likes]" style "kiwii_LikeCounter" yalign 0.5
 
-    if post.replies:
+    if KiwiiService.has_replies(post):
         vbox:
             xpos 1200
             yalign 0.84
             spacing 15
 
-            for reply in post.replies:
+            for reply in post.comments[-1].replies:
                 textbutton reply.message:
                     text_style "kiwii_ReplyText"
                     style "kiwii_reply"
-                    action Function(post.selectedReply, reply)
+                    action Function(KiwiiService.select_reply, post, reply)
 
     if config_debug:
-        if post.replies:
-            $ reply = renpy.random.choice(post.replies)
-            timer 0.1 repeat True action Function(post.selectedReply, reply)
+        if KiwiiService.has_replies(post):
+            $ reply = renpy.random.choice(post.comments[-1].replies)
+            timer 0.1 repeat True action Function(KiwiiService.select_reply, post, reply)
         else:
             timer 0.1:
                 if renpy.get_screen("free_roam"):
