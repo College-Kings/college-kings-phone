@@ -39,7 +39,7 @@ class KiwiiBuilder:
 
         self.post.pending_comments.append(
             KiwiiComment(
-                self.post, user, message, mentions, number_likes, replies=replies
+                self.post, user, message, number_likes, mentions, replies=replies
             )
         )
 
