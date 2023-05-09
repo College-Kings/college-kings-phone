@@ -28,7 +28,6 @@ class KiwiiBuilder:
 
     def new_comment(
         self,
-        post: KiwiiPost,
         user: ICharacter,
         message: str,
         number_likes: int = random.randint(250, 500),
@@ -38,17 +37,18 @@ class KiwiiBuilder:
         if mentions is None:
             mentions = []
 
-        post.pending_comments.append(
-            KiwiiComment(post, user, message, mentions, number_likes, replies=replies)
+        self.post.pending_comments.append(
+            KiwiiComment(
+                self.post, user, message, mentions, number_likes, replies=replies
+            )
         )
 
-        KiwiiService.send_next_comments(post)
+        KiwiiService.send_next_comments(self.post)
 
         return self
 
     def add_reply(
         self,
-        post: KiwiiPost,
         message: str,
         number_likes: int = random.randint(250, 500),
         mentions: Optional[list[ICharacter]] = None,
@@ -58,20 +58,19 @@ class KiwiiBuilder:
             mentions = []
 
         KiwiiService.add_replies(
-            post, KiwiiReply(message, number_likes, mentions, next_message)
+            self.post, KiwiiReply(message, number_likes, mentions, next_message)
         )
 
         return self
 
     def add_replies(
         self,
-        post: KiwiiPost,
         *replies: KiwiiReply,
     ) -> KiwiiBuilder:
-        if not post.pending_comments or post.pending_comments[0].replies:
-            KiwiiService.new_comment(post, post.user, "", 0, None, *replies)
+        if not self.post.pending_comments or self.post.pending_comments[0].replies:
+            KiwiiService.new_comment(self.post, self.post.user, "", 0, None, *replies)
 
-        post.pending_comments[-1].replies = replies
+        self.post.pending_comments[-1].replies = replies
 
         return self
 
