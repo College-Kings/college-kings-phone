@@ -57,7 +57,7 @@ class KiwiiService:
             mentions = []
 
         post.pending_comments.append(
-            KiwiiComment(post, user, message, mentions, number_likes, replies=replies)
+            KiwiiComment(post, user, message, number_likes, mentions, replies=replies)
         )
 
         KiwiiService.send_next_comments(post)
@@ -83,15 +83,16 @@ class KiwiiService:
         *replies: KiwiiReply,
     ) -> None:
         if not post.pending_comments or post.pending_comments[0].replies:
-            KiwiiService.new_comment(post, post.user, "", 0, None, *replies)
+            return KiwiiService.new_comment(post, post.user, "", 0, None, *replies)
 
         post.pending_comments[-1].replies = replies
 
     @staticmethod
     def select_reply(post: KiwiiPost, reply: KiwiiReply) -> None:
-        KiwiiService.new_comment(
-            post, mc, reply.message, reply.number_likes, reply.mentions
+        post.comments.append(
+            KiwiiComment(post, mc, reply.message, reply.number_likes, reply.mentions)
         )
+
         if reply.next_comment is not None:
             reply.next_comment.send()
         else:
