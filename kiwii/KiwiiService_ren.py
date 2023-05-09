@@ -88,6 +88,16 @@ class KiwiiService:
         post.pending_comments[-1].replies = replies
 
     @staticmethod
+    def select_reply(post: KiwiiPost, reply: KiwiiReply) -> None:
+        KiwiiService.new_comment(
+            post, mc, reply.message, reply.number_likes, reply.mentions
+        )
+        if reply.next_comment is not None:
+            reply.next_comment.send()
+        else:
+            KiwiiService.send_next_comments(post)
+
+    @staticmethod
     def get_message(kiwii_obj: Union[KiwiiPost, KiwiiComment]) -> str:
         usernames: list[str] = [
             (mention.username or mention.name) for mention in kiwii_obj.mentions
