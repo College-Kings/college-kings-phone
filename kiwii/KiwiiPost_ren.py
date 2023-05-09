@@ -5,8 +5,6 @@ import random
 from game.characters.ICharacter_ren import ICharacter
 from game.phone.kiwii.KiwiiComment_ren import KiwiiComment
 
-kiwii_posts: list[KiwiiPost]
-
 """renpy
 init python:
 """

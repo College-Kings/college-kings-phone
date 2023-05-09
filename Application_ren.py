@@ -1,8 +1,7 @@
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.phone.messenger.MessengerService_ren import MessengerService
 from game.phone.kiwii.KiwiiPost_ren import KiwiiPost
-
-kiwii_posts: list[KiwiiPost]
+from game.phone.kiwii.KiwiiService_ren import KiwiiService
 
 """renpy
 init python:
@@ -61,8 +60,7 @@ class Kiwii(Application):
 
     @property
     def notification(self) -> bool:
-        return any(post.replies for post in kiwii_posts)
-        # return any(post.replies for post in self.posts)
+        return any(KiwiiService.has_replies(post) for post in self.posts)
 
 
 messenger: Messenger
