@@ -26,7 +26,7 @@ screen kiwii_base():
                 imagebutton:
                     idle "kiwii_liked_button_idle"
                     hover "kiwii_liked_button_hover"
-                    action Show("kiwii_home", posts=list(post for post in kiwii.posts if post.liked)))
+                    action Show("kiwii_home", posts=list(post for post in kiwii.posts if post.liked))
                     yalign 0.5
 
                 imagebutton:
