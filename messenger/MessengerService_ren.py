@@ -54,7 +54,7 @@ class MessengerService:
             not contact.pending_text_messages
             or contact.pending_text_messages[0].replies
         ):
-            return MessengerService.new_message(contact, "", *replies)
+            MessengerService.new_message(contact, "", *replies)
 
         contact.pending_text_messages[-1].replies = replies
 
