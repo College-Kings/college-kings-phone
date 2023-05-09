@@ -52,13 +52,13 @@ class KiwiiBuilder:
         message: str,
         number_likes: int = random.randint(250, 500),
         mentions: Optional[list[ICharacter]] = None,
-        next_message: Optional[KiwiiBuilder] = None,
+        next_comment: Optional[KiwiiBuilder] = None,
     ) -> KiwiiBuilder:
         if mentions is None:
             mentions = []
 
         KiwiiService.add_replies(
-            self.post, KiwiiReply(message, number_likes, mentions, next_message)
+            self.post, KiwiiReply(message, number_likes, mentions, next_comment)
         )
 
         return self
