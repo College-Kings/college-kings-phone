@@ -17,4 +17,4 @@ class KiwiiReply:
     message: str
     number_likes: int = random.randint(250, 500)
     mentions: list[ICharacter] = field(default_factory=list)
-    next_message: Optional[KiwiiBuilder] = None
+    next_comment: Optional[KiwiiBuilder] = None
