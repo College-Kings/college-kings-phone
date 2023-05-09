@@ -33,8 +33,8 @@ class KiwiiService:
         user: ICharacter,
         image: str,
         message: str,
-        mentions: Optional[list[ICharacter]] = None,
         number_likes: int = random.randint(250, 500),
+        mentions: Optional[list[ICharacter]] = None,
     ) -> KiwiiPost:
         if mentions is None:
             mentions = []
