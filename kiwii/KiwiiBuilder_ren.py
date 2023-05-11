@@ -37,13 +37,10 @@ class KiwiiBuilder:
         if mentions is None:
             mentions = []
 
-        self.post.pending_comments.append(
-            KiwiiComment(
-                self.post, user, message, number_likes, mentions, replies=replies
-            )
+        self.current_comment = KiwiiComment(
+            self.post, user, message, number_likes, mentions, replies=replies
         )
-
-        KiwiiService.send_next_comments(self.post)
+        self.comment_queue.append(self.current_comment)
 
         return self
 
@@ -57,9 +54,7 @@ class KiwiiBuilder:
         if mentions is None:
             mentions = []
 
-        KiwiiService.add_replies(
-            self.post, KiwiiReply(message, number_likes, mentions, next_comment)
-        )
+        self.add_replies(KiwiiReply(message, number_likes, mentions, next_comment))
 
         return self
 
@@ -67,10 +62,10 @@ class KiwiiBuilder:
         self,
         *replies: KiwiiReply,
     ) -> KiwiiBuilder:
-        if not self.post.pending_comments or self.post.pending_comments[0].replies:
-            KiwiiService.new_comment(self.post, self.post.user, "", 0, None, *replies)
+        if self.current_comment is None or self.current_comment.replies:
+            return self.new_comment(self.post.user, "", 0, None, *replies)
 
-        self.post.pending_comments[-1].replies = replies
+        self.current_comment.replies = replies
 
         return self
 

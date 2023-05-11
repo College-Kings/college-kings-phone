@@ -1,13 +1,13 @@
 from __future__ import annotations
 from typing import Any, Callable, Optional
 
-from renpy.exports import SetVariable
-
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.phone.Message_ren import Message
 from game.phone.messenger.MessengerService_ren import MessengerService
 from game.phone.messenger.Reply_ren import Reply
 from game.phone.Application_ren import messenger
+
+SetVariable: Callable[[str, Any], Any]
 
 """renpy
 init python:
