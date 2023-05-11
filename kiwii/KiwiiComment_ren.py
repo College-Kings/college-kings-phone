@@ -26,3 +26,13 @@ class KiwiiComment:
 
     def send(self) -> None:
         self.post.comments.append(self)
+
+    def __eq__(self, __value: object) -> bool:
+        if not isinstance(__value, KiwiiComment):
+            return NotImplemented
+
+        return (
+            self.post == __value.post
+            and self.user == __value.user
+            and self.message == __value.message
+        )

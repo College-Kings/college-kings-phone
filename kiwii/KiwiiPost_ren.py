@@ -20,3 +20,18 @@ class KiwiiPost:
     liked: bool = False
     comments: list[KiwiiComment] = field(default_factory=list)
     pending_comments: list[KiwiiComment] = field(default_factory=list)
+
+    def __repr__(self) -> str:
+        return (
+            f"{self.__class__.__name__}({self.user}, {self.message}, {self.comments})"
+        )
+
+    def __eq__(self, __value: object) -> bool:
+        if not isinstance(__value, KiwiiPost):
+            return NotImplemented
+
+        return (
+            self.user == __value.user
+            and self.image == __value.image
+            and self.message == __value.message
+        )
