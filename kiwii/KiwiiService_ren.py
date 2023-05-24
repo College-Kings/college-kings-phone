@@ -39,6 +39,9 @@ class KiwiiService:
         if mentions is None:
             mentions = []
 
+        if not image.startswith("images"):
+            image = f"images/{image}"
+
         post = KiwiiPost(user, image, message, mentions, number_likes)
         kiwii.posts.append(post)
 
