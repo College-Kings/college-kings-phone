@@ -100,7 +100,7 @@ screen tracker_home():
         TrackerData(riley, "v3_riley" in viewed_scenes, _("• Riley gave me a blowjob after my fight with Tom."))
         TrackerData(riley, v3s11_sign_up, _("• I signed up for the Newspaper sqaud with Riley."))
 
-        TrackerData(penelope, v0s23_penelope_date, _("• I went bowling with Penelope."))
+        TrackerData(penelope, v0_bowling, _("• I went bowling with Penelope."))
         TrackerData(penelope, v0_pen_goes_europe, _("• I was able to get Penelope to go to Europe."))
         TrackerData(penelope, v0_penelope_concert, _("• Penelope and I went to Polly's concert together."))
         TrackerData(penelope, v1s37_focus_on_us, _("• I helped Penelope stay focused during your date."))
