@@ -35,6 +35,7 @@ class KiwiiService:
         message: str,
         number_likes: int = random.randint(250, 500),
         mentions: Optional[list[ICharacter]] = None,
+        fan_page: Optional[list[KiwiiPost]] = None,
     ) -> KiwiiPost:
         if mentions is None:
             mentions = []
@@ -43,7 +44,11 @@ class KiwiiService:
             image = f"images/{image}"
 
         post = KiwiiPost(user, image, message, mentions, number_likes)
-        kiwii.posts.append(post)
+
+        if fan_page is None:
+            kiwii.posts.append(post)
+        else:
+            fan_page.append(post)
 
         return post
 

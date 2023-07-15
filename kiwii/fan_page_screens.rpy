@@ -1,4 +1,4 @@
-screen fan_page(posts):
+screen kiwii_fan_page(posts):
     tag phone_tag
     modal True
 
