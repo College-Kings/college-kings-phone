@@ -6,10 +6,12 @@ screen kiwii_fan_page(posts):
         frame:
             background "kiwii_background"
 
+        text "SVG REJECTS" color "#000" size 48 ypos 152 xalign 0.5 # TODO: Art needs to render a better logo (with faded palm trees in the background)
+
         viewport:
             mousewheel True
             draggable True
-            ypos 152
+            ypos 200
             ysize 692
 
             vbox:
@@ -32,8 +34,13 @@ screen kiwii_fan_page(posts):
                             hbox:
                                 spacing 10
 
-                                add Transform(post.user.profile_picture, xysize=(55, 55))
-                                text post.user.username style "kiwii_ProfileName" yalign 0.5
+                                add Transform(post.user.profile_picture, xysize=(55, 55)) # TODO: Art needs to render a generic user profile picture - greyed out female silhouette
+
+                                vbox:
+                                    yalign 0.5
+                                    
+                                    text post.user.username style "kiwii_ProfileName"
+                                    text "San Vallejo" color "#000" size 16
 
                             hbox:
                                 spacing 5
