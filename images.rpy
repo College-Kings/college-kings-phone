@@ -52,7 +52,6 @@ image messenger_conversation_background = "/phone/images/messenger/conversation_
 image messenger_home_background = "/phone/images/messenger/home_background.webp"
 image messenger_icon_notification = "/phone/images/messenger/icon_notification.webp"
 image messenger_icon = "/phone/images/messenger/icon.webp"
-image messenger_reply_button_hover = "/phone/images/messenger/reply_button_hover.webp"
 
 # Relationships
 image relationships_background = "/phone/images/relationships/background.webp"
