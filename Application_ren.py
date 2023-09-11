@@ -109,10 +109,10 @@ class Messenger(Application):
                         npc.text_messages.append(Reply(message.content))  # type: ignore
                     else:
                         npc.text_messages.append(Message(npc, message.content))  # type: ignore
-            messenger.contacts.append(npc)  # type: ignore
+            state["contacts"].append(npc)
 
         old_contacts = state["contacts"].copy()
-        messenger.contacts = [
+        state["contacts"] = [
             getattr(store, contact.name.lower().replace(" ", "_"))  # type: ignore
             for contact in old_contacts  # type: ignore
         ]
