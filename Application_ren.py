@@ -32,6 +32,8 @@ class Application:
         if state["name"] == "Relationships":
             state["home_screen"] = "relationships_home"
 
+        self.__dict__ = state
+
     @property
     def image(self) -> str:
         if self.notification:
@@ -125,6 +127,8 @@ class Messenger(Application):
                 contact.user = CharacterService.get_user(contact.name)
             except AttributeError:
                 pass
+
+        self.__dict__ = state
 
     def move_contact_to_top(self, contact: NonPlayableCharacter) -> None:
         try:
@@ -228,6 +232,8 @@ class Kiwii(Application):
             for post in posts:
                 if post.image in image_remap:
                     post.image = image_remap[post.image]
+
+        self.__dict__ = state
 
 
 messenger: Messenger
