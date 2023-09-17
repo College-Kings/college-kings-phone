@@ -111,6 +111,6 @@ screen kiwii_fan_page(posts):
     #     if not any(KiwiiService.has_replies(post) for post in reversed(posts)):
     #         timer 0.1:
     #             if renpy.get_screen("free_roam"):
-    #                 action [Hide("tutorial"), Hide("phone"), Hide("message_reply")]
+    #                 action [Hide("tutorial"), Hide("phone")]
     #             else:
-    #                 action [Hide("tutorial"), Hide("message_reply"), Return()]
+    #                 action [Hide("tutorial"), Return()]

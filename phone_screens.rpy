@@ -40,7 +40,7 @@ screen base_phone(background="phone_screen"):
                 imagebutton:
                     idle "phone_home_button_idle"
                     hover "phone_home_button_hover"
-                    action [Hide("message_reply"), Show("phone")]
+                    action Show("phone")
                     align (0.5, 0.5)
 
     key [ "K_ESCAPE", "K_MENU", "K_PAUSE", "mouseup_3" ]:
@@ -73,7 +73,7 @@ screen base_phone_rotated():
             imagebutton:
                 idle "phone_home_button_idle"
                 hover "phone_home_button_hover"
-                action [Hide("message_reply"), Show("phone")]
+                action Show("phone")
                 align (0.5, 0.5)
 
     key [ "K_ESCAPE", "K_MENU", "K_PAUSE", "mouseup_3" ]:

@@ -14,7 +14,7 @@ screen messenger(contact=None):
 
                 imagebutton:
                     idle "phone_back_button"
-                    action [Hide("message_reply"), Show("messenger_home")]
+                    action Show("messenger_home")
                     yalign 0.5
 
                 add Transform(contact.profile_picture, xysize=(65, 65)) yalign 0.5
@@ -78,9 +78,9 @@ screen messenger(contact=None):
                     for reply in contact.text_messages[-1].replies:
                         button:
                             if reply.next_message is not None:
-                                action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send), Hide()]
+                                action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send)]
                             else:
-                                action [AddToSet(contact.text_messages, reply), Function(MessengerService.send_next_messages, contact), Hide()]
+                                action [AddToSet(contact.text_messages, reply), Function(MessengerService.send_next_messages, contact)]
                             sensitive True
                             padding (15, 15)
                             size_group "reply_buttons"
@@ -97,8 +97,8 @@ screen messenger(contact=None):
             
             timer 0.1:
                 if reply.next_message is not None:
-                    action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send), Hide()]
+                    action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send)]
                 else:
-                    action [AddToSet(contact.text_messages, reply), Function(MessengerService.send_next_messages, contact), Hide()]
+                    action [AddToSet(contact.text_messages, reply), Function(MessengerService.send_next_messages, contact)]
         else:
-            timer 0.1 repeat True action [Hide("message_reply"), Show("phone")]
+            timer 0.1 repeat True action Show("phone")

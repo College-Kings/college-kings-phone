@@ -29,11 +29,7 @@ class Phone:
 
     @staticmethod
     def get_exit_actions() -> list[Any]:
-        actions: list[Any] = [
-            Hide("tutorial"),  # type: ignore
-            Hide("message_reply"),  # type: ignore
-            SetVariable("phone_from_phone_icon", False),  # type: ignore
-        ]
+        actions: list[Any] = [Hide("tutorial"), SetVariable("phone_from_phone_icon", False)]  # type: ignore
         if (
             not phone_from_phone_icon
             and renpy.context()._current_interact_type == "screen"
