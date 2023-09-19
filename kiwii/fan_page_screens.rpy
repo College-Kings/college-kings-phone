@@ -34,7 +34,7 @@ screen kiwii_fan_page(posts):
                             hbox:
                                 spacing 10
 
-                                add Transform(post.user.profile_picture, xysize=(55, 55)) # TODO: Art needs to render a generic user profile picture - greyed out female silhouette
+                                add Transform(post.user.profile_picture, xysize=(55, 55))
 
                                 vbox:
                                     yalign 0.5
