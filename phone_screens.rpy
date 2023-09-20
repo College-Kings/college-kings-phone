@@ -18,10 +18,14 @@ screen base_phone(background="phone_screen"):
 
     # Click background to close phone
     button:
+        sensitive True
+        selected False
         action Phone.get_exit_actions()
 
     textbutton _("Exit Phone"):
         style "phonebutton"
+        sensitive True
+        selected False
         action Phone.get_exit_actions()
 
     frame:
