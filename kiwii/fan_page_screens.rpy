@@ -6,17 +6,17 @@ screen kiwii_fan_page(posts):
         frame:
             background "kiwii_background"
 
-        text "SVG REJECTS" color "#000" size 48 ypos 152 xalign 0.5 # TODO: Art needs to render a better logo (with faded palm trees in the background)
+        add "svg_rejects_banner" xalign 0.5 xoffset 2 ypos 152
 
         viewport:
             mousewheel True
             draggable True
-            ypos 200
-            ysize 692
+            ypos 256
+            ysize 587
 
             vbox:
                 xalign 0.5
-                xsize 416
+                xsize 410
 
                 null height 20
 
