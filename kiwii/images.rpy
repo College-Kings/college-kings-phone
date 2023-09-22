@@ -1,1 +1,1 @@
-image svg_rejects_banner = "phone/kiwii/images/svg_rejects_banner.png"
+image svc_rejects_banner = "phone/kiwii/images/svc_rejects_banner.png"

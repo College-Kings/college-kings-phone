@@ -67,38 +67,25 @@ screen messenger(contact=None):
 
                     null height 75
 
-            if MessengerService.has_replies(contact):
-                vbox:
-                    xsize 500
-                    xpos 450
-                    yalign 1.0
-                    yoffset -100
-                    spacing 10
+            vbox:
+                xsize 500
+                xpos 450
+                yalign 1.0
+                yoffset -100
+                spacing 10
 
-                    for reply in contact.text_messages[-1].replies:
-                        button:
-                            if reply.next_message is not None:
-                                action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send)]
-                            else:
-                                action [AddToSet(contact.text_messages, reply), Function(MessengerService.send_next_messages, contact)]
-                            sensitive True
-                            padding (15, 15)
-                            size_group "reply_buttons"
+                for reply in MessengerService.replies(contact):
+                    button:
+                        if reply.next_message is not None:
+                            action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send)]
+                        else:
+                            action [AddToSet(contact.text_messages, reply), Function(MessengerService.send_next_messages, contact)]
+                        sensitive True
+                        padding (15, 15)
+                        size_group "reply_buttons"
 
-                            if renpy.loadable(reply.content):
-                                add Transform(reply.content, zoom=0.15)
-                            else:
-                                background "phone_reply_background_idle"
-                                text reply.content style "reply_text" align (0.5, 0.5)
-
-    if config_debug:
-        if MessengerService.has_replies(contact):
-            $ reply = renpy.random.choice(contact.text_messages[-1].replies)
-            
-            timer 0.1:
-                if reply.next_message is not None:
-                    action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send)]
-                else:
-                    action [AddToSet(contact.text_messages, reply), Function(MessengerService.send_next_messages, contact)]
-        else:
-            timer 0.1 repeat True action Show("phone")
+                        if renpy.loadable(reply.content):
+                            add Transform(reply.content, zoom=0.15)
+                        else:
+                            background "phone_reply_background_idle"
+                            text reply.content style "reply_text" align (0.5, 0.5)

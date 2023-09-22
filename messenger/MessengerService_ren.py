@@ -14,6 +14,13 @@ init python:
 
 class MessengerService:
     @staticmethod
+    def replies(contact: NonPlayableCharacter) -> list[Reply]:
+        try:
+            return list(contact.text_messages[-1].replies)
+        except (IndexError, AttributeError):
+            return []
+
+    @staticmethod
     def has_replies(contact: NonPlayableCharacter) -> bool:
         try:
             return bool(contact.text_messages[-1].replies)

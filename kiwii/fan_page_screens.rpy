@@ -6,7 +6,7 @@ screen kiwii_fan_page(posts):
         frame:
             background "kiwii_background"
 
-        add "svg_rejects_banner" xalign 0.5 xoffset 2 ypos 152
+        add "svc_rejects_banner" xalign 0.5 xoffset 2 ypos 152
 
         viewport:
             mousewheel True
