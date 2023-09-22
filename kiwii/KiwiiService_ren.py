@@ -1,7 +1,9 @@
 import random
 from typing import Optional, Union
-from game.characters.ICharacter_ren import ICharacter
 
+import renpy.exports as renpy
+
+from game.characters.ICharacter_ren import ICharacter
 from game.phone.Application_ren import kiwii
 from game.phone.kiwii.KiwiiComment_ren import KiwiiComment
 from game.phone.kiwii.KiwiiPost_ren import KiwiiPost
@@ -40,7 +42,7 @@ class KiwiiService:
         if mentions is None:
             mentions = []
 
-        if not image.startswith("images"):
+        if not image.startswith("images") and not renpy.has_image(image):  # type: ignore
             image = f"images/{image}"
 
         post = KiwiiPost(user, image, message, mentions, number_likes)
