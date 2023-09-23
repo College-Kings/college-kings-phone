@@ -75,58 +75,58 @@ class Messenger(Application):
             "images/v9/Scene 35/mcdickapes.webp": "images/v0/messenger_images/mcdickapes.webp",
         }
 
-        old_contacts = []
-        if isinstance(state["contacts"], list):
-            old_contacts: list[Union[NonPlayableCharacter, CustomCharacter]] = state[
-                "contacts"
-            ].copy()
-        state["contacts"] = []
+        # old_contacts = []
+        # if isinstance(state["contacts"], list):
+        #     old_contacts: list[Union[NonPlayableCharacter, CustomCharacter]] = state[
+        #         "contacts"
+        #     ].copy()
+        # state["contacts"] = []
 
-        for contact in old_contacts:
-            npc = contact
-            if type(npc) is not NonPlayableCharacter:
-                npc = CharacterService.get_user(contact.user)  # type: ignore
+        # for contact in old_contacts:
+        #     npc = contact
+        #     if type(npc) is not NonPlayableCharacter:
+        #         npc = CharacterService.get_user(contact.user)  # type: ignore
 
-            try:
-                npc.text_messages
-            except AttributeError:
-                npc.text_messages = []
+        #     try:
+        #         npc.text_messages
+        #     except AttributeError:
+        #         npc.text_messages = []
 
-            if hasattr(contact, "sent_messages"):
-                for message in contact.sent_messages:  # type: ignore
-                    if hasattr(message, "message"):  # type: ignore
-                        message.content = message.message  # type: ignore
-                    elif hasattr(message, "image"):  # type: ignore
-                        message.content = message.image  # type: ignore
+        #     if hasattr(contact, "sent_messages"):
+        #         for message in contact.sent_messages:  # type: ignore
+        #             if hasattr(message, "message"):  # type: ignore
+        #                 message.content = message.message  # type: ignore
+        #             elif hasattr(message, "image"):  # type: ignore
+        #                 message.content = message.image  # type: ignore
 
-                    try:
-                        message.content  # type: ignore
-                    except AttributeError:
-                        raise AttributeError(f"{vars(message)} has no content.")
+        #             try:
+        #                 message.content  # type: ignore
+        #             except AttributeError:
+        #                 raise AttributeError(f"{vars(message)} has no content.")
 
-                    if message.content in image_remap:  # type: ignore
-                        message.content = image_remap[message.content]  # type: ignore
+        #             if message.content in image_remap:  # type: ignore
+        #                 message.content = image_remap[message.content]  # type: ignore
 
-                    if isinstance(message, Reply):
-                        npc.text_messages.append(Reply(message.content))  # type: ignore
-                    else:
-                        npc.text_messages.append(Message(npc, message.content))  # type: ignore
-            state["contacts"].append(npc)
+        #             if isinstance(message, Reply):
+        #                 npc.text_messages.append(Reply(message.content))  # type: ignore
+        #             else:
+        #                 npc.text_messages.append(Message(npc, message.content))  # type: ignore
+        #     state["contacts"].append(npc)
 
-        old_contacts = state["contacts"].copy()
-        state["contacts"] = [
-            getattr(store, contact.name.lower().replace(" ", "_"))  # type: ignore
-            for contact in old_contacts  # type: ignore
-        ]
+        # old_contacts = state["contacts"].copy()
+        # state["contacts"] = [
+        #     getattr(store, contact.name.lower().replace(" ", "_"))  # type: ignore
+        #     for contact in old_contacts  # type: ignore
+        # ]
 
         state["name"] = "Messenger"
         state["home_screen"] = "messenger_home"
 
-        for contact in state["contacts"]:
-            try:
-                contact.user = CharacterService.get_user(contact.name)
-            except AttributeError:
-                pass
+        # for contact in state["contacts"]:
+        # try:
+        #     contact.user = CharacterService.get_user(contact.name)
+        # except AttributeError:
+        #     pass
 
         self.__dict__ = state
 
