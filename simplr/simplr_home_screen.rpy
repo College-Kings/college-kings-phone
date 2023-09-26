@@ -1,7 +1,7 @@
 screen simplr_home():
     tag phone_tag
     modal True
-    
+
     python:
         try:
             simplr_contact = simplr_app.pending_contacts[0]
@@ -11,7 +11,7 @@ screen simplr_home():
     use base_phone:
         frame:
             background "simplr_background"
-            
+
             # Top UI
             imagebutton:
                 pos (340, 100)
@@ -25,7 +25,7 @@ screen simplr_home():
                     xysize (370, 593)
                     xalign 0.5
                     ypos 200
-                    
+
                     hbox:
                         align (0.5, 1.0)
                         yoffset -10

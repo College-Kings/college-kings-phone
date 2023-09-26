@@ -1,7 +1,7 @@
 screen achievements_home():
     tag phone_tag
     modal True
-    
+
     use base_phone:
         frame:
             background "achievements_background"
@@ -31,7 +31,7 @@ screen achievements_home():
 
                                     text ach.display_name.upper() style "achievement_name"
                                     text ach.description style "achievement_text"
-                                
+
                             else:
                                 background "achievements_locked"
 

@@ -36,7 +36,7 @@ screen reputation_home():
         vbox:
             align (0.5, 0.5)
             spacing 20
-            
+
             for count, rep in enumerate(reputation.sorted_reputations, start=1):
                 frame:
                     if count == 1:
@@ -108,13 +108,13 @@ screen kct_points():
         xysize (506, 424)
         xpos 120
         yalign 0.5
-        
+
         frame:
             xysize (40, 40)
             pos (233, 15)
 
             text _("[bro]") align (0.5, 0.5)
-        
+
         frame:
             xysize (35, 35)
             pos (25, 354)
@@ -138,4 +138,3 @@ style kct_info_text is text:
     size 23
     color "#fff"
     text_align 0.5
-    

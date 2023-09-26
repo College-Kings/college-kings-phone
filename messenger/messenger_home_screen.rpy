@@ -24,7 +24,7 @@ screen messenger_home():
                             ysize 80
 
                             add Transform(contact.profile_picture, xysize=(65, 65)) xpos 20 yalign 0.5
-                            
+
                             text contact.name style "nametext" xpos 100 yalign 0.5
 
                             if MessengerService.has_replies(contact):

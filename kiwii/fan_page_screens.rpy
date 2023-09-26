@@ -38,7 +38,7 @@ screen kiwii_fan_page(posts):
 
                                 vbox:
                                     yalign 0.5
-                                    
+
                                     text post.user.username style "kiwii_ProfileName"
                                     text "San Vallejo" color "#000" size 16
 
@@ -107,7 +107,7 @@ screen kiwii_fan_page(posts):
     #     for post in reversed(posts):
     #         if KiwiiService.has_replies(post):
     #             timer 0.1 action Show("kiwiiPost", post=post)
-        
+
     #     if not any(KiwiiService.has_replies(post) for post in reversed(posts)):
     #         timer 0.1:
     #             if renpy.get_screen("free_roam"):

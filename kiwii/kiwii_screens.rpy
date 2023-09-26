@@ -167,7 +167,7 @@ screen kiwii_home(posts=kiwii.posts):
         for post in reversed(posts):
             if KiwiiService.has_replies(post):
                 timer 0.1 action Show("kiwiiPost", post=post)
-        
+
         if not any(KiwiiService.has_replies(post) for post in reversed(posts)):
             timer 0.1:
                 if renpy.get_screen("free_roam"):
@@ -187,7 +187,7 @@ screen kiwiiPost(post):
             action Show("kiwii_image", img=post.image)
             xalign 0.5
             ypos 152
-            
+
         viewport:
             mousewheel True
             draggable True

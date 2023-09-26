@@ -5,7 +5,7 @@ screen relationships_home():
     use base_phone_rotated:
         frame:
             background "relationships_background"
-            
+
             vpgrid:
                 mousewheel True
                 draggable True

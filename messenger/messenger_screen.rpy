@@ -30,7 +30,7 @@ screen messenger(contact=None):
 
                 vbox:
                     xfill True
-                    
+
                     null height 25
 
                     for message in contact.text_messages:
@@ -50,7 +50,7 @@ screen messenger(contact=None):
                                         padding (40, 30)
 
                                         text message.content  style "reply_text"
-                                
+
                                 else:
                                     background "phone_message_background"
 

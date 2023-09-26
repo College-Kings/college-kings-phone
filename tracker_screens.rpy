@@ -180,7 +180,7 @@ screen tracker_choices(character):
                             background "phone_message_background"
 
                             text data.true_text style "message_text"
-                
+
 
 style tracker_name is text:
     color "#fff"

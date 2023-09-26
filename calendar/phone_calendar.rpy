@@ -8,7 +8,7 @@ screen calendar_home():
 
     default temp_calendar = calendar_now
     default selected_date = calendar_now
-    
+
     python:
         list_count = len(calendar_checklist.get((selected_date.year, selected_date.month, selected_date.day), []))
         count_complete = len([
@@ -16,7 +16,7 @@ screen calendar_home():
                 for calendar_item in calendar_checklist.get((selected_date.year, selected_date.month, selected_date.day), [])
                 if calendar_item.completed
             ])
-   
+
         month_range = Calendar.month_range(temp_calendar.year, temp_calendar.month)
 
     add "calendar_background"
@@ -77,7 +77,7 @@ screen calendar_home():
             xfill True
             ypos 100
             spacing -25
-            
+
             for task in calendar_checklist.get((selected_date.year, selected_date.month, selected_date.day), []):
                 frame:
                     xysize (436, 143)
@@ -110,13 +110,13 @@ screen calendar_home():
                     text day:
                         style "label_text"
                         xalign 0.5
-        
+
         # Dates
         grid 7 6:
             ypos 100
             spacing 2
             allow_underfull True
-            
+
             # Gives blank space to offset month start date
             for i in range(0, month_range[0]):
                 null width 158 height 122
@@ -140,10 +140,10 @@ screen calendar_home():
                         add "calendar_current_date" xalign 0.5 ypos -7
 
                     text "[i]" pos (5, 1) style "label_text"
-                    
+
                     if i == selected_date.day and temp_calendar.month == selected_date.month and temp_calendar.year == selected_date.year:
                         add "calendar_date_select"
-                            
+
                     else:
                         imagebutton:
                             idle "#0000"
@@ -167,7 +167,7 @@ screen calendar_home():
                             frame:
                                 xysize (117, 55)
                                 background "calendar_complete_icon"
-                            
+
                                 text "[number_task_incomplete]" style "label_text" align (0.5, 0.5)
 
     on "show" action Hide("phone_icon")

@@ -3,7 +3,7 @@ default phone_from_phone_icon = False
 
 screen phone_icon():
     zorder 10
-    
+
     imagebutton:
         idle phone.image
         action [SetVariable("phone_from_phone_icon", True), Show("phone"), If(persistent.enabled_tutorials["phone_tutorial"], Show("phone_tutorial"))]
@@ -95,15 +95,15 @@ screen phone():
             xalign 0.5
             ypos 100
             allow_underfull True
-            
+
             for app in phone.applications:
                 vbox:
                     spacing 2
-                    
+
                     imagebutton:
                         idle app.image
                         action [Function(renpy.retain_after_load), Show(app.home_screen)]
-                            
+
                     text app.name style "application_name" xalign 0.5
 
     if config_debug:
