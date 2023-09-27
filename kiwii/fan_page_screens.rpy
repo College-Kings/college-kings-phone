@@ -3,8 +3,7 @@ screen kiwii_fan_page(posts):
     modal True
 
     use base_phone:
-        frame:
-            background "kiwii_background"
+        add "kiwii_background"
 
         add "svc_rejects_banner" xalign 0.5 xoffset 2 ypos 152
 
