@@ -1,9 +1,18 @@
-from __future__ import annotations
+from dataclasses import dataclass, field
 from typing import Any
 
 import renpy.exports as renpy
 
-from game.phone.Application_ren import Application
+from game.phone.messenger.Messenger_ren import Messenger
+from game.phone.Application_ren import Application, Kiwii
+
+messenger: Messenger
+achievement_app: Application
+relationship_app: Application
+kiwii: Kiwii
+reputation_app: Application
+tracker: Application
+calendar: Application
 
 phone_from_phone_icon: bool
 
@@ -12,9 +21,41 @@ init python:
 """
 
 
+@dataclass
 class Phone:
-    def __init__(self) -> None:
-        self.applications: tuple[Application, ...] = ()
+    _applications: list[Application] = field(default_factory=list)
+
+    @property
+    def applications(self) -> list[Application]:
+        try:
+            self._applications
+        except AttributeError:
+            self.applications = [
+                messenger,
+                achievement_app,
+                relationship_app,
+                kiwii,
+                reputation_app,
+                tracker,
+                calendar,
+            ]
+
+        if not self._applications:
+            self.applications = [
+                messenger,
+                achievement_app,
+                relationship_app,
+                kiwii,
+                reputation_app,
+                tracker,
+                calendar,
+            ]
+
+        return self._applications
+
+    @applications.setter
+    def applications(self, value: list[Application]) -> None:
+        self._applications = value
 
     @property
     def notification(self) -> bool:
