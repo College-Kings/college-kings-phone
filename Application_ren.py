@@ -1,5 +1,4 @@
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
-from game.phone.messenger.MessengerService_ren import MessengerService
 from game.phone.kiwii.KiwiiPost_ren import KiwiiPost
 from game.phone.kiwii.KiwiiService_ren import KiwiiService
 
@@ -29,23 +28,6 @@ class Application:
 
     def __repr__(self) -> str:
         return f"{type(self).__name__}({self.name})"
-
-
-class Messenger(Application):
-    def __init__(self) -> None:
-        super().__init__(self.__class__.__name__)
-
-        self.contacts: list[NonPlayableCharacter] = []
-
-    @property
-    def notification(self) -> bool:
-        return any(MessengerService.has_replies(contact) for contact in self.contacts)
-
-    def move_contact_to_top(self, contact: NonPlayableCharacter) -> None:
-        try:
-            self.contacts.insert(0, self.contacts.pop(self.contacts.index(contact)))
-        except ValueError:
-            self.contacts.insert(0, contact)
 
 
 class Simplr(Application):
