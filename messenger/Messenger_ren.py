@@ -34,6 +34,10 @@ class Messenger(Application):
     def notification(self) -> bool:
         return any(MessengerService.has_replies(contact) for contact in self.contacts)
 
+    def add_contact(self, contact: NonPlayableCharacter) -> None:
+        if contact not in self.contacts:
+            self.contacts.append(contact)
+
     def move_contact_to_top(self, contact: NonPlayableCharacter) -> None:
         try:
             self.contacts.insert(0, self.contacts.pop(self.contacts.index(contact)))

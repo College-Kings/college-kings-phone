@@ -1,11 +1,12 @@
-from __future__ import annotations
 from typing import Optional
-from game.phone.messenger.MessageBuilder_ren import MessageBuilder
 
+from game.phone.messenger.MessageBuilder_ren import MessageBuilder
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.phone.Message_ren import Message
+from game.phone.messenger.Messenger_ren import Messenger
 from game.phone.messenger.Reply_ren import Reply
-from game.phone.Application_ren import messenger
+
+messenger = Messenger()
 
 """renpy
 init python:
@@ -15,6 +16,8 @@ init python:
 class MessengerService:
     @staticmethod
     def replies(contact: NonPlayableCharacter) -> list[Reply]:
+        messenger.add_contact(contact)
+
         try:
             return list(contact.text_messages[-1].replies)
         except (IndexError, AttributeError):
@@ -22,6 +25,8 @@ class MessengerService:
 
     @staticmethod
     def has_replies(contact: NonPlayableCharacter) -> bool:
+        messenger.add_contact(contact)
+
         try:
             return bool(contact.text_messages[-1].replies)
         except (IndexError, AttributeError):
