@@ -16,8 +16,11 @@ class Messenger(Application):
 
     @property
     def contacts(self) -> list[NonPlayableCharacter]:
-        if self.__dict__.get("contacts", []):
-            self._contacts = [i for i in self.__dict__["contacts"]]
+        try:
+            self._contacts
+        except AttributeError:
+            if self.__dict__.get("contacts", []):
+                self._contacts = [i for i in self.__dict__["contacts"]]
 
         old_contacts = [i for i in self._contacts]
         self._contacts = []
@@ -36,6 +39,7 @@ class Messenger(Application):
 
     def add_contact(self, contact: NonPlayableCharacter) -> None:
         if contact not in self.contacts:
+            print(f"Adding {contact}")
             self.contacts.append(contact)
 
     def move_contact_to_top(self, contact: NonPlayableCharacter) -> None:
