@@ -19,8 +19,8 @@ class Messenger(Application):
         try:
             self._contacts
         except AttributeError:
-            if self.__dict__.get("contacts", []):
-                self._contacts = [i for i in self.__dict__["contacts"]]
+            old_contacts = self.__dict__.get("contacts", [])
+            self._contacts = [i for i in old_contacts]
 
         old_contacts = [i for i in self._contacts]
         self._contacts = []

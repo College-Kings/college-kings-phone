@@ -48,8 +48,8 @@ class Kiwii(Application):
         try:
             self._posts
         except AttributeError:
-            if self.__dict__.get("posts", []):
-                self._posts = [i for i in self.__dict__["posts"]]
+            old_posts = self.__dict__.get("posts", [])
+            self._posts = [i for i in old_posts]
 
         image_remap = {
             "images/phone/kiwii/Posts/v7/aupost1.webp": "images/v0/kiwii_posts/aupost1.webp",
