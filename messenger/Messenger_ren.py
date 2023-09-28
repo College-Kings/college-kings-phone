@@ -22,6 +22,11 @@ class Messenger(Application):
             old_contacts = self.__dict__.get("contacts", [])
             self._contacts = [i for i in old_contacts]
 
+        try:
+            self._contacts
+        except AttributeError:
+            self._contacts = []
+
         old_contacts = [i for i in self._contacts]
         self._contacts = []
         for contact in old_contacts:

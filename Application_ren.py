@@ -51,6 +51,11 @@ class Kiwii(Application):
             old_posts = self.__dict__.get("posts", [])
             self._posts = [i for i in old_posts]
 
+        try:
+            self._posts
+        except AttributeError:
+            self._posts = []
+
         image_remap = {
             "images/phone/kiwii/Posts/v7/aupost1.webp": "images/v0/kiwii_posts/aupost1.webp",
             "images/phone/kiwii/Posts/v7/chpost1.webp": "images/v0/kiwii_posts/chpost1.webp",
