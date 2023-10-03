@@ -4,13 +4,14 @@ from typing import Optional, Union
 import renpy.exports as renpy
 
 from game.characters.ICharacter_ren import ICharacter
-from game.phone.Application_ren import kiwii
+from game.phone.Application_ren import Kiwii
 from game.phone.kiwii.KiwiiComment_ren import KiwiiComment
 from game.phone.kiwii.KiwiiPost_ren import KiwiiPost
 from game.characters.PlayableCharacters_ren import mc
 from game.phone.kiwii.KiwiiReply_ren import KiwiiReply
 from game.phone.kiwii.KiwiiBuilder_ren import KiwiiBuilder
 
+kiwii: Kiwii
 
 """renpy
 init python:
