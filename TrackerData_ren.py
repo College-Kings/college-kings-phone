@@ -1,4 +1,3 @@
-from __future__ import annotations
 from typing import ClassVar
 from dataclasses import dataclass
 
@@ -11,7 +10,7 @@ init python:
 
 @dataclass
 class TrackerData:
-    data: ClassVar[list[TrackerData]] = []
+    data: ClassVar[list["TrackerData"]] = []
 
     character: "NonPlayableCharacter"
     condition: bool
