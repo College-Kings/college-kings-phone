@@ -39,8 +39,7 @@ screen kiwii_preferences():
     tag phone_tag
     modal True
 
-    default profile_pictures_index = 0
-    $ mc.profile_picture = mc.profile_pictures[profile_pictures_index]
+    $ profile_pictures_index = mc.profile_pictures.index(mc.profile_picture)
 
     use kiwii_base:
         vbox:
@@ -60,12 +59,12 @@ screen kiwii_preferences():
 
                     textbutton "<":
                         if profile_pictures_index > 0:
-                            action SetScreenVariable("profile_pictures_index", profile_pictures_index - 1)
+                            action SetField(mc, "profile_picture", mc.profile_pictures[profile_pictures_index - 1])
                         text_style "kiwii_PrefTextButton"
 
                     textbutton ">":
                         if profile_pictures_index + 1 < len(mc.profile_pictures):
-                            action SetScreenVariable("profile_pictures_index", profile_pictures_index + 1)
+                            action SetField(mc, "profile_picture", mc.profile_pictures[profile_pictures_index + 1])
                         text_style "kiwii_PrefTextButton"
 
             vbox:
