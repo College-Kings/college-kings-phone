@@ -5,9 +5,10 @@ from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.phone.Message_ren import Message
 from game.phone.messenger.MessengerService_ren import MessengerService
 from game.phone.messenger.Reply_ren import Reply
-from game.phone.Application_ren import messenger
+from game.phone.messenger.Messenger_ren import Messenger
 
 SetVariable: Callable[[str, Any], Any]
+messenger: Messenger
 
 """renpy
 init python:
@@ -22,7 +23,9 @@ class MessageBuilder:
         self.clear_pending: bool = clear_pending
         self.message_queue: list[Message] = []
         self.current_message: Optional[Message] = None
-        self.functions: list[tuple[Callable[..., Any], tuple[Any], dict[str, Any]]] = []
+        self.functions: list[
+            tuple[Callable[..., Any], tuple[Any, ...], dict[str, Any]]
+        ] = []
 
     def __repr__(self) -> str:
         return f"MessageBuilder({self.contact})"
