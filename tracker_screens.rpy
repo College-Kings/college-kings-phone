@@ -165,7 +165,7 @@ screen tracker_choices(character):
                 align (0.5, 0.5) 
 
         viewport:
-            yadjustment inf_adj
+            yinitial 1.0
             mousewheel True
             ysize 685
             ypos 158

@@ -22,7 +22,7 @@ screen messenger(contact=None):
                 text contact.name style "nametext" yalign 0.5
 
             viewport:
-                yadjustment inf_adj
+                id "messenger_vp"
                 mousewheel True
                 draggable True
                 pos (11, 157)
@@ -89,3 +89,6 @@ screen messenger(contact=None):
                         else:
                             background "phone_reply_background_idle"
                             text reply.content style "reply_text" align (0.5, 0.5)
+
+    $ messenger_vp = renpy.get_displayable(None, "messenger_vp")
+    $ messenger_vp.yoffset = 1.0
