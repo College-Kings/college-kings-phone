@@ -80,36 +80,23 @@ screen kiwii_fan_page(posts):
                                 action Show("kiwiiPost", post=post)
                                 xalign 1.0
 
+        hbox:
+            xalign 0.5
+            ypos 843
+            ysize 72
+            spacing 45
 
-            hbox:
-                ysize 72
-                xalign 0.5
-                ypos 843
-                spacing 45
+            imagebutton:
+                idle "kiwii_home_button_idle"
+                hover "kiwii_home_button_hover"
+                action Hide()
+                yalign 0.5
 
-                imagebutton:
-                    idle "kiwii_home_button_idle"
-                    hover "kiwii_home_button_hover"
-                    action Hide()
-                    yalign 0.5
+            null width 25
 
-                null width 25
+            null width 45
 
-                null width 45
-
-                imagebutton:
-                    idle Transform(mc.profile_picture, xysize=(30, 30))
-                    action Show("kiwii_preferences")
-                    yalign 0.5
-
-    # if config_debug:
-    #     for post in reversed(posts):
-    #         if KiwiiService.has_replies(post):
-    #             timer 0.1 action Show("kiwiiPost", post=post)
-
-    #     if not any(KiwiiService.has_replies(post) for post in reversed(posts)):
-    #         timer 0.1:
-    #             if renpy.get_screen("free_roam"):
-    #                 action [Hide("tutorial"), Hide("phone")]
-    #             else:
-    #                 action [Hide("tutorial"), Return()]
+            imagebutton:
+                idle Transform(mc.profile_picture, xysize=(30, 30))
+                action Show("kiwii_preferences")
+                yalign 0.5
