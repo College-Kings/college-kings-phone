@@ -49,7 +49,7 @@ screen tracker_home():
         TrackerData(chloe, v3_chloe_mc_masseuse, _("• I agreed to be the masseuse for Chloe's spa night."))
         TrackerData(chloe, v3s64_confessed_insult, _("• I confessed to writing the suggestion card."))
 
-        TrackerData(emily, "v13_emily" in viewed_scenes, _("• I had angry sex with Emily in Europe."))
+        TrackerData(emily, ViewedScene.CK1_V13_EMILY in viewed_scenes, _("• I had angry sex with Emily in Europe."))
         TrackerData(emily, v1_emily_ily, _("• I told Emily that I love her."))
         TrackerData(emily, "v2_emily" in viewed_scenes, _("• I sexted with Emily."))
         TrackerData(emily, "v3_emily" in viewed_scenes, _("• Emily showed off her new lingerie on webcam."))
