@@ -70,9 +70,9 @@ screen tracker_home():
         TrackerData(lindsey, v1_help_lindsey, _("• I told Lindsey I would help with her campaign."))
         TrackerData(lindsey, v2_lindsey_alcohol, _("• I got alcohol for Lindsey's party."))
         TrackerData(lindsey, v3_polly_endorsement, _("• We got Polly to endorse Lindsey's campaign."))
-        TrackerData(lindsey, ViewedScene.V3_LINDSEY in viewed_scenes, _("• I has sex with Lindsey during her massage."))
+        TrackerData(lindsey, ViewedScene.V3_LINDSEY in viewed_scenes, _("• I had sex with Lindsey during her massage."))
 
-        TrackerData(ms_rose, ViewedScene.CK1_V12_ROSE in viewed_scenes, _("• I has sex with Ms. Rose in Europe."))
+        TrackerData(ms_rose, ViewedScene.CK1_V12_ROSE in viewed_scenes, _("• I had sex with Ms. Rose in Europe."))
         TrackerData(ms_rose, v2_mad_at_ms_rose, _("• I'm angry at Ms. Rose."))
         TrackerData(ms_rose, v2_seduce_ms_rose, _("• I seduced Ms. Rose during Chloe's campaign meeting."))
         TrackerData(ms_rose, v2_threaten_ms_rose, _("• I threatened Ms. Rose during Chloe's campaign meeting."))
