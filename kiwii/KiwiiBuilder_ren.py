@@ -1,4 +1,3 @@
-from __future__ import annotations
 import random
 from typing import Any, Callable, Optional
 
@@ -21,7 +20,9 @@ class KiwiiBuilder:
         self.clear_pending: bool = clear_pending
         self.comment_queue: list[KiwiiComment] = []
         self.current_comment: Optional[KiwiiComment] = None
-        self.functions: list[tuple[Callable[..., Any], tuple[Any], dict[str, Any]]] = []
+        self.functions: list[
+            tuple[Callable[..., Any], tuple[Any, ...], dict[str, Any]]
+        ] = []
 
     def __repr__(self) -> str:
         return f"MessageBuilder({self.post})"
@@ -33,7 +34,7 @@ class KiwiiBuilder:
         number_likes: int = random.randint(250, 500),
         mentions: Optional[list[ICharacter]] = None,
         *replies: KiwiiReply,
-    ) -> KiwiiBuilder:
+    ) -> "KiwiiBuilder":
         if mentions is None:
             mentions = []
 
@@ -49,8 +50,8 @@ class KiwiiBuilder:
         message: str,
         number_likes: int = random.randint(250, 500),
         mentions: Optional[list[ICharacter]] = None,
-        next_comment: Optional[KiwiiBuilder] = None,
-    ) -> KiwiiBuilder:
+        next_comment: Optional["KiwiiBuilder"] = None,
+    ) -> "KiwiiBuilder":
         if mentions is None:
             mentions = []
 
@@ -61,7 +62,7 @@ class KiwiiBuilder:
     def add_replies(
         self,
         *replies: KiwiiReply,
-    ) -> KiwiiBuilder:
+    ) -> "KiwiiBuilder":
         if self.current_comment is None or self.current_comment.replies:
             return self.new_comment(self.post.user, "", 0, None, *replies)
 
@@ -71,12 +72,12 @@ class KiwiiBuilder:
 
     def add_function(
         self, function: Callable[..., Any], *args: Any, **kwargs: Any
-    ) -> KiwiiBuilder:
+    ) -> "KiwiiBuilder":
         self.functions.append((function, args, kwargs))
 
         return self
 
-    def set_variable(self, var_name: str, value: Any) -> KiwiiBuilder:
+    def set_variable(self, var_name: str, value: Any) -> "KiwiiBuilder":
         self.add_function(SetVariable(var_name, value))
 
         return self
