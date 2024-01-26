@@ -43,7 +43,7 @@ class KiwiiService:
         if mentions is None:
             mentions = []
 
-        if not image.startswith("images") and not renpy.has_image(image):  # type: ignore
+        if not image.startswith("images") and not renpy.has_image(image):
             image = f"images/{image}"
 
         post = KiwiiPost(user, image, message, mentions, number_likes)
