@@ -141,10 +141,10 @@ screen tracker_home():
                 imagebutton:
                     idle Transform(npc.profile_picture, size=(117, 117), matrixcolor=BrightnessMatrix(0))
                     hover Transform(npc.profile_picture, size=(117, 117), matrixcolor=BrightnessMatrix(0.2))
-                    action Show("tracker_choices", character=npc)
+                    action Show("tracker_choices", npc=npc)
 
 
-screen tracker_choices(character):
+screen tracker_choices(npc):
     tag phone_tag
     modal True
 
@@ -159,7 +159,7 @@ screen tracker_choices(character):
                 xpos 25
                 yalign 0.5
 
-            text character.name:
+            text npc.name:
                 style "message_text"
                 size 42
                 align (0.5, 0.5) 
@@ -174,7 +174,7 @@ screen tracker_choices(character):
                 xalign 0.5
 
                 for data in TrackerData.data:
-                    if data.character == character and data.condition:
+                    if data.npc == npc and data.condition:
                         frame:
                             padding (40, 30)
                             background "phone_message_background"
