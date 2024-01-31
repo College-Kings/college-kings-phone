@@ -14,7 +14,7 @@ init python:
 class Message:
     contact: NonPlayableCharacter
     content: str
-    replies: tuple[Reply, ...] = ()
+    replies: tuple["Reply", ...] = ()
 
     def send(self) -> None:
         self.contact.text_messages.append(self)

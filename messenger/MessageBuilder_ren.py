@@ -29,7 +29,7 @@ class MessageBuilder:
     def __repr__(self) -> str:
         return f"MessageBuilder({self.contact})"
 
-    def new_message(self, content: str, *replies: Reply) -> "MessageBuilder":
+    def new_message(self, content: str, *replies: "Reply") -> "MessageBuilder":
         self.current_message = Message(self.contact, content, replies)
         self.message_queue.append(self.current_message)
 
@@ -44,7 +44,7 @@ class MessageBuilder:
 
         return self
 
-    def add_replies(self, *replies: Reply) -> "MessageBuilder":
+    def add_replies(self, *replies: "Reply") -> "MessageBuilder":
         if self.current_message is None or self.current_message.replies:
             return self.new_message("", *replies)
 

@@ -15,7 +15,7 @@ init python:
 
 class MessengerService:
     @staticmethod
-    def replies(contact: NonPlayableCharacter) -> list[Reply]:
+    def replies(contact: NonPlayableCharacter) -> list["Reply"]:
         messenger.add_contact(contact)
 
         try:
@@ -43,7 +43,7 @@ class MessengerService:
     def new_message(
         contact: NonPlayableCharacter,
         content: str,
-        *replies: Reply,
+        *replies: "Reply",
         clear_pending: bool = True,
     ) -> None:
         contact.pending_text_messages.append(Message(contact, content, replies))
@@ -61,7 +61,7 @@ class MessengerService:
         MessengerService.add_replies(contact, Reply(content, next_message))
 
     @staticmethod
-    def add_replies(contact: NonPlayableCharacter, *replies: Reply) -> None:
+    def add_replies(contact: NonPlayableCharacter, *replies: "Reply") -> None:
         if (
             not contact.pending_text_messages
             or contact.pending_text_messages[0].replies

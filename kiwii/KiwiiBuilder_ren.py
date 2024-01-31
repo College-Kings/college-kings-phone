@@ -15,7 +15,7 @@ init python:
 
 
 class KiwiiBuilder:
-    def __init__(self, post: KiwiiPost, clear_pending: bool = False) -> None:
+    def __init__(self, post: "KiwiiPost", clear_pending: bool = False) -> None:
         self.post: KiwiiPost = post
         self.clear_pending: bool = clear_pending
         self.comment_queue: list[KiwiiComment] = []
@@ -33,7 +33,7 @@ class KiwiiBuilder:
         message: str,
         number_likes: int = random.randint(250, 500),
         mentions: Optional[list[ICharacter]] = None,
-        *replies: KiwiiReply,
+        *replies: "KiwiiReply",
     ) -> "KiwiiBuilder":
         if mentions is None:
             mentions = []
@@ -61,7 +61,7 @@ class KiwiiBuilder:
 
     def add_replies(
         self,
-        *replies: KiwiiReply,
+        *replies: "KiwiiReply",
     ) -> "KiwiiBuilder":
         if self.current_comment is None or self.current_comment.replies:
             return self.new_comment(self.post.user, "", 0, None, *replies)

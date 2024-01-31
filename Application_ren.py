@@ -44,7 +44,7 @@ class Kiwii(Application):
         self._posts: list[KiwiiPost] = []
 
     @property
-    def posts(self) -> list[KiwiiPost]:
+    def posts(self) -> list["KiwiiPost"]:
         try:
             self._posts
         except AttributeError:
@@ -59,7 +59,7 @@ class Kiwii(Application):
         return self._posts
 
     @posts.setter
-    def posts(self, value: list[KiwiiPost]):
+    def posts(self, value: list["KiwiiPost"]) -> None:
         self._posts = value
 
     @property

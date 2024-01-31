@@ -12,13 +12,13 @@ init python:
 
 @dataclass
 class KiwiiComment:
-    post: KiwiiPost
+    post: "KiwiiPost"
     user: ICharacter
     message: str
     number_likes: int = random.randint(250, 500)
     mentions: list[ICharacter] = field(default_factory=list)
     liked: bool = False
-    replies: tuple[KiwiiReply, ...] = ()
+    replies: tuple["KiwiiReply", ...] = ()
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}({self.user}, {self.message}, {self.replies})"
