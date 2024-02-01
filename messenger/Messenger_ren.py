@@ -1,5 +1,6 @@
 from game.characters.CharacterService_ren import CharacterService
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
+from game.characters.character_ren import Character
 from game.phone.Application_ren import Application
 from game.phone.messenger.MessengerService_ren import MessengerService
 
@@ -12,10 +13,10 @@ class Messenger(Application):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
 
-        self._contacts: list[NonPlayableCharacter] = []
+        self._contacts: list[Character] = []
 
     @property
-    def contacts(self) -> list[NonPlayableCharacter]:
+    def contacts(self) -> list[Character]:
         try:
             self._contacts
         except AttributeError:
@@ -27,7 +28,7 @@ class Messenger(Application):
         except AttributeError:
             self._contacts = []
 
-        old_contacts = [i for i in self._contacts]
+        old_contacts: list[Character] = [i for i in self._contacts]
         self._contacts = []
         for contact in old_contacts:
             self._contacts.append(CharacterService.get_user(contact))
@@ -35,12 +36,16 @@ class Messenger(Application):
         return self._contacts
 
     @contacts.setter
-    def contacts(self, value: list[NonPlayableCharacter]) -> None:
+    def contacts(self, value: list[Character]) -> None:
         self._contacts = value
 
     @property
     def notification(self) -> bool:
-        return any(MessengerService.has_replies(contact) for contact in self.contacts)
+        return any(
+            MessengerService.has_replies(contact)
+            for contact in self.contacts
+            if isinstance(contact, NonPlayableCharacter)
+        )
 
     def add_contact(self, contact: NonPlayableCharacter) -> None:
         if contact not in self.contacts:
