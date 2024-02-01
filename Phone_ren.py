@@ -2,7 +2,6 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from renpy.common.action_control import Hide, Return
-from renpy.common.action_data import SetVariable
 import renpy.exports as renpy
 
 from game.phone.messenger.Messenger_ren import Messenger
@@ -74,11 +73,11 @@ class Phone:
     def get_exit_actions() -> list[Any]:
         actions: list[Any] = [
             Hide("tutorial"),
-            SetVariable("phone_from_phone_icon", False),
+            SetVariable("phone_from_phone_icon", False),  # type: ignore
         ]
         if (
             not phone_from_phone_icon
-            and renpy.context()._current_interact_type == "screen"
+            and renpy.context()._current_interact_type == "screen"  # type: ignore
         ):
             actions.append(Return())
         else:
