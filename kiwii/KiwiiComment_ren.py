@@ -14,7 +14,7 @@ init python:
 @dataclass
 class KiwiiComment:
     post: "KiwiiPost"
-    user: ICharacter
+    user: Character
     message: str
     number_likes: int = random.randint(250, 500)
     mentions: Sequence[Character] = field(default_factory=list)

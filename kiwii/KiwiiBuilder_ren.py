@@ -49,7 +49,7 @@ class KiwiiBuilder:
         self,
         message: str,
         number_likes: int = random.randint(250, 500),
-        mentions: Optional[list[ICharacter]] = None,
+        mentions: Optional[Sequence[Character]] = None,
         next_comment: Optional["KiwiiBuilder"] = None,
     ) -> "KiwiiBuilder":
         if mentions is None:
