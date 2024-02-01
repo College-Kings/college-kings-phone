@@ -92,3 +92,14 @@ screen messenger(contact=None):
 
     $ messenger_vp = renpy.get_displayable(None, "messenger_vp")
     $ messenger_vp.yoffset = 1.0
+
+    if config_debug:
+        if MessengerService.replies(contact):
+            $ reply = random.choice(MessengerService.replies(contact))
+            if reply.next_message is not None:
+                timer 0.1 repeat True action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send)]
+            else:
+                timer 0.1 repeat True action [AddToSet(contact.text_messages, reply), Function(MessengerService.send_next_messages, contact)]
+        
+        else:
+            timer 0.1 repeat True action Phone.get_exit_actions()
