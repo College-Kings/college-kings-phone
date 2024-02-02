@@ -41,26 +41,7 @@ class Kiwii(Application):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
 
-        self._posts: list[KiwiiPost] = []
-
-    @property
-    def posts(self) -> list["KiwiiPost"]:
-        try:
-            self._posts
-        except AttributeError:
-            old_posts = self.__dict__.get("posts", [])
-            self._posts = [i for i in old_posts]
-
-        try:
-            self._posts
-        except AttributeError:
-            self._posts = []
-
-        return self._posts
-
-    @posts.setter
-    def posts(self, value: list["KiwiiPost"]) -> None:
-        self._posts = value
+        self.posts: list[KiwiiPost] = []
 
     @property
     def notification(self) -> bool:
