@@ -40,4 +40,4 @@ image ck1_v12_roasted_ape = "phone/kiwii/images/ck1/v12/roasted_ape.webp"
 image ck1_v13_aubrey_beach = "phone/kiwii/images/ck1/v13/aubrey_beach.webp"
 #endregion CK1
 
-image svc_rejects_banner = "phone/kiwii/images/svc_rejects_banner.png"
+image svc_rejects_banner = "phone/kiwii/images/svc_rejects_banner.webp"
