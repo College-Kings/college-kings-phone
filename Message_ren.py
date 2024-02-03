@@ -16,8 +16,8 @@ class Message:
     content: str
     replies: tuple["Reply", ...] = ()
 
-    def send(self) -> None:
-        self.contact.text_messages.append(self)
+    def __repr__(self) -> str:
+        return f"Message({self.__dict__})"
 
     def __eq__(self, __value: object) -> bool:
         if not isinstance(__value, Message):
@@ -28,3 +28,6 @@ class Message:
             and self.content == __value.content
             and self.replies == __value.replies
         )
+
+    def send(self) -> None:
+        self.contact.text_messages.append(self)
