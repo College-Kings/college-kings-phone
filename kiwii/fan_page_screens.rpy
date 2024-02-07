@@ -100,3 +100,11 @@ screen kiwii_fan_page(posts):
                 idle Transform(mc.profile_picture, xysize=(30, 30))
                 action Show("kiwii_preferences")
                 yalign 0.5
+
+    if config_debug:
+        for post in posts:
+            if KiwiiService.has_replies(post):
+                timer 0.1 action Show("kiwiiPost", post=post)
+
+        if not any(KiwiiService.has_replies(post) for post in posts):
+            timer 0.1 action Phone.get_exit_action()
