@@ -107,4 +107,4 @@ screen kiwii_fan_page(posts):
                 timer 0.1 action Show("kiwiiPost", post=post)
 
         if not any(KiwiiService.has_replies(post) for post in posts):
-            timer 0.1 action Phone.get_exit_action()
+            timer 0.1 action Phone.get_exit_actions()
