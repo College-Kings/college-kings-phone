@@ -34,3 +34,6 @@ screen messenger_home():
         for contact in messenger.contacts:
             if MessengerService.has_replies(contact):
                 timer 0.1 action [Function(renpy.retain_after_load), Show("messenger", contact=contact)]
+
+        if not any(MessengerService.has_replies(contact) for contact in messenger.contacts):
+            timer 0.1 action Phone.get_exit_actions()
