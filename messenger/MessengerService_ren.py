@@ -77,3 +77,7 @@ class MessengerService:
                 return message
 
         return None
+
+    def delete_replies(self, contact: NonPlayableCharacter) -> None:
+        contact.text_messages[-1].replies = ()
+        contact.pending_text_messages = []
