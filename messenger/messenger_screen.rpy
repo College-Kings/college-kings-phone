@@ -17,7 +17,17 @@ screen messenger(contact=None):
                     action Show("messenger_home")
                     yalign 0.5
 
-                add Transform(contact.profile_picture, xysize=(65, 65)) yalign 0.5
+                if contact.profile_picture is None:
+                    frame:
+                        background "black_circle"
+                        xysize (65, 65)
+                        
+                        add "white_circle" xysize (63, 63) align (0.5, 0.5)
+                        add "red_500_circle" xysize (59, 59) align (0.5, 0.5)
+
+                        text ''.join([x[0] for x in contact.username.split()]).upper() align (0.5, 0.5)
+                else:
+                    add Transform(contact.profile_picture, xysize=(65, 65)) yalign 0.5
 
                 text contact.name style "nametext" yalign 0.5
 
