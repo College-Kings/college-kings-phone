@@ -7,13 +7,13 @@ import renpy.exports as renpy
 from game.phone.messenger.Messenger_ren import Messenger
 from game.phone.Application_ren import Application, Kiwii
 
-messenger: Messenger
-achievement_app: Application
-relationship_app: Application
-kiwii: Kiwii
-reputation_app: Application
-tracker: Application
-calendar: Application
+messenger = Messenger()
+achievement_app = Application("Achievements")
+relationship_app = Application("Relationships")
+kiwii = Kiwii()
+reputation_app = Application("Reputation")
+tracker = Application("Tracker")
+calendar = Application("Calendar")
 
 phone_from_phone_icon: bool
 
