@@ -63,6 +63,10 @@ class Phone:
         return any(app.notification for app in self.applications)
 
     @property
+    def icon(self) -> str:
+        return "phone_icon"
+
+    @property
     def image(self) -> str:
         if self.notification:
             return "phone_icon_notification"
