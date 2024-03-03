@@ -48,9 +48,9 @@ class MessengerService:
     ) -> None:
         contact.pending_text_messages.append(Message(contact, content, replies))
 
-        messenger.move_contact_to_top(contact)
-
         MessengerService.send_next_messages(contact)
+
+        messenger.new_notification(contact)
 
     @staticmethod
     def add_reply(
@@ -69,6 +69,8 @@ class MessengerService:
             return MessengerService.new_message(contact, "", *replies)
 
         contact.pending_text_messages[-1].replies = replies
+
+        messenger.new_notification(contact)
 
     @staticmethod
     def find_message(contact: NonPlayableCharacter, content: str) -> Optional[Message]:

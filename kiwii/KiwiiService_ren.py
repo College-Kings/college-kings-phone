@@ -5,13 +5,13 @@ import renpy.exports as renpy
 
 from game.characters.character_ren import Character
 from game.characters.main_character_ren import MainCharacter
-from game.phone.Application_ren import Kiwii
+from game.phone.kiwii.kiwii_ren import Kiwii
 from game.phone.kiwii.KiwiiComment_ren import KiwiiComment
 from game.phone.kiwii.KiwiiPost_ren import KiwiiPost
 from game.phone.kiwii.KiwiiReply_ren import KiwiiReply
 from game.phone.kiwii.KiwiiBuilder_ren import KiwiiBuilder
 
-kiwii: Kiwii
+kiwii = Kiwii()
 mc: MainCharacter
 
 """renpy

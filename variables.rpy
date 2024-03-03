@@ -1,8 +1,4 @@
 default messenger = Messenger()
-default achievement_app = Application(_("Achievements"))
-default kiwii = Kiwii()
 default simplr_app = Simplr()
-default relationship_app = Application(_("Relationships"))
-default tracker = Application(_("Tracker"))
-default reputation_app = Application(_("Reputation"))
-default calendar = Application(_("Calendar"))
+
+default phone = Phone()

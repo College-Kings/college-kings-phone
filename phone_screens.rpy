@@ -102,7 +102,7 @@ screen phone():
                     spacing 2
 
                     imagebutton:
-                        idle app.image
+                        idle app.icon
                         action [Function(renpy.retain_after_load), Show(app.home_screen)]
 
                     text app.name style "application_name" xalign 0.5

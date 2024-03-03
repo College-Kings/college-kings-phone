@@ -2,6 +2,8 @@ screen messenger(contact=None):
     tag phone_tag
     modal True
 
+    $ replies = MessengerService.replies(contact)
+
     use base_phone:
         frame:
             background "messenger_conversation_background"
@@ -74,7 +76,7 @@ screen messenger(contact=None):
                 yoffset -100
                 spacing 10
 
-                for reply in MessengerService.replies(contact):
+                for reply in replies:
                     button:
                         if reply.next_message is not None:
                             action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send)]
@@ -93,9 +95,14 @@ screen messenger(contact=None):
     $ messenger_vp = renpy.get_displayable(None, "messenger_vp")
     $ messenger_vp.yoffset = 1.0
 
+    if not replies:
+        on "hide" action RemoveFromSet(messenger.notifications, contact)
+        on "replaced" action RemoveFromSet(messenger.notifications, contact)
+
+
     if config_debug:
-        if MessengerService.replies(contact):
-            $ reply = random.choice(MessengerService.replies(contact))
+        if replies:
+            $ reply = random.choice(replies)
             if reply.next_message is not None:
                 timer 0.1 repeat True action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send)]
             else:
