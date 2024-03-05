@@ -163,12 +163,17 @@ screen kiwii_home(posts=kiwii.posts):
                                 xalign 1.0
 
     if config_debug:
-        for post in posts:
+        for post in reversed(posts):
             if KiwiiService.has_replies(post):
                 timer 0.1 action Show("kiwiiPost", post=post)
 
-        if not any(KiwiiService.has_replies(post) for post in posts):
-            timer 0.1 action Phone.get_exit_actions()
+        if not any(KiwiiService.has_replies(post) for post in reversed(posts)):
+            timer 0.1:
+                if renpy.get_screen("free_roam"):
+                    action [Hide("tutorial"), Hide("phone")]
+                else:
+                    action [Hide("tutorial"), Return()]
+
 
 screen kiwiiPost(post):
     tag phone_tag

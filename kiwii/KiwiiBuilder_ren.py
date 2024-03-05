@@ -1,7 +1,7 @@
 import random
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Optional, Sequence
 
-from game.characters.ICharacter_ren import ICharacter
+from game.characters.character_ren import Character
 from game.phone.kiwii.KiwiiComment_ren import KiwiiComment
 from game.phone.kiwii.KiwiiPost_ren import KiwiiPost
 from game.phone.kiwii.KiwiiReply_ren import KiwiiReply
@@ -29,10 +29,10 @@ class KiwiiBuilder:
 
     def new_comment(
         self,
-        user: ICharacter,
+        user: Character,
         message: str,
         number_likes: int = random.randint(250, 500),
-        mentions: Optional[list[ICharacter]] = None,
+        mentions: Optional[Sequence[Character]] = None,
         *replies: "KiwiiReply",
     ) -> "KiwiiBuilder":
         if mentions is None:
@@ -49,7 +49,7 @@ class KiwiiBuilder:
         self,
         message: str,
         number_likes: int = random.randint(250, 500),
-        mentions: Optional[list[ICharacter]] = None,
+        mentions: Optional[Sequence[Character]] = None,
         next_comment: Optional["KiwiiBuilder"] = None,
     ) -> "KiwiiBuilder":
         if mentions is None:

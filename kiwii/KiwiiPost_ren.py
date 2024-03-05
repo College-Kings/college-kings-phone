@@ -1,10 +1,11 @@
 from dataclasses import dataclass, field
 import random
+from typing import Sequence
+from game.characters.character_ren import Character
 
 from renpy import config
 import renpy.exports as renpy
 
-from game.characters.ICharacter_ren import ICharacter
 from game.phone.kiwii.KiwiiComment_ren import KiwiiComment
 
 """renpy
@@ -14,10 +15,10 @@ init python:
 
 @dataclass
 class KiwiiPost:
-    user: ICharacter
+    user: Character
     _image: str
     message: str = ""
-    mentions: list[ICharacter] = field(default_factory=list)
+    mentions: Sequence[Character] = field(default_factory=list)
     number_likes: int = random.randint(250, 500)
     liked: bool = False
     comments: list[KiwiiComment] = field(default_factory=list)
@@ -31,7 +32,7 @@ class KiwiiPost:
             self._image = self.__dict__.get("image", "")
 
         if (
-            not (renpy.has_image(self._image) or renpy.loadable(self._image))
+            not (renpy.image_exists(self._image) or renpy.loadable(self._image))
             and not config.developer
         ):
             return "#fff"

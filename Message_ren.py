@@ -1,9 +1,7 @@
 from dataclasses import dataclass
-from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
-    from game.phone.messenger.Reply_ren import Reply
+from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
+from game.phone.messenger.Reply_ren import Reply
 
 """renpy
 init python:
@@ -16,8 +14,8 @@ class Message:
     content: str
     replies: tuple["Reply", ...] = ()
 
-    def send(self) -> None:
-        self.contact.text_messages.append(self)
+    def __repr__(self) -> str:
+        return f"Message({self.__dict__})"
 
     def __eq__(self, __value: object) -> bool:
         if not isinstance(__value, Message):
@@ -28,3 +26,6 @@ class Message:
             and self.content == __value.content
             and self.replies == __value.replies
         )
+
+    def send(self) -> None:
+        self.contact.text_messages.append(self)

@@ -5,8 +5,8 @@ screen phone_icon():
     zorder 10
 
     imagebutton:
-        idle phone.image
-        action [SetVariable("phone_from_phone_icon", True), Show("phone"), If(persistent.enabled_tutorials["phone_tutorial"], Show("phone_tutorial"))]
+        idle phone.icon
+        action (SetVariable("phone_from_phone_icon", True), Show("phone"), If(persistent.enabled_tutorials["phone_tutorial"], Show("phone_tutorial")))
         xalign 1.0
         offset (25, -25)
 
@@ -83,10 +83,11 @@ screen base_phone_rotated():
     key [ "K_ESCAPE", "K_MENU", "K_PAUSE", "mouseup_3" ]:
         action Phone.get_exit_actions()
 
-
+# BUG: The phone screen causes lag when predicting 
 screen phone():
     tag phone_tag
     modal True
+    predict False
 
     use base_phone:
         vpgrid:
@@ -101,7 +102,7 @@ screen phone():
                     spacing 2
 
                     imagebutton:
-                        idle app.image
+                        idle app.icon
                         action [Function(renpy.retain_after_load), Show(app.home_screen)]
 
                     text app.name style "application_name" xalign 0.5

@@ -2,6 +2,8 @@ screen messenger(contact=None):
     tag phone_tag
     modal True
 
+    $ replies = MessengerService.replies(contact)
+
     use base_phone:
         frame:
             background "messenger_conversation_background"
@@ -17,17 +19,7 @@ screen messenger(contact=None):
                     action Show("messenger_home")
                     yalign 0.5
 
-                if contact.profile_picture is None:
-                    frame:
-                        background "black_circle"
-                        xysize (65, 65)
-                        
-                        add "white_circle" xysize (63, 63) align (0.5, 0.5)
-                        add "red_500_circle" xysize (59, 59) align (0.5, 0.5)
-
-                        text ''.join([x[0] for x in contact.username.split()]).upper() align (0.5, 0.5)
-                else:
-                    add Transform(contact.profile_picture, xysize=(65, 65)) yalign 0.5
+                add Transform(contact.profile_picture, xysize=(65, 65)) yalign 0.5
 
                 text contact.name style "nametext" yalign 0.5
 
@@ -84,7 +76,7 @@ screen messenger(contact=None):
                 yoffset -100
                 spacing 10
 
-                for reply in MessengerService.replies(contact):
+                for reply in replies:
                     button:
                         if reply.next_message is not None:
                             action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send)]
@@ -103,14 +95,18 @@ screen messenger(contact=None):
     $ messenger_vp = renpy.get_displayable(None, "messenger_vp")
     $ messenger_vp.yoffset = 1.0
 
+    if not replies:
+        on "hide" action RemoveFromSet(messenger.notifications, contact)
+        on "replaced" action RemoveFromSet(messenger.notifications, contact)
+
+
     if config_debug:
-        $ replies = MessengerService.replies(contact)
         if replies:
-            $ reply = renpy.random.choice(replies)
-            timer 0.1 repeat True:
-                if reply.next_message is not None:
-                    action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send)]
-                else:
-                    action [AddToSet(contact.text_messages, reply), Function(MessengerService.send_next_messages, contact)]
+            $ reply = random.choice(replies)
+            if reply.next_message is not None:
+                timer 0.1 repeat True action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send)]
+            else:
+                timer 0.1 repeat True action [AddToSet(contact.text_messages, reply), Function(MessengerService.send_next_messages, contact)]
+        
         else:
-            timer 0.1 action Phone.get_exit_actions()
+            timer 0.1 repeat True action Phone.get_exit_actions()

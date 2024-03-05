@@ -1,20 +1,21 @@
-from dataclasses import dataclass, field
 from typing import Any
 
+from game.phone.achievements.achievements_ren import achievements_app
+from game.phone.calendar.calendar_ren import calendar
+from game.phone.kiwii.kiwii_ren import Kiwii
+from game.phone.messenger.Messenger_ren import Messenger
+from game.phone.relationships.relationships_ren import relationship_app
+from game.phone.reputation.reputation_app_ren import reputation_app
+from game.phone.simplr.simplr_ren import Simplr
+from game.phone.tracker.tracker_ren import tracker
+from game.phone.Application_ren import Application
+
 from renpy.common.action_control import Hide, Return
-from renpy.common.action_data import SetVariable
 import renpy.exports as renpy
 
-from game.phone.messenger.Messenger_ren import Messenger
-from game.phone.Application_ren import Application, Kiwii
-
-messenger: Messenger
-achievement_app: Application
-relationship_app: Application
-kiwii: Kiwii
-reputation_app: Application
-tracker: Application
-calendar: Application
+messenger = Messenger()
+kiwii = Kiwii()
+simplr_app = Simplr()
 
 phone_from_phone_icon: bool
 
@@ -23,48 +24,40 @@ init python:
 """
 
 
-@dataclass
 class Phone:
-    _applications: list[Application] = field(default_factory=list)
+    def __init__(self) -> None:
+        self.applications: list[Application] = [
+            messenger,
+            achievements_app,
+            relationship_app,
+            kiwii,
+            reputation_app,
+            tracker,
+        ]
+
+    def __setstate__(self, state: dict[str, Any]) -> None:
+        self.__dict__.update(state)
+        self.applications = [
+            messenger,
+            achievements_app,
+            relationship_app,
+            kiwii,
+            reputation_app,
+            simplr_app,
+            tracker,
+            calendar,
+        ]
 
     @property
-    def applications(self) -> list[Application]:
-        try:
-            self._applications
-        except AttributeError:
-            self.applications = [
-                messenger,
-                achievement_app,
-                relationship_app,
-                kiwii,
-                reputation_app,
-                tracker,
-                calendar,
-            ]
-
-        if not self._applications:
-            self.applications = [
-                messenger,
-                achievement_app,
-                relationship_app,
-                kiwii,
-                reputation_app,
-                tracker,
-                calendar,
-            ]
-
-        return self._applications
-
-    @applications.setter
-    def applications(self, value: list[Application]) -> None:
-        self._applications = value
+    def notifications(self) -> tuple[Application, ...]:
+        return tuple(app for app in self.applications if app.notification)
 
     @property
     def notification(self) -> bool:
-        return any(app.notification for app in self.applications)
+        return bool(self.notifications)
 
     @property
-    def image(self) -> str:
+    def icon(self) -> str:
         if self.notification:
             return "phone_icon_notification"
         else:
@@ -74,16 +67,17 @@ class Phone:
     def get_exit_actions() -> list[Any]:
         actions: list[Any] = [
             Hide("tutorial"),
-            SetVariable("phone_from_phone_icon", False),
+            SetVariable("phone_from_phone_icon", False),  # type: ignore
         ]
         if (
             not phone_from_phone_icon
-            and renpy.context()._current_interact_type == "screen"
+            and renpy.context()._current_interact_type == "screen"  # type: ignore
         ):
             actions.append(Return())
         else:
             actions.append(Hide("phone_tag"))
         return actions
 
-
-phone = Phone()
+    def clear_notifications(self) -> None:
+        for app in self.notifications:
+            app.clear_notifications()
