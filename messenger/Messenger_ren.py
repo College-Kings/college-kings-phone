@@ -31,7 +31,6 @@ class Messenger(Application, object):
 
     def add_contact(self, contact: NonPlayableCharacter) -> None:
         if contact not in self.contacts:
-            print(f"Adding {contact}")
             self.contacts.append(contact)
 
     def move_contact_to_top(self, contact: NonPlayableCharacter) -> None:
