@@ -5,9 +5,13 @@ init python:
 """
 
 
-class Calendar(Application, object):
+class CalendarApp(Application, object):
+    @property
+    def name(self) -> str:
+        return "Calendar"
+
     def clear_notifications(self) -> None:
         return None
 
 
-calendar = Calendar()
+calendar = CalendarApp()
