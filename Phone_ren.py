@@ -1,13 +1,11 @@
 from typing import Any
 
 from game.phone.achievements.achievements_ren import achievements_app
-from game.phone.calendar.calendar_ren import calendar
 from game.phone.kiwii.kiwii_ren import Kiwii
 from game.phone.messenger.Messenger_ren import Messenger
 from game.phone.relationships.relationships_ren import relationship_app
 from game.phone.reputation.reputation_app_ren import reputation_app
 from game.phone.simplr.simplr_ren import Simplr
-from game.phone.tracker.tracker_ren import tracker
 from game.phone.Application_ren import Application
 
 from renpy.common.action_control import Hide, Return
@@ -32,21 +30,12 @@ class Phone:
             relationship_app,
             kiwii,
             reputation_app,
-            tracker,
         ]
 
     def __setstate__(self, state: dict[str, Any]) -> None:
+        self.__init__()
+
         self.__dict__.update(state)
-        self.applications = [
-            messenger,
-            achievements_app,
-            relationship_app,
-            kiwii,
-            reputation_app,
-            simplr_app,
-            tracker,
-            calendar,
-        ]
 
     @property
     def notifications(self) -> tuple[Application, ...]:
