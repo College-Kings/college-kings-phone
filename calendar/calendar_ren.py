@@ -14,4 +14,4 @@ class CalendarApp(Application, object):
         return None
 
 
-calendar = CalendarApp()
+calendar_app = CalendarApp()
