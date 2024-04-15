@@ -18,15 +18,16 @@ class Messenger(Application, object):
         self.notifications: set[NonPlayableCharacter] = set()
 
     def __setstate__(self, state: dict[str, Any]) -> None:
+        self.__init__()
         self.__dict__.update(state)
 
+    @property
+    def notification(self) -> bool:
         try:
             self.notifications
         except AttributeError:
             self.notifications = set()
 
-    @property
-    def notification(self) -> bool:
         return bool(self.notifications)
 
     def add_contact(self, contact: NonPlayableCharacter) -> None:
