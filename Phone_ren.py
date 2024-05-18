@@ -32,11 +32,6 @@ class Phone:
             reputation_app,
         ]
 
-    def __setstate__(self, state: dict[str, Any]) -> None:
-        self.__init__()
-
-        self.__dict__.update(state)
-
     @property
     def notifications(self) -> tuple[Application, ...]:
         return tuple(app for app in self.applications if app.notification)

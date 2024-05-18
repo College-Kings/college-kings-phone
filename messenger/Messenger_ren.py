@@ -1,5 +1,3 @@
-from typing import Any
-
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.characters.character_ren import Character
 from game.phone.Application_ren import Application
@@ -16,10 +14,6 @@ class Messenger(Application, object):
     def __init__(self) -> None:
         self.contacts: list[Character] = []
         self.notifications: set[NonPlayableCharacter] = set()
-
-    def __setstate__(self, state: dict[str, Any]) -> None:
-        self.__init__()
-        self.__dict__.update(state)
 
     @property
     def notification(self) -> bool:
