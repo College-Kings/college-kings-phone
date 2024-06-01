@@ -14,8 +14,7 @@ class Reply:
     next_message: Optional[MessageBuilder] = None
 
     def __repr__(self) -> str:
-        # return f"{self.__class__.__name__}({self.content})"
-        return f"Reply({self.__dict__})"
+        return f"{self.__class__.__name__}({self.__dict__})"
 
     def __eq__(self, __value: object) -> bool:
         if not isinstance(__value, Reply):
