@@ -1,8 +1,7 @@
 screen messenger(contact=None):
     tag phone_tag
     modal True
-
-    $ replies = MessengerService.replies(contact)
+    predict False
 
     use base_phone:
         frame:
@@ -38,7 +37,7 @@ screen messenger(contact=None):
                     for message in contact.text_messages:
                         if message.content.strip():
                             frame:
-                                if isinstance(message, Reply):
+                                if isinstance(message, Reply) or isinstance(message.contact, PlayableCharacter):
                                     background "phone_reply_background"
                                     xalign 1.0
 
@@ -69,6 +68,8 @@ screen messenger(contact=None):
 
                     null height 75
 
+            $ replies = MessengerService.replies(contact)
+
             vbox:
                 xsize 500
                 xpos 450
@@ -76,12 +77,9 @@ screen messenger(contact=None):
                 yoffset -100
                 spacing 10
 
-                for reply in replies:
+                for index, reply in enumerate(replies):
                     button:
-                        if reply.next_message is not None:
-                            action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send)]
-                        else:
-                            action [AddToSet(contact.text_messages, reply), Function(MessengerService.send_next_messages, contact)]
+                        action SendReply(contact, index)
                         sensitive True
                         padding (15, 15)
                         size_group "reply_buttons"
@@ -96,8 +94,8 @@ screen messenger(contact=None):
     $ messenger_vp.yoffset = 1.0
 
     if not replies:
-        on "hide" action RemoveFromSet(messenger.notifications, contact)
-        on "replaced" action RemoveFromSet(messenger.notifications, contact)
+        on "hide" action Function(messenger.remove_notification, contact)
+        on "replaced" action Function(messenger.remove_notification, contact)
 
 
     if config_debug:
