@@ -33,13 +33,6 @@ class MessengerService:
             return False
 
     @staticmethod
-    def send_next_messages(contact: NonPlayableCharacter) -> None:
-        while contact.pending_text_messages and not MessengerService.has_replies(
-            contact
-        ):
-            contact.pending_text_messages.pop(0).send()
-
-    @staticmethod
     def new_message(
         contact: NonPlayableCharacter,
         content: str,
@@ -48,7 +41,7 @@ class MessengerService:
     ) -> None:
         contact.pending_text_messages.append(Message(contact, content, replies))
 
-        MessengerService.send_next_messages(contact)
+        Messenger.send_next_messages(contact)
 
         messenger.new_notification(contact)
 

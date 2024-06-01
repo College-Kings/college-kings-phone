@@ -2,7 +2,6 @@ from typing import Any, Callable, Optional
 
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.phone.Message_ren import Message
-from game.phone.messenger.MessengerService_ren import MessengerService
 from game.phone.messenger.Reply_ren import Reply
 from game.phone.messenger.Messenger_ren import Messenger
 
@@ -75,4 +74,4 @@ class MessageBuilder:
         self.contact.pending_text_messages[:0] = self.message_queue
         self.message_queue.clear()
 
-        MessengerService.send_next_messages(self.contact)
+        Messenger.send_next_messages(self.contact)
