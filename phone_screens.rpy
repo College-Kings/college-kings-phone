@@ -16,17 +16,19 @@ screen base_phone(background="phone_screen"):
 
     add "darker_80"
 
+    $ exit_actions = Phone.get_exit_actions()
+
     # Click background to close phone
     button:
         sensitive True
         selected False
-        action Phone.get_exit_actions()
+        action exit_actions
 
     textbutton _("Exit Phone"):
         style "phonebutton"
         sensitive True
         selected False
-        action Phone.get_exit_actions()
+        action exit_actions
 
     frame:
         modal True
@@ -48,7 +50,7 @@ screen base_phone(background="phone_screen"):
                     align (0.5, 0.5)
 
     key [ "K_ESCAPE", "K_MENU", "K_PAUSE", "mouseup_3" ]:
-        action Phone.get_exit_actions()
+        action exit_actions
 
 
 screen base_phone_rotated():
