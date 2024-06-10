@@ -44,9 +44,10 @@ class KiwiiPost:
         self._image = value
 
     def __repr__(self) -> str:
-        return (
-            f"{self.__class__.__name__}({self.user}, {self.message}, {self.comments})"
-        )
+        try:
+            return f"{self.__class__.__name__}({self.user}, {self.message}, {self.comments})"
+        except AttributeError:
+            return f"{self.__class__.__name__}({self.__dict__})"
 
     def __eq__(self, __value: object) -> bool:
         if not isinstance(__value, KiwiiPost):
