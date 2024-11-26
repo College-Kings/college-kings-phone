@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 import random
 from typing import Sequence
-from game.characters.character_ren import Character
+from game.characters.base_character_ren import BaseCharacter
 
 from renpy import config
 import renpy.exports as renpy
@@ -15,10 +15,10 @@ init python:
 
 @dataclass
 class KiwiiPost:
-    user: Character
+    user: BaseCharacter
     _image: str
     message: str = ""
-    mentions: Sequence[Character] = field(default_factory=list)
+    mentions: Sequence[BaseCharacter] = field(default_factory=list)
     number_likes: int = random.randint(250, 500)
     liked: bool = False
     comments: list[KiwiiComment] = field(default_factory=list)

@@ -3,7 +3,7 @@ from typing import Optional, Union
 
 import renpy.exports as renpy
 
-from game.characters.character_ren import Character
+from game.characters.base_character_ren import BaseCharacter
 from game.characters.main_character_ren import MainCharacter
 from game.phone.kiwii.kiwii_ren import Kiwii
 from game.phone.kiwii.KiwiiComment_ren import KiwiiComment
@@ -34,17 +34,17 @@ class KiwiiService:
 
     @staticmethod
     def new_post(
-        user: Character,
+        user: BaseCharacter,
         image: str,
         message: str,
         number_likes: int = random.randint(250, 500),
-        mentions: Optional[list[Character]] = None,
+        mentions: Optional[list[BaseCharacter]] = None,
         fan_page: Optional[list[KiwiiPost]] = None,
     ) -> KiwiiPost:
         if mentions is None:
             mentions = []
 
-        if not image.startswith("images") and not renpy.has_image(image):
+        if not image.startswith("images") and not renpy.image_exists(image):
             image = f"images/{image}"
 
         post = KiwiiPost(user, image, message, mentions, number_likes)
@@ -59,10 +59,10 @@ class KiwiiService:
     @staticmethod
     def new_comment(
         post: KiwiiPost,
-        user: Character,
+        user: BaseCharacter,
         message: str,
         number_likes: int = random.randint(250, 500),
-        mentions: Optional[list[Character]] = None,
+        mentions: Optional[list[BaseCharacter]] = None,
         *replies: KiwiiReply,
     ) -> None:
         if mentions is None:
@@ -79,7 +79,7 @@ class KiwiiService:
         post: KiwiiPost,
         message: str,
         number_likes: int = random.randint(250, 500),
-        mentions: Optional[list[Character]] = None,
+        mentions: Optional[list[BaseCharacter]] = None,
         next_comment: Optional[KiwiiBuilder] = None,
     ) -> None:
         if mentions is None:

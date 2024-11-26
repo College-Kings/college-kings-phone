@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 import random
 from typing import Sequence
 
-from game.characters.character_ren import Character
+from game.characters.base_character_ren import BaseCharacter
 from game.phone.kiwii.KiwiiPost_ren import KiwiiPost
 from game.phone.kiwii.KiwiiReply_ren import KiwiiReply
 
@@ -14,10 +14,10 @@ init python:
 @dataclass
 class KiwiiComment:
     post: "KiwiiPost"
-    user: Character
+    user: BaseCharacter
     message: str
     number_likes: int = random.randint(250, 500)
-    mentions: Sequence[Character] = field(default_factory=list)
+    mentions: Sequence[BaseCharacter] = field(default_factory=list)
     liked: bool = False
     replies: tuple["KiwiiReply", ...] = ()
 

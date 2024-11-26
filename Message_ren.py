@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
-from game.characters.character_ren import Character
+from game.characters.base_character_ren import BaseCharacter
 from game.characters.main_character_ren import MainCharacter
 from game.phone.messenger.Reply_ren import Reply
 
@@ -14,7 +14,7 @@ init python:
 
 @dataclass
 class Message:
-    contact: Character
+    contact: BaseCharacter
     content: str
     replies: tuple["Reply", ...] = ()
 

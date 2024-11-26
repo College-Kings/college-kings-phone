@@ -1,6 +1,6 @@
 from typing import Any
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
-from game.characters.character_ren import Character
+from game.characters.base_character_ren import BaseCharacter
 from game.phone.Application_ren import Application
 from game.phone.Message_ren import Message
 from game.phone.Phone_ren import Phone
@@ -17,7 +17,7 @@ init python:
 
 class Messenger(Application, object):
     def __init__(self) -> None:
-        self.contacts: list[Character] = []
+        self.contacts: list[BaseCharacter] = []
         self.notifications: set[NonPlayableCharacter] = set()
 
     def __repr__(self) -> str:
