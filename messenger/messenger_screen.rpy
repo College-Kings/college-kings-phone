@@ -100,11 +100,8 @@ screen messenger(contact=None):
 
     if config_debug:
         if replies:
-            $ reply = random.choice(replies)
-            if reply.next_message is not None:
-                timer 0.1 repeat True action [AddToSet(contact.text_messages, reply), Function(reply.next_message.send)]
-            else:
-                timer 0.1 repeat True action [AddToSet(contact.text_messages, reply), Function(MessengerService.send_next_messages, contact)]
+            $ index = random.randint(0, len(replies) - 1)
+            timer 0.1 repeat True action SendReply(contact, index)
         
         else:
             timer 0.1 repeat True action Phone.get_exit_actions()
